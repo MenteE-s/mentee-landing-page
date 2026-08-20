@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 export function Footer() {
-  const year = new Date().getFullYear();
   return (
     <footer className="border-t border-neutral-200">
       <div className="mx-auto max-w-7xl px-6 py-12">
@@ -122,7 +121,7 @@ export function Footer() {
           </div>
         </div>
         <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-neutral-200 pt-6 text-[12px] text-neutral-400 sm:flex-row">
-          <p>© {year} MenteE.ai. All rights reserved.</p>
+          <p>© 2026 MenteE.ai. All rights reserved.</p>
           <p>
             Founded by{" "}
             <a
@@ -136,17 +135,17 @@ export function Footer() {
           </p>
           <ul className="flex gap-6">
             <li>
-              <a href="#" className="transition-colors hover:text-black">
+              <a href="/privacy" className="transition-colors hover:text-black">
                 Privacy
               </a>
             </li>
             <li>
-              <a href="#" className="transition-colors hover:text-black">
+              <a href="/terms" className="transition-colors hover:text-black">
                 Terms
               </a>
             </li>
             <li>
-              <a href="#" className="transition-colors hover:text-black">
+              <a href="/cookies" className="transition-colors hover:text-black">
                 Cookie Policy
               </a>
             </li>
