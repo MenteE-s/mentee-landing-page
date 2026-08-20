@@ -7,27 +7,27 @@ import { Reveal } from "./Reveal";
 const faqs = [
   {
     q: "What does MenteE do?",
-    a: "MenteE builds intelligent, production-ready AI systems that automate complex workflows, improve how teams use data, and support better day-to-day decision-making.",
+    a: "MenteE builds and deploys AI-powered platforms — products designed for real-world use at scale. We do not consult; we ship.",
   },
   {
-    q: "How does MenteE keep our data secure?",
-    a: "Security and reliability are designed in from the start. We follow responsible-data practices and work with organizations to meet their compliance and governance requirements.",
+    q: "What kind of platforms does MenteE build?",
+    a: "We focus on AI-driven platforms that automate complex workflows, process data at scale, and support better decision-making. Our products serve businesses and individuals across multiple industries.",
   },
   {
-    q: "Can MenteE work with our existing tools?",
-    a: "Yes. Our solutions are built to integrate with the platforms and systems your teams already rely on, so automation fits naturally into existing workflows.",
+    q: "Is MenteE an agency?",
+    a: "No. We are a product company. We build, deploy, and operate our own platforms — we do not take client briefs or build custom solutions to order.",
+  },
+  {
+    q: "How do I use MenteE's products?",
+    a: "Our platforms are built to be deployed and used directly. Reach out through our contact page and we will walk you through what is available.",
   },
   {
     q: "Is MenteE suitable for both small teams and large enterprises?",
-    a: "Absolutely. Our systems are designed to scale — from focused team-level automations to organization-wide deployments.",
+    a: "Yes. Our platforms are designed to scale — from focused team-level use to organization-wide deployments.",
   },
   {
     q: "How do we get started?",
-    a: "Reach out through our contact page. We'll learn about your goals and outline how intelligent automation could fit your needs.",
-  },
-  {
-    q: "Do you build custom solutions?",
-    a: "We tailor our approach to each organization's workflows and objectives, focusing on practical outcomes rather than one-size-fits-all tooling.",
+    a: "Get in touch through our contact page. We will show you what we have built and how it fits your needs.",
   },
 ];
 

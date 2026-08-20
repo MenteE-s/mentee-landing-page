@@ -5,28 +5,28 @@ import { Reveal } from "./Reveal";
 
 const capabilities = [
   {
-    t: "Workflow automation",
-    d: "Offload repetitive, multi-step processes so your team can focus on judgment and creativity.",
+    t: "Intelligent automation",
+    d: "Platforms that handle complex, multi-step workflows end-to-end — reducing manual effort and eliminating bottlenecks.",
   },
   {
-    t: "Data intelligence",
-    d: "Turn scattered data into clear, timely insight that supports better decisions.",
+    t: "Data at scale",
+    d: "Systems built to ingest, process, and surface insights from massive, heterogeneous datasets in real time.",
   },
   {
-    t: "Decision support",
-    d: "Surface recommendations and context where choices are made, not after the fact.",
+    t: "Decision engines",
+    d: "AI that surfaces the right information at the right moment — powering faster, better-informed decisions.",
   },
   {
-    t: "Knowledge processing",
-    d: "Read, summarize, and structure documents and unstructured information at scale.",
+    t: "Document processing",
+    d: "Read, classify, extract, and route unstructured information automatically — at a volume no team could match manually.",
   },
   {
-    t: "System integration",
-    d: "Connect intelligently across the tools and platforms your organization already uses.",
+    t: "Seamless integration",
+    d: "Platforms designed to connect with the tools and systems organizations already rely on — no rip-and-replace.",
   },
   {
-    t: "Operational efficiency",
-    d: "Reduce manual effort and latency across the workflows that run your business.",
+    t: "Built for uptime",
+    d: "Every system is engineered for reliability — monitoring, alerting, and failover from the start.",
   },
 ];
 
@@ -35,11 +35,11 @@ export function Capabilities() {
     <section id="capabilities" className="scroll-mt-20 mx-auto max-w-6xl px-6 py-20">
       <Reveal>
         <h2 className="text-3xl font-semibold tracking-tight text-neutral-900">
-          Capabilities, generalized
+          What we build
         </h2>
         <p className="mt-3 max-w-2xl text-neutral-600">
-          MenteE applies intelligent automation across a wide range of uses —
-          here are a few of the ways teams put it to work.
+          AI-powered platforms designed for real-world use — engineered for
+          scale, deployed for impact.
         </p>
       </Reveal>
       <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

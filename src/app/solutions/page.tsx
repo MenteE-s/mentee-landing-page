@@ -6,28 +6,28 @@ import { Reveal } from "@/components/Reveal";
 export const metadata: Metadata = {
   title: "Solutions — MenteE",
   description:
-    "MenteE delivers targeted AI solutions across industries — engineered to solve specific operational challenges at enterprise scale.",
+    "MenteE deploys AI-powered platforms across industries — built for real-world use at scale.",
 };
 
 const solutions = [
   {
     t: "Financial Services",
-    d: "Automate compliance workflows, surface risk signals in real time, and process high-volume document pipelines — reducing manual review from days to seconds.",
+    d: "Platforms that automate compliance workflows, surface risk signals in real time, and process high-volume document pipelines.",
     tags: ["Risk", "Compliance", "Document AI"],
   },
   {
     t: "Healthcare & Life Sciences",
-    d: "Accelerate clinical data processing, automate prior authorization, and build intelligent research pipelines — while maintaining strict data governance.",
+    d: "Systems built to accelerate clinical data processing, automate administrative workflows, and support research — with strict data governance.",
     tags: ["Clinical Data", "Research", "Governance"],
   },
   {
     t: "Enterprise Operations",
-    d: "Streamline procurement, HR onboarding, and internal knowledge management — eliminating bottlenecks that slow teams down.",
+    d: "Platforms that streamline procurement, HR workflows, and internal knowledge management — eliminating operational bottlenecks.",
     tags: ["Procurement", "HR", "Knowledge"],
   },
   {
     t: "Technology & SaaS",
-    d: "Embed AI capabilities into your product, automate support workflows, and build intelligent data pipelines — without rebuilding your stack.",
+    d: "AI-powered capabilities designed to integrate into existing products — automate support, process data, and enhance user experiences.",
     tags: ["Product AI", "Support", "Data Pipelines"],
   },
 ];
@@ -43,11 +43,11 @@ export default function SolutionsPage() {
               Solutions
             </p>
             <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl">
-              AI that understands your industry.
+              Platforms built for every industry.
             </h1>
             <p className="mt-6 max-w-2xl text-lg text-neutral-600">
-              MenteE builds solutions tailored to the operational realities of
-              your sector &mdash; not generic tools retrofitted to your workflows.
+              MenteE deploys AI-powered platforms across sectors — each one
+              engineered for the operational realities of the industry it serves.
             </p>
           </Reveal>
         </section>
@@ -84,18 +84,18 @@ export default function SolutionsPage() {
         <section className="mx-auto max-w-3xl px-6 py-20 text-center">
           <Reveal>
             <h2 className="text-2xl font-semibold tracking-tight text-neutral-900">
-              Don&apos;t see your industry?
+              Building for your sector?
             </h2>
             <p className="mt-3 text-neutral-600">
-              We work across sectors. Tell us what you need — we will scope a
-              solution that fits.
+              Our platforms are designed to adapt. Get in touch to see if MenteE
+              fits your use case.
             </p>
             <div className="mt-6 flex justify-center">
               <a
                 href="/contact"
                 className="rounded-full bg-neutral-900 px-6 py-3 text-sm font-medium text-white transition-transform hover:scale-105"
               >
-                Talk to our team
+                Get in touch
               </a>
             </div>
           </Reveal>

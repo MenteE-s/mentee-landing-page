@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { CursorTrail } from "@/components/CursorTrail";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col bg-white text-neutral-900">
         <ScrollToTop />
+        <CursorTrail />
         {children}
       </body>
     </html>

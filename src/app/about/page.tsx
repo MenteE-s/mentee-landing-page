@@ -7,25 +7,25 @@ import { Reveal } from "@/components/Reveal";
 export const metadata: Metadata = {
   title: "About — MenteE",
   description:
-    "MenteE builds practical, production-ready AI that helps businesses automate complex work and make better use of their data.",
+    "MenteE is a product company building AI-powered platforms for real-world use at scale.",
 };
 
 const values = [
   {
-    t: "Practical by design",
-    d: "We ship AI that earns its place in real workflows — measured by outcomes, not demos.",
+    t: "We ship products, not proposals",
+    d: "Every thing we build is designed to be deployed and used — not presented in a pitch deck.",
   },
   {
-    t: "Built to be trusted",
-    d: "Reliability, security, and transparency come first in everything we create.",
+    t: "Reliability is non-negotiable",
+    d: "Our platforms are engineered for uptime, observability, and failure recovery from the start.",
   },
   {
-    t: "Continuously improving",
-    d: "Our systems learn from data and feedback, so they get better the more they're used.",
+    t: "Scale from day one",
+    d: "We architect for the scale we expect, not the scale we have — so growth is a feature, not a migration.",
   },
   {
-    t: "Accessible intelligence",
-    d: "Advanced AI should be intuitive and usable — not locked behind complexity.",
+    t: "User-first, always",
+    d: "If it is not intuitive, it does not ship. Complexity stays on our side.",
   },
 ];
 
@@ -40,19 +40,17 @@ export default function AboutPage() {
               About MenteE
             </p>
             <h1 className="mt-3 text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl">
-              Making advanced AI practical, reliable, and within reach.
+              We build platforms. People use them. That is the whole point.
             </h1>
             <p className="mt-6 text-lg text-neutral-600">
-              MenteE is an AI-focused technology company. We build intelligent
-              systems that help businesses and individuals automate complex
-              workflows, improve productivity, and make better use of their data.
+              MenteE is a product company. We design, build, and deploy
+              AI-powered platforms — not for show, but for real-world use at
+              scale.
             </p>
             <p className="mt-4 text-lg text-neutral-600">
-              Our vision is simple: advanced AI should be accessible through
-              intuitive, dependable, production-ready technology. We focus on the
-              work that matters — simplifying time-consuming processes,
-              strengthening decision-making, and helping organizations operate
-              more efficiently.
+              We do not take client briefs or build custom solutions to order.
+              We build what we believe should exist, ship it, and let the
+              product speak for itself.
             </p>
           </Reveal>
         </section>
@@ -82,12 +80,18 @@ export default function AboutPage() {
         <section className="mx-auto max-w-3xl px-6 py-20 text-center">
           <Reveal>
             <h2 className="text-2xl font-semibold tracking-tight text-neutral-900">
-              Want to see what MenteE can do for you?
+              See what we have built
             </h2>
-            <div className="mt-6 flex justify-center">
+            <div className="mt-6 flex justify-center gap-4">
+              <Link
+                href="/products"
+                className="rounded-full bg-neutral-900 px-6 py-3 text-sm font-medium text-white transition-transform hover:scale-105"
+              >
+                Our products
+              </Link>
               <Link
                 href="/contact"
-                className="rounded-full bg-neutral-900 px-6 py-3 text-sm font-medium text-white transition-transform hover:scale-105"
+                className="rounded-full border border-neutral-200 px-6 py-3 text-sm font-medium text-neutral-700 transition-colors hover:border-neutral-400 hover:text-black"
               >
                 Get in touch
               </Link>

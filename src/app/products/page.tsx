@@ -6,25 +6,25 @@ import { Reveal } from "@/components/Reveal";
 export const metadata: Metadata = {
   title: "Products — MenteE",
   description:
-    "MenteE builds production-ready AI systems engineered for reliability, scale, and real-world operational impact.",
+    "AI-powered platforms built for production — designed for scale, reliability, and real-world use.",
 };
 
 const products = [
   {
     t: "MenteE Automate",
-    d: "End-to-end workflow orchestration. Automate multi-step processes across your stack — from data intake to decision output — with self-healing pipelines and full auditability.",
+    d: "End-to-end workflow orchestration. Multi-step processes handled autonomously — from data intake to decision output — with self-healing pipelines and full auditability.",
   },
   {
     t: "MenteE Insight",
-    d: "Real-time data intelligence. Transform raw, fragmented datasets into structured, actionable intelligence — surfaced at the point of decision, not after.",
+    d: "Real-time data intelligence. Raw, fragmented datasets transformed into structured, actionable insight — surfaced at the point of decision, not after.",
   },
   {
     t: "MenteE Assist",
-    d: "Context-aware decision support. Deploy AI agents that understand your domain, reason over your data, and surface recommendations where work happens.",
+    d: "Context-aware decision support. AI that understands your domain, reasons over your data, and surfaces recommendations where work happens.",
   },
   {
     t: "MenteE Process",
-    d: "Document and knowledge processing at scale. Read, classify, extract, and route unstructured information across your organization — without manual triage.",
+    d: "Document and knowledge processing at scale. Read, classify, extract, and route unstructured information — without manual triage.",
   },
 ];
 
@@ -46,12 +46,11 @@ export default function ProductsPage() {
               Products
             </p>
             <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl">
-              AI systems built for production, not demos.
+              Platforms built for production, not demos.
             </h1>
             <p className="mt-6 max-w-2xl text-lg text-neutral-600">
-              Every MenteE product is engineered for reliability at scale —
-              deployed by enterprises that depend on AI working correctly, every
-              time.
+              Every MenteE platform is engineered for reliability at scale —
+              designed to be used, not just shown.
             </p>
           </Reveal>
         </section>
@@ -68,12 +67,6 @@ export default function ProductsPage() {
                     <p className="mt-3 text-sm leading-relaxed text-neutral-600">
                       {p.d}
                     </p>
-                    <a
-                      href="/contact"
-                      className="mt-4 inline-block text-sm font-medium text-neutral-900 underline underline-offset-4 hover:no-underline"
-                    >
-                      Learn more →
-                    </a>
                   </div>
                 </Reveal>
               ))}
@@ -107,12 +100,8 @@ export default function ProductsPage() {
           <div className="mx-auto max-w-3xl px-6 py-20 text-center">
             <Reveal>
               <h2 className="text-2xl font-semibold tracking-tight text-neutral-900">
-                Ready to deploy AI that works?
+                Want to see our platforms in action?
               </h2>
-              <p className="mt-3 text-neutral-600">
-                Talk to our team about your infrastructure, requirements, and
-                timeline.
-              </p>
               <div className="mt-6 flex justify-center">
                 <a
                   href="/contact"

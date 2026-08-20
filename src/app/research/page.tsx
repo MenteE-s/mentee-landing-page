@@ -12,15 +12,15 @@ export const metadata: Metadata = {
 const focus = [
   {
     t: "Reliable Agentic Systems",
-    d: "How do you build AI agents that operate reliably in high-stakes, real-world environments? We research failure modes, recovery patterns, and trust mechanisms for production-grade autonomy.",
+    d: "Building AI agents that operate reliably in high-stakes, real-world environments — failure modes, recovery patterns, and trust mechanisms for production-grade autonomy.",
   },
   {
     t: "Scalable Data Intelligence",
-    d: "Turning massive, heterogeneous data into structured insight — at the speed and accuracy enterprises demand.",
+    d: "Turning massive, heterogeneous data into structured insight — at the speed and accuracy real-world use demands.",
   },
   {
     t: "Human-AI Collaboration",
-    d: "Designing interfaces and workflows where AI augments human judgment rather than replacing it — keeping people in the loop where it matters.",
+    d: "Designing interfaces where AI augments human judgment rather than replacing it — keeping people in the loop where it matters.",
   },
   {
     t: "Responsible Deployment",
@@ -29,7 +29,7 @@ const focus = [
 ];
 
 const principles = [
-  "We publish findings that advance the field, not just our products.",
+  "We research what ships, not what impresses.",
   "We test in production-like environments, not just benchmarks.",
   "We prioritize reliability over novelty.",
   "We build systems we would trust with our own data.",
@@ -51,7 +51,7 @@ export default function ResearchPage() {
             <p className="mt-6 max-w-2xl text-lg text-neutral-600">
               Our research is driven by production constraints — not academic
               curiosity alone. Every hypothesis is tested against real-world
-              reliability, scale, and operational impact.
+              reliability, scale, and impact.
             </p>
           </Reveal>
         </section>

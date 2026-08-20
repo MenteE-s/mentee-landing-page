@@ -6,18 +6,18 @@ import { Reveal } from "@/components/Reveal";
 export const metadata: Metadata = {
   title: "Support — MenteE",
   description:
-    "Get help from the MenteE team — documentation, direct support, and resources for every stage of deployment.",
+    "Get help from the MenteE team — documentation, direct support, and resources for our platforms.",
 };
 
 const channels = [
   {
     t: "Documentation",
-    d: "Comprehensive guides, API references, and integration walkthroughs for every MenteE product.",
+    d: "Comprehensive guides, API references, and walkthroughs for every MenteE platform.",
     href: "#",
   },
   {
     t: "Technical Support",
-    d: "Direct access to our engineering team for deployment, troubleshooting, and performance optimization.",
+    d: "Direct access to our engineering team for troubleshooting, integration help, and performance questions.",
     href: "/contact",
   },
   {
@@ -27,7 +27,7 @@ const channels = [
   },
   {
     t: "Community",
-    d: "Connect with other MenteE operators, share patterns, and learn from production deployments.",
+    d: "Connect with other MenteE users, share patterns, and learn from production use.",
     href: "#",
   },
 ];
@@ -35,7 +35,7 @@ const channels = [
 const faqs = [
   {
     q: "What are your support hours?",
-    a: "Enterprise customers receive 24/7 support with guaranteed response times. All other customers have access to business-hours support with same-day response.",
+    a: "Enterprise customers receive 24/7 support with guaranteed response times. All other users have access to business-hours support with same-day response.",
   },
   {
     q: "How do I report an incident?",
@@ -43,7 +43,7 @@ const faqs = [
   },
   {
     q: "Do you offer onboarding assistance?",
-    a: "Yes. Every deployment includes structured onboarding with a dedicated solutions engineer. Enterprise plans include ongoing technical account management.",
+    a: "Yes. Every platform includes structured onboarding. Enterprise plans include dedicated technical account management.",
   },
   {
     q: "Where can I find API documentation?",
@@ -65,7 +65,7 @@ export default function SupportPage() {
               We stand behind what we build.
             </h1>
             <p className="mt-6 max-w-2xl text-lg text-neutral-600">
-              Every MenteE deployment is backed by direct access to our
+              Every MenteE platform is backed by direct access to our
               engineering team — not a ticket queue.
             </p>
           </Reveal>
@@ -116,7 +116,7 @@ export default function SupportPage() {
           <div className="mx-auto max-w-3xl px-6 py-20 text-center">
             <Reveal>
               <h2 className="text-2xl font-semibold tracking-tight text-neutral-900">
-                Need immediate help?
+                Need help?
               </h2>
               <p className="mt-3 text-neutral-600">
                 Reach our team directly — we respond within one business day.

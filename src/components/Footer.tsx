@@ -17,9 +17,8 @@ export function Footer() {
               />
             </Link>
             <p className="mt-3 text-[13px] leading-relaxed text-neutral-500">
-              MenteE.ai is the parent company behind a family of AI-powered
-              companies building practical, production-ready technology for
-              businesses and individuals.
+              MenteE builds and deploys AI-powered platforms for real-world
+              use. We do not consult — we ship products.
             </p>
           </div>
           <div className="grid grid-cols-2 gap-8 text-[13px] sm:grid-cols-4">
