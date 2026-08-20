@@ -38,12 +38,12 @@ export function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/about" className="hover:text-black">
+                  <Link href="/careers" className="hover:text-black">
                     Careers
                   </Link>
                 </li>
                 <li>
-                  <Link href="/about" className="hover:text-black">
+                  <Link href="/contact" className="hover:text-black">
                     Press
                   </Link>
                 </li>
@@ -93,13 +93,23 @@ export function Footer() {
               <p className="font-medium text-neutral-900">Connect</p>
               <ul className="mt-3 space-y-2 text-neutral-500">
                 <li>
-                  <a href="#" className="hover:text-black">
+                  <a
+                    href="https://www.linkedin.com/company/mentee1"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-black"
+                  >
                     LinkedIn
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-black">
-                    Twitter
+                  <a
+                    href="https://www.instagram.com/mentee.ai"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-black"
+                  >
+                    Instagram
                   </a>
                 </li>
                 <li>

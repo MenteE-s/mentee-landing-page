@@ -13,6 +13,7 @@ const navLinks = [
 ];
 
 const rightLinks = [
+  { label: "Careers", href: "/careers" },
   { label: "Support", href: "/support" },
   { label: "Contact", href: "/contact" },
 ];
