@@ -121,7 +121,7 @@ export function Footer() {
           </div>
         </div>
         <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-neutral-200 pt-6 text-[12px] text-neutral-400 sm:flex-row">
-          <p>© 2026 MenteE.ai. All rights reserved.</p>
+          <p>© 2026 menteeai.org. All rights reserved.</p>
           <p>
             Founded by{" "}
             <a
