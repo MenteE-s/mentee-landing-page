@@ -1,0 +1,23 @@
+import { Navbar } from "@/components/Navbar";
+import { Hero } from "@/components/Hero";
+import { Approach } from "@/components/Approach";
+import { Capabilities } from "@/components/Capabilities";
+import { FAQ } from "@/components/FAQ";
+import { CTA } from "@/components/CTA";
+import { Footer } from "@/components/Footer";
+
+export default function Home() {
+  return (
+    <>
+      <Navbar />
+      <main className="flex-1">
+        <Hero />
+        <Approach />
+        <Capabilities />
+        <FAQ />
+        <CTA />
+      </main>
+      <Footer />
+    </>
+  );
+}
