@@ -7,7 +7,7 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-6 py-12">
         <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
           <div className="max-w-sm">
-            <Link href="/" className="flex items-center">
+            <Link href="/" className="flex items-center gap-2">
               <Image
                 src="/MenteE.png"
                 alt="MenteE"
@@ -15,6 +15,9 @@ export function Footer() {
                 width={27}
                 className="h-6 w-auto"
               />
+              <span className="text-[15px] font-bold tracking-tight text-neutral-900">
+                MenteE
+              </span>
             </Link>
             <p className="mt-3 text-[13px] leading-relaxed text-neutral-500">
               MenteE builds and deploys AI-powered platforms for real-world

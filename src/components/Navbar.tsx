@@ -29,7 +29,7 @@ export function Navbar() {
       className="sticky top-0 z-50 border-b border-neutral-200 bg-white"
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3.5">
-        <Link href="/" className="flex items-center shrink-0">
+        <Link href="/" className="flex items-center gap-2 shrink-0">
           <Image
             src="/MenteE.png"
             alt="MenteE"
@@ -38,6 +38,9 @@ export function Navbar() {
             priority
             className="h-6 w-auto"
           />
+          <span className="text-[15px] font-bold tracking-tight text-neutral-900">
+            MenteE
+          </span>
         </Link>
 
         <ul className="hidden items-center gap-8 text-[13px] font-medium text-neutral-600 md:flex">
