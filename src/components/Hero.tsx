@@ -64,6 +64,7 @@ export function Hero() {
           ))}
         </h1>
       </div>
+
       {/* Scroll indicator */}
       <motion.div
         initial={reduce ? false : { opacity: 0 }}
