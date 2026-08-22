@@ -59,8 +59,8 @@ export function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/solutions" className="hover:text-black">
-                    Solutions
+                  <Link href="/embed-models" className="hover:text-black">
+                    Embed Models
                   </Link>
                 </li>
                 <li>

@@ -51,13 +51,18 @@ export default function ResearchPage() {
               MenteE AI Research
             </p>
             <h1 className="mt-3 text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl">
-              mentee-embed
+              Current research: embeddings
             </h1>
+            <p className="mt-3 text-sm font-medium text-neutral-400">
+              Active line of research — mentee-embed
+            </p>
             <p className="mt-6 text-lg leading-relaxed text-neutral-600">
               A family of compact, multilingual text embedding models trained
               completely from scratch — focused on Arabic, English, and Urdu
               retrieval. Built to study how far modern training recipes can be
-              compressed when nothing is inherited from pretrained giants.
+              compressed when nothing is inherited from pretrained giants. This is
+              our current active research; future lines will be added here as they
+              begin.
             </p>
           </Reveal>
         </section>

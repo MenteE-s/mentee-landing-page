@@ -35,11 +35,11 @@ export function Capabilities() {
     <section id="capabilities" className="scroll-mt-20 mx-auto max-w-6xl px-6 py-20">
       <Reveal>
         <h2 className="text-3xl font-semibold tracking-tight text-neutral-900">
-          What we build
+          What the MenteE team is busy with
         </h2>
         <p className="mt-3 max-w-2xl text-neutral-600">
           AI-powered platforms designed for real-world use — engineered for
-          scale, deployed for impact.
+          scale, deployed for impact. Here is what we are actively building.
         </p>
       </Reveal>
       <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
