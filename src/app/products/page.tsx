@@ -113,6 +113,41 @@ export default function ProductsPage() {
             </Reveal>
           </div>
         </section>
+
+        <section className="border-t border-neutral-100 bg-neutral-50">
+          <div className="mx-auto max-w-6xl px-6 py-20">
+            <Reveal>
+              <p className="text-sm font-medium uppercase tracking-wide text-neutral-500">
+                Research model
+              </p>
+              <h2 className="mt-3 text-2xl font-semibold tracking-tight text-neutral-900">
+                mentee-embed
+              </h2>
+              <p className="mt-3 max-w-2xl text-neutral-600">
+                Our compact, multilingual text embedding model — ~41M
+                parameters, trained from scratch for Arabic, English, and Urdu
+                retrieval. 384-dimensional outputs, up to 512-token context,
+                fully reproducible.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-4">
+                <a
+                  href="/research"
+                  className="rounded-full bg-neutral-900 px-6 py-3 text-sm font-medium text-white transition-transform hover:scale-105"
+                >
+                  Read the research
+                </a>
+                <a
+                  href="https://github.com/MenteE-s/mentee-embeddings"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-neutral-200 px-6 py-3 text-sm font-medium text-neutral-700 transition-colors hover:border-neutral-400 hover:text-black"
+                >
+                  View on GitHub
+                </a>
+              </div>
+            </Reveal>
+          </div>
+        </section>
       </main>
       <Footer />
     </>
