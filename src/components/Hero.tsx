@@ -11,7 +11,6 @@ export function Hero() {
 
   return (
     <section className="relative flex min-h-[88vh] flex-col justify-center overflow-hidden bg-white px-6 pt-24">
-      {/* white bg — black lines fade in, then curtain opens from center outward */}
       {!reduce && (
         <div
           aria-hidden
@@ -40,8 +39,7 @@ export function Hero() {
         </div>
       )}
 
-      {/* MENTEE */}
-      <div className="relative flex min-h-[50vh] items-center justify-center overflow-hidden px-2">
+      <div className="relative flex min-h-[50vh] flex-col items-center justify-center overflow-hidden px-2">
         <h1
           aria-label={WORD}
           className="relative flex text-[3.25rem] font-black leading-none tracking-tight text-neutral-900 sm:text-8xl md:text-[10rem] lg:text-[12rem]"
@@ -63,9 +61,39 @@ export function Hero() {
             </motion.span>
           ))}
         </h1>
+
+        {/* Smile Arch — matches logo: wide top, deep U curve, narrow tips */}
+        <svg
+          className="mt-1 w-[75%] sm:w-[65%] md:w-[55%]"
+          viewBox="0 0 462 160"
+          fill="none"
+          aria-hidden
+        >
+          <motion.path
+            d="M 0,5 Q 231,155 462,5 Q 231,80 0,5 Z"
+            fill="#171717"
+            initial={{ pathLength: 0, fillOpacity: 0 }}
+            animate={
+              reduce
+                ? undefined
+                : { pathLength: 1, fillOpacity: 1 }
+            }
+            transition={{
+              pathLength: {
+                duration: 1.4,
+                delay: 3.0,
+                ease: [0.22, 1, 0.36, 1],
+              },
+              fillOpacity: {
+                duration: 0.4,
+                delay: 4.2,
+                ease: "easeIn",
+              },
+            }}
+          />
+        </svg>
       </div>
 
-      {/* Scroll indicator */}
       <motion.div
         initial={reduce ? false : { opacity: 0 }}
         animate={reduce ? undefined : { opacity: 1 }}
