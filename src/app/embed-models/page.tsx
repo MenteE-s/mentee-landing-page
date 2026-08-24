@@ -9,13 +9,21 @@ export const metadata: Metadata = {
     "mentee-embed: how we built it, how to use it, where the source lives, and the research it builds on.",
 };
 
+const stats = [
+  { n: "41M", l: "Parameters" },
+  { n: "384", l: "Embedding dim" },
+  { n: "3", l: "Languages" },
+  { n: "0.82", l: "Val acc@1" },
+];
+
 const specs = [
   { k: "Architecture", v: "Transformer encoder — 12 layers, hidden 384, 12 heads, FFN 1536" },
   { k: "Output", v: "384-dimensional L2-normalized embeddings, mean pooling" },
-  { k: "Context", v: "Up to 512 tokens" },
+  { k: "Context", v: "Up to 128 tokens — longer documents should be chunked" },
   { k: "Parameters", v: "~41 million" },
   { k: "Tokenizer", v: "Custom ByteLevel BPE, 50K vocabulary, trained on our own corpus" },
-  { k: "Training objective", v: "Stage A: masked LM → Stage B: symmetric InfoNCE" },
+  { k: "Training objective", v: "Stage A: masked LM → Stage B: relational knowledge distillation + InfoNCE" },
+  { k: "Teacher", v: "intfloat/multilingual-e5-base (768-dim)" },
   { k: "Data", v: "~810K triplets ≈ 31.4M tokens" },
   { k: "Hardware", v: "Single consumer GPU, bf16" },
 ];
@@ -47,7 +55,7 @@ const citations = [
 
 const usage = `from sentence_transformers import SentenceTransformer
 
-model = SentenceTransformer("MenteE/mentee-embed-41m-v15")
+model = SentenceTransformer("MenteEAI/mentee-embed-v1")
 
 sentences = [
     "How do I file a tax return?",
@@ -63,21 +71,40 @@ export default function EmbedModelsPage() {
       <Navbar />
       <main className="flex-1">
         {/* Hero */}
-        <section className="mx-auto max-w-3xl px-6 pb-12 pt-20 md:pt-28">
+        <section className="mx-auto max-w-3xl px-6 pb-10 pt-20 md:pt-28">
           <Reveal>
             <p className="text-sm font-medium uppercase tracking-wide text-neutral-500">
               Embed Models
             </p>
             <h1 className="mt-3 text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl">
-              mentee-embed
+              mentee-embed-v1
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-neutral-600">
-              Compact, multilingual text embedding models trained from scratch
-              for Arabic, English, and Urdu retrieval. Below: how we built it,
-              how to use it, where the source lives, and the research it stands
-              on.
+              A compact, multilingual text embedding model trained from scratch
+              for Arabic, English, and Urdu retrieval — distilled from a
+              state-of-the-art teacher. This page is the model card: how it was
+              built, how to use it, and an honest account of what it does well
+              and where it falls short.
             </p>
           </Reveal>
+        </section>
+
+        {/* Stats */}
+        <section className="mx-auto max-w-3xl px-6 pb-14">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+            {stats.map((s, i) => (
+              <Reveal key={s.l} delay={i * 0.06}>
+                <div className="rounded-2xl border border-neutral-100 bg-white p-5">
+                  <div className="text-2xl font-extrabold tracking-tight text-neutral-900 sm:text-3xl">
+                    {s.n}
+                  </div>
+                  <div className="mt-1 text-xs font-medium uppercase tracking-wide text-neutral-400">
+                    {s.l}
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </section>
 
         {/* How we built it */}
@@ -94,21 +121,27 @@ export default function EmbedModelsPage() {
                   </h3>
                   <p className="mt-2">
                     The encoder first learns all three languages by reconstructing
-                    masked tokens (15% masking, 80/10/10 scheme). Validation loss
-                    fell from 10.5 to 3.85 — confirming it absorbed the Arabic,
-                    English, and Urdu scripts and vocabularies.
+                    masked tokens (15% masking, 80/10/10 scheme) over 6,000 steps —
+                    no pretrained backbone involved. Validation loss fell steadily
+                    across the run, confirming it absorbed the Arabic, English, and
+                    Urdu scripts and vocabularies.
                   </p>
                 </div>
                 <div>
                   <h3 className="font-semibold text-neutral-900">
-                    Stage B — Contrastive fine-tuning
+                    Stage B — Relational Knowledge Distillation
                   </h3>
                   <p className="mt-2">
-                    The language-aware encoder is fine-tuned with symmetric
-                    InfoNCE loss so a query embeds near its relevant passage and
-                    far from a hard negative. A cheap MLM bootstrap is what
-                    prevents representation collapse — contrastive training alone,
-                    from random weights, collapses to chance.
+                    The MLM encoder is too weak to learn retrieval from sparse
+                    labels alone, so we distill{" "}
+                    <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">
+                      intfloat/multilingual-e5-base
+                    </code>{" "}
+                    into it: the student learns to reproduce the teacher&apos;s full
+                    batch similarity structure (MSE on cosine matrices), combined
+                    with InfoNCE. The MLM bootstrap is what prevents representation
+                    collapse — contrastive training from random weights collapses to
+                    chance.
                   </p>
                 </div>
                 <div>
@@ -133,9 +166,13 @@ export default function EmbedModelsPage() {
               How to use it
             </h2>
             <p className="mt-3 text-neutral-600">
-              Load the model with Sentence-Transformers and encode text. Outputs
-              are 384-dimensional, L2-normalized vectors — cosine similarity
-              measures meaning closeness.
+              The snippet below is the target interface. Today the weights load
+              via{" "}
+              <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">
+                src/model.py
+              </code>{" "}
+              in the repo — a Sentence-Transformers-compatible export is planned
+              and tracked on GitHub.
             </p>
             <pre className="mt-6 overflow-x-auto rounded-2xl bg-neutral-900 p-5 text-sm leading-relaxed text-neutral-100">
               <code>{usage}</code>
@@ -211,12 +248,18 @@ export default function EmbedModelsPage() {
                   Source on GitHub
                 </a>
                 <a
-                  href="https://huggingface.co/MenteE"
+                  href="https://huggingface.co/MenteEAI/mentee-embed-v1"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rounded-full border border-neutral-200 px-5 py-2.5 text-sm font-medium text-neutral-700 transition-colors hover:border-neutral-400 hover:text-black"
                 >
                   Hugging Face
+                </a>
+                <a
+                  href="/research"
+                  className="rounded-full border border-neutral-200 px-5 py-2.5 text-sm font-medium text-neutral-700 transition-colors hover:border-neutral-400 hover:text-black"
+                >
+                  Full technical report →
                 </a>
               </div>
             </Reveal>
