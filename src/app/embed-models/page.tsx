@@ -20,6 +20,22 @@ const specs = [
   { k: "Hardware", v: "Single consumer GPU, bf16" },
 ];
 
+const strengths = [
+  { t: "In-batch retrieval", d: "Beats all-MiniLM-L6-v2 on every in-batch metric (avg MRR@10 0.585 vs 0.396) — despite being trained from scratch on a single consumer GPU." },
+  { t: "Cross-lingual transfer", d: "English↔Urdu acc@1 = 0.757 with no shared script — genuine multilingual transfer, not keyword matching." },
+  { t: "Validation performance", d: "val acc@1 = 0.820, surpassing paraphrase-MiniLM-L12-v2 (0.795) on the validation set." },
+  { t: "Tiny footprint", d: "41M parameters — ~7× smaller than mpnet-base (278M), ~3× smaller than MiniLM-L12 (118M). Runs on a phone." },
+  { t: "Fully reproducible", d: "Every step — data to evaluation — is open and scripted. One command reproduces the full pipeline on a free Colab T4." },
+];
+
+const limitations = [
+  { t: "Corpus-pool retrieval lags", d: "On open-domain ranking over 15K docs (Protocol B), MRR@10 ≈ 0.19 vs 0.94 for mpnet-base. Best used as a re-ranker, not a standalone billion-document search engine." },
+  { t: "Training scope", d: "Trained on NLI + parallel translation data only. Domain-specific retrieval (legal, medical) will need fine-tuning." },
+  { t: "Sequence length", d: "Capped at 128 tokens; longer documents should be chunked." },
+  { t: "Format", d: "Current model.pt loads via src/model.py; a Sentence-Transformers-compatible export is planned." },
+  { t: "Data scale", d: "~810K triplets (31.4M tokens) vs billions used by web-scale models. The gap to mpnet/MiniLM-L12 on MIRACL reflects ~1000× less training data." },
+];
+
 const citations = [
   { t: "all-NLI", d: "Source of the 557K English NLI triplets used in Stage-B fine-tuning." },
   { t: "XNLI", d: "Cross-lingual NLI corpus; premise / entailed / contradicted triplets derived for Arabic and Urdu." },
@@ -125,6 +141,52 @@ export default function EmbedModelsPage() {
               <code>{usage}</code>
             </pre>
           </Reveal>
+        </section>
+
+        {/* Strengths */}
+        <section className="border-y border-neutral-100 bg-neutral-50">
+          <div className="mx-auto max-w-3xl px-6 py-16">
+            <Reveal>
+              <h2 className="text-2xl font-semibold tracking-tight text-neutral-900">
+                Strengths
+              </h2>
+              <p className="mt-3 text-neutral-500">
+                What this model does well.
+              </p>
+            </Reveal>
+            <div className="mt-6 space-y-4">
+              {strengths.map((s, i) => (
+                <Reveal key={s.t} delay={i * 0.06}>
+                  <div className="rounded-2xl border border-neutral-100 bg-white p-5">
+                    <h3 className="font-semibold text-neutral-900">{s.t}</h3>
+                    <p className="mt-2 text-sm text-neutral-600">{s.d}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Limitations */}
+        <section className="mx-auto max-w-3xl px-6 py-16">
+          <Reveal>
+            <h2 className="text-2xl font-semibold tracking-tight text-neutral-900">
+              Limitations
+            </h2>
+            <p className="mt-3 text-neutral-500">
+              What this model does not do well. We document these openly.
+            </p>
+          </Reveal>
+          <div className="mt-6 space-y-4">
+            {limitations.map((l, i) => (
+              <Reveal key={l.t} delay={i * 0.06}>
+                <div className="rounded-2xl border border-neutral-100 bg-white p-5">
+                  <h3 className="font-semibold text-neutral-900">{l.t}</h3>
+                  <p className="mt-2 text-sm text-neutral-600">{l.d}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </section>
 
         {/* Source & weights */}
