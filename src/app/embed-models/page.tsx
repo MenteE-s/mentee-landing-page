@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Reveal } from "@/components/Reveal";
+import { PublicationCard } from "@/components/PublicationCard";
 
 export const metadata: Metadata = {
   title: "Embed Models — MenteE AI",
@@ -177,6 +178,17 @@ export default function EmbedModelsPage() {
             <pre className="mt-6 overflow-x-auto rounded-2xl bg-neutral-900 p-5 text-sm leading-relaxed text-neutral-100">
               <code>{usage}</code>
             </pre>
+          </Reveal>
+        </section>
+
+        {/* Publication — Cite this model */}
+        <section className="mx-auto max-w-3xl px-6 pb-16">
+          <Reveal>
+            <h2 className="text-2xl font-semibold tracking-tight text-neutral-900">Cite this model</h2>
+            <p className="mt-3 text-neutral-500">Published preprint for mentee-embed-v1 — please cite if you use it.</p>
+            <div className="mt-6">
+              <PublicationCard />
+            </div>
           </Reveal>
         </section>
 

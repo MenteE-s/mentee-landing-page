@@ -6,6 +6,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Reveal } from "@/components/Reveal";
 import { StepNav, StepArrows } from "@/components/StepNav";
+import { PublicationCard } from "@/components/PublicationCard";
 
 const stats = [
   { n: "41M", l: "Parameters" },
@@ -115,6 +116,13 @@ export default function ResearchPage() {
               </Reveal>
             ))}
           </div>
+        </section>
+
+        {/* Publication */}
+        <section className="mx-auto max-w-4xl px-6 pb-10">
+          <Reveal>
+            <PublicationCard />
+          </Reveal>
         </section>
 
         {/* Headline results */}

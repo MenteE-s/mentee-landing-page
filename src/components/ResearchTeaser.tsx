@@ -1,5 +1,6 @@
 import { Reveal } from "@/components/Reveal";
 import Link from "next/link";
+import { PublicationCard } from "./PublicationCard";
 
 export function ResearchTeaser() {
   return (
@@ -56,8 +57,14 @@ export function ResearchTeaser() {
         </Reveal>
       </div>
 
+      <Reveal delay={0.18}>
+        <div className="mt-10">
+          <PublicationCard compact />
+        </div>
+      </Reveal>
+
       <Reveal delay={0.2}>
-        <div className="mt-10 flex flex-wrap gap-4">
+        <div className="mt-8 flex flex-wrap gap-4">
           <Link
             href="/research"
             className="rounded-full bg-neutral-900 px-6 py-3 text-sm font-medium text-white transition-transform hover:scale-105"
