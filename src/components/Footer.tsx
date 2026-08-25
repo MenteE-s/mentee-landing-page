@@ -68,6 +68,11 @@ export function Footer() {
                     Research
                   </Link>
                 </li>
+                <li>
+                  <Link href="/blog" className="hover:text-black">
+                    Blog
+                  </Link>
+                </li>
               </ul>
             </div>
             <div>
