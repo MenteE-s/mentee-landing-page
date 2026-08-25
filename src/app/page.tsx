@@ -24,8 +24,11 @@ export default function Home() {
         <section className="mx-auto max-w-6xl px-6 py-20">
           <div className="flex items-end justify-between">
             <div>
-              <p className="text-sm font-medium uppercase tracking-wide text-neutral-500">Blog — MenteE AI</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-neutral-900">Latest from syab.tech & menteeai.org</h2>
+              <p className="text-sm font-medium uppercase tracking-wide text-neutral-500">Blog</p>
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-neutral-900">Latest articles</h2>
+              <p className="mt-2 max-w-xl text-sm text-neutral-600">
+                Product updates, research notes and founder insights.
+              </p>
             </div>
             <Link href="/blog" className="hidden text-sm font-medium text-neutral-900 underline underline-offset-4 hover:no-underline sm:block">
               View all →

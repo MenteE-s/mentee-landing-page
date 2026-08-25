@@ -57,10 +57,18 @@ emb = model.encode(["How do I file a tax return?", "Steps to submit an annual fi
 
       <h2>Why open?</h2>
       <p><a href="https://syab.tech" target="_blank" rel="noopener">Syed Syab Ahmad (syab.tech)</a> founded <strong>MenteE AI</strong> to ship products, not decks. Publishing mentee-embed-v1 preprint, code, weights and even failures is our way to earn trust like DeepSeek, BGE and sentence-transformers — not hide like closed APIs. If you use it, please cite:</p>
-      <pre><code>@software{shah2026menteeembed,
-  title = {mentee-embed: Training Competitive Multilingual Text Embeddings from Scratch for Arabic, English, and Urdu},
-  author = {Shah, Syed Syab Ahmad and Sania, Shakeel and Hamza, Rustam and Mahboob, Khan},
-  year = {2026}, publisher = {Zenodo}, version = {v1.0.0}, doi = {10.5281/zenodo.22087139}, url = {https://doi.org/10.5281/zenodo.22087139}
+      <pre style="white-space: pre-wrap; word-break: break-word; overflow-wrap: anywhere; max-width: 100%; overflow-x: auto; background: #171717; color: #f5f5f5; padding: 16px; border-radius: 16px; font-size: 12px; line-height: 1.6;"><code style="white-space: pre-wrap; word-break: break-word; overflow-wrap: anywhere;">@software{shah2026menteeembed,
+  title = {mentee-embed: Training Competitive
+    Multilingual Text Embeddings from Scratch
+    for Arabic, English, and Urdu},
+  author = {Shah, Syed Syab Ahmad and
+    Sania, Shakeel and Hamza, Rustam and
+    Mahboob, Khan},
+  year = {2026},
+  publisher = {Zenodo},
+  version = {v1.0.0},
+  doi = {10.5281/zenodo.22087139},
+  url = {https://doi.org/10.5281/zenodo.22087139}
 }</code></pre>
 
       <h2>What's next for MenteE and mentee-embed</h2>
@@ -104,13 +112,48 @@ emb = model.encode(["How do I file a tax return?", "Steps to submit an annual fi
     readTime: "5 min read",
     coverLabel: "Business",
     content: `
-      <p>Search <strong>MenteE</strong> or <strong>menteeai.org</strong> and you will find one line: <em>MenteE builds and deploys AI-powered platforms. We do not consult — we ship products.</em> That is not marketing. It is how <a href="https://syab.tech" target="_blank" rel="noopener">Syed Syab Ahmad (syab.tech)</a> runs <strong>MenteE AI</strong>.</p>
+      <p class="lead">Search <strong>MenteE</strong> or <strong>menteeai.org</strong> and one line follows you everywhere across our site. This post explains what it means and why we run <strong>MenteE AI</strong> that way.</p>
+
+      <blockquote style="border-left: 3px solid #111; padding-left: 16px; margin: 28px 0; font-size: 1.15rem; font-weight: 600; color: #111; line-height: 1.5;">
+        MenteE builds and deploys AI-powered platforms. We do not consult — we ship products.
+      </blockquote>
+      <p>That is not marketing copy. It is how <a href="https://syab.tech" target="_blank" rel="noopener">Syed Syab Ahmad — syab.tech</a> runs <strong>MenteE AI</strong> at <a href="https://menteeai.org">menteeai.org</a>: as a product lab, not a services agency.</p>
+
       <h2>Why not an agency?</h2>
-      <p>Agencies sell hours and decks. Product companies sell systems that run in production. Our <a href="/products">Products</a> are cloud-native, observable, CI/CD-deployed — built for uptime, not demos. Agencies write case studies; we publish code at <a href="https://github.com/MenteE-s/mentee-embeddings" target="_blank" rel="noopener">github.com/MenteE-s/mentee-embeddings</a> and a peer review at <a href="https://doi.org/10.5281/zenodo.22087139" target="_blank" rel="noopener">doi:10.5281/zenodo.22087139</a>.</p>
+      <p>Agencies and product companies optimize for different outcomes. Here is how we work:</p>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0;">
+        <div style="border: 1px solid #e5e7eb; border-radius: 16px; padding: 16px; background: #fafafa;">
+          <p style="margin: 0 0 6px; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #9ca3af; font-weight: 600;">Agency</p>
+          <p style="margin: 0; font-size: 14px; color: #52525b; line-height: 1.6;">Sells hours and decks. Bills by time. Ships a case study and moves on.</p>
+        </div>
+        <div style="border: 1px solid #111; border-radius: 16px; padding: 16px; background: #111; color: #fff;">
+          <p style="margin: 0 0 6px; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #a1a1aa; font-weight: 600;">MenteE AI — Product Company</p>
+          <p style="margin: 0; font-size: 14px; color: #e4e4e7; line-height: 1.6;">Sells systems that run in production. Cloud-native, observable, CI/CD-deployed — built for uptime, not demos.</p>
+        </div>
+      </div>
+      <p>Agencies write case studies. We publish code at <a href="https://github.com/MenteE-s/mentee-embeddings" target="_blank" rel="noopener">github.com/MenteE-s/mentee-embeddings</a> and a citable preprint at <a href="https://doi.org/10.5281/zenodo.22087139" target="_blank" rel="noopener">doi:10.5281/zenodo.22087139</a>. One ships narratives; the other ships artifacts you can run, fork and benchmark.</p>
+
       <h2>How we prove product taste: mentee-embed-v1</h2>
-      <p>We could have wrapped an API. Instead we trained a 41M trilingual embedding model from scratch on a single consumer GPU and beat a widely used MiniLM on in-batch retrieval. That is product R&D — small, honest, reproducible. See <a href="/embed-models">Embed Models</a> and the <a href="/research">Technical Report</a>.</p>
+      <p>We could have wrapped an API in a week. Instead we trained <a href="/embed-models">mentee-embed-v1</a> — a 41M trilingual embedding model for Arabic, English and Urdu — <strong>entirely from scratch on a single consumer GPU</strong>.</p>
+      <div style="border: 1px solid #e5e7eb; border-radius: 16px; padding: 20px; background: #fff; margin: 20px 0;">
+        <p style="margin: 0 0 12px; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #71717a; font-weight: 600;">Result — honest numbers</p>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; text-align: center;">
+          <div><div style="font-size: 22px; font-weight: 700; color: #111;">0.585</div><div style="font-size: 11px; color: #71717a; margin-top: 4px;">avg MRR@10<br/>vs 0.396 MiniLM-L6</div></div>
+          <div><div style="font-size: 22px; font-weight: 700; color: #111;">41M</div><div style="font-size: 11px; color: #71717a; margin-top: 4px;">params<br/>single GPU</div></div>
+          <div><div style="font-size: 22px; font-weight: 700; color: #111;">Open</div><div style="font-size: 11px; color: #71717a; margin-top: 4px;">code + weights<br/>+ report</div></div>
+        </div>
+        <p style="margin: 16px 0 0; font-size: 13px; color: #52525b;">That is product R&D — small, honest, reproducible. Read the full <a href="/research">Technical Report</a> and cite the paper if you build on it.</p>
+      </div>
+
       <h2>What we sell</h2>
-      <p>Intelligent automation, data-at-scale pipelines, decision engines, document processing — all as hosted platforms at <strong>menteeai.org</strong>, not custom one-offs. Careers at <a href="/careers">/careers</a>, contact at <a href="/contact">/contact</a>.</p>
+      <p>Not custom one-offs — hosted platforms at <strong>menteeai.org</strong>:</p>
+      <ul>
+        <li><strong>Intelligent automation</strong> — workflows that run without a human in the loop</li>
+        <li><strong>Data at scale</strong> — pipelines that turn heterogeneous data into decisions</li>
+        <li><strong>Decision engines</strong> — retrieval and ranking where latency and recall matter</li>
+        <li><strong>Document processing</strong> — extraction, classification and routing at volume</li>
+      </ul>
+      <p>Careers at <a href="/careers">/careers</a> · Contact at <a href="/contact">/contact</a> · Explore <a href="/products">Products</a>, <a href="/research">Research</a> and the founder portfolio at <a href="https://syab.tech" target="_blank" rel="noopener">syab.tech</a>.</p>
     `,
   },
   {

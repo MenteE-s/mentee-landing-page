@@ -3,13 +3,17 @@
 import { useState } from "react";
 
 const BIBTEX = `@software{shah2026menteeembed,
-  title        = {mentee-embed: Training Competitive Multilingual Text Embeddings from Scratch for Arabic, English, and Urdu},
-  author       = {Shah, Syed Syab Ahmad and Sania, Shakeel and Hamza, Rustam and Mahboob, Khan},
-  year         = {2026},
-  publisher    = {Zenodo},
-  version      = {v1.0.0},
-  doi          = {10.5281/zenodo.22087139},
-  url          = {https://doi.org/10.5281/zenodo.22087139}
+  title = {mentee-embed: Training Competitive
+    Multilingual Text Embeddings from Scratch
+    for Arabic, English, and Urdu},
+  author = {Shah, Syed Syab Ahmad and
+    Sania, Shakeel and Hamza, Rustam and
+    Mahboob, Khan},
+  year = {2026},
+  publisher = {Zenodo},
+  version = {v1.0.0},
+  doi = {10.5281/zenodo.22087139},
+  url = {https://doi.org/10.5281/zenodo.22087139}
 }`;
 
 export function PublicationCard({ compact = false }: { compact?: boolean }) {
@@ -35,7 +39,7 @@ export function PublicationCard({ compact = false }: { compact?: boolean }) {
   }
 
   return (
-    <div className="rounded-2xl border border-neutral-200 bg-white p-6">
+    <div className="min-w-0 max-w-full overflow-hidden rounded-2xl border border-neutral-200 bg-white p-6">
       <div className="flex flex-wrap items-center gap-2 text-xs">
         <span className="rounded-full bg-neutral-900 px-2.5 py-1 font-medium text-white">Preprint · v1.0.0</span>
         <span className="text-neutral-500">Zenodo · 24 Aug 2026 · DOI 10.5281/zenodo.22087139 · CC BY 4.0</span>
@@ -57,9 +61,9 @@ export function PublicationCard({ compact = false }: { compact?: boolean }) {
           {copied ? "Copied!" : "Copy BibTeX"}
         </button>
       </div>
-      <details className="mt-5">
+      <details className="mt-5 min-w-0">
         <summary className="cursor-pointer text-sm font-medium text-neutral-700">Show BibTeX</summary>
-        <pre className="mt-3 overflow-x-auto rounded-xl bg-neutral-900 p-4 text-xs leading-relaxed text-neutral-100"><code>{BIBTEX}</code></pre>
+        <pre className="mt-3 max-w-full overflow-x-auto whitespace-pre-wrap break-words rounded-xl bg-neutral-900 p-4 text-xs leading-relaxed text-neutral-100"><code className="break-words">{BIBTEX}</code></pre>
       </details>
     </div>
   );
