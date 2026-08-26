@@ -17,6 +17,9 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://menteeai.org"),
+  verification: {
+    google: "7TPElgdSdBMXV0qeAJCsNfgK97mp1JS0BJlorG6nvD8",
+  },
   title: {
     default: "MenteE AI — Trilingual Embeddings & AI Products",
     template: "%s | MenteE AI",
