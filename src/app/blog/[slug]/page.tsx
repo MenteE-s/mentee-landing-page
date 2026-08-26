@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const post = posts.find((p) => p.slug === slug);
   if (!post) return {};
   return {
-    title: `${post.title} | MenteE AI Blog`,
+    title: post.title,
     description: post.excerpt,
     keywords: post.keywords,
     authors: [{ name: post.author, url: post.authorLink }],
@@ -27,6 +27,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       publishedTime: post.date,
       authors: [post.author],
       tags: post.tags,
+      images: [{ url: "/MenteE.png", width: 1200, height: 630, alt: post.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+      images: ["/MenteE.png"],
     },
   };
 }
@@ -124,10 +131,21 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           </div>
 
           <div className="mt-8 rounded-2xl border border-neutral-200 bg-neutral-50 p-5 text-sm text-neutral-600">
-            <strong className="text-neutral-900">Cite mentee-embed-v1:</strong> Shah et al. (2026). mentee-embed: Training Competitive Multilingual Text Embeddings from Scratch for Arabic, English, and Urdu. Zenodo.{" "}
-            <a href="https://doi.org/10.5281/zenodo.22087139" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">
-              doi:10.5281/zenodo.22087139
-            </a>{" "}
+            {post.slug.includes("v3") || post.tags.includes("mentee-embed") && post.date >= "2026-08-26" ? (
+              <>
+                <strong className="text-neutral-900">Cite mentee-embed-v3:</strong> Shah, Syed Syab Ahmad &amp; Team MenteE AI (2026). mentee-embed-v3: Trilingual Text Embeddings Trained from Scratch. Zenodo.{" "}
+                <a href="https://doi.org/10.5281/zenodo.22117673" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">
+                  doi:10.5281/zenodo.22117673
+                </a>
+              </>
+            ) : (
+              <>
+                <strong className="text-neutral-900">Cite mentee-embed-v1:</strong> Shah et al. (2026). mentee-embed: Training Competitive Multilingual Text Embeddings from Scratch for Arabic, English, and Urdu. Zenodo.{" "}
+                <a href="https://doi.org/10.5281/zenodo.22087139" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">
+                  doi:10.5281/zenodo.22087139
+                </a>
+              </>
+            )}{" "}
             · <a href="/research" className="underline underline-offset-4">Technical Report</a> ·{" "}
             <a href="/embed-models" className="underline underline-offset-4">Model Card</a>
           </div>

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { Marquee } from "@/components/Marquee";
@@ -10,6 +11,31 @@ import { Footer } from "@/components/Footer";
 import { NotificationBubble } from "@/components/NotificationBubble";
 import Link from "next/link";
 import { posts } from "./blog/posts";
+
+export const metadata: Metadata = {
+  title: "MenteE AI — Trilingual Embeddings & AI Products",
+  description:
+    "MenteE AI builds open multilingual embedding models (Arabic, English, Urdu) and production-ready AI platforms. mentee-embed-v3 — 41M params, Apache 2.0, trained from scratch.",
+  keywords: [
+    "MenteE AI", "menteeai.org", "mentee-embed", "mentee-embed-v3",
+    "Arabic NLP", "Urdu NLP", "multilingual embeddings", "AI products",
+    "Syed Syab Ahmad", "syab.tech",
+  ],
+  alternates: { canonical: "https://menteeai.org" },
+  openGraph: {
+    title: "MenteE AI — Trilingual Embeddings & AI Products",
+    description:
+      "Open multilingual embedding models for Arabic, English and Urdu. Production-ready AI platforms. mentee-embed-v3 is live on Hugging Face.",
+    url: "https://menteeai.org",
+    images: [{ url: "/MenteE.png", width: 1200, height: 630, alt: "MenteE AI" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "MenteE AI — Trilingual Embeddings & AI Products",
+    description: "Open multilingual embedding models for Arabic, English and Urdu.",
+    images: ["/MenteE.png"],
+  },
+};
 
 export default function Home() {
   return (

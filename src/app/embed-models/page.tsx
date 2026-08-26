@@ -1,15 +1,8 @@
-import type { Metadata } from "next";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Reveal } from "@/components/Reveal";
 import { PublicationCard } from "@/components/PublicationCard";
 import { CodeTabs } from "@/components/CodeTabs";
-
-export const metadata: Metadata = {
-  title: "Embed Models — MenteE AI",
-  description:
-    "mentee-embed: multilingual text embeddings trained from scratch for Arabic, English, and Urdu. v1 and v3 model cards, usage, and source.",
-};
 
 /* ── data ────────────────────────────────────────────────── */
 
