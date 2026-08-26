@@ -100,12 +100,22 @@ export function Footer() {
               <ul className="mt-3 space-y-2 text-neutral-500">
                 <li>
                   <a
-                    href="https://www.linkedin.com/company/mentee1"
+                    href="https://www.linkedin.com/company/menteeai"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:text-black"
                   >
                     LinkedIn
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://x.com/menteeaiorg"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-black"
+                  >
+                    X
                   </a>
                 </li>
                 <li>
