@@ -112,7 +112,7 @@ At **41M parameters** (≈7× smaller than mpnet-base, ≈3× smaller than MiniL
 
 ## 5. Reproduction
 
-Fully open: code on [GitHub](https://github.com/MenteE-s/mentee-embeddings), model on [HuggingFace](https://huggingface.co/MenteEAI/mentee-embed-v1). One command on a free Colab T4:
+Fully open: code on [GitHub](https://github.com/MenteE-s/mentee-embeddings), model on [HuggingFace](https://huggingface.co/menteeai/mentee-embed-v1). One command on a free Colab T4:
 
 ```bash
 python kaggle_run.py

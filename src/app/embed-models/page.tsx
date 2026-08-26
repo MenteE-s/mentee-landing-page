@@ -56,7 +56,7 @@ const citations = [
 
 const usage = `from sentence_transformers import SentenceTransformer
 
-model = SentenceTransformer("MenteEAI/mentee-embed-v1")
+model = SentenceTransformer("menteeai/mentee-embed-v1")
 
 sentences = [
     "How do I file a tax return?",
@@ -260,7 +260,7 @@ export default function EmbedModelsPage() {
                   Source on GitHub
                 </a>
                 <a
-                  href="https://huggingface.co/MenteEAI/mentee-embed-v1"
+                  href="https://huggingface.co/menteeai/mentee-embed-v1"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rounded-full border border-neutral-200 px-5 py-2.5 text-sm font-medium text-neutral-700 transition-colors hover:border-neutral-400 hover:text-black"

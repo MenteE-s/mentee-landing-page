@@ -514,7 +514,7 @@ export default function ResearchPage() {
                         Source on GitHub
                       </a>
                       <a
-                        href="https://huggingface.co/MenteE"
+                        href="https://huggingface.co/menteeai/mentee-embed-v1"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="rounded-full border border-neutral-200 px-5 py-2.5 text-sm font-medium text-neutral-700 transition-colors hover:border-neutral-400 hover:text-black"

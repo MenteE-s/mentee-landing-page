@@ -51,9 +51,9 @@ export const posts: BlogPost[] = [
 
       <h2>How to use it</h2>
       <pre><code>from sentence_transformers import SentenceTransformer
-model = SentenceTransformer("MenteEAI/mentee-embed-v1")
+model = SentenceTransformer("menteeai/mentee-embed-v1")
 emb = model.encode(["How do I file a tax return?", "Steps to submit an annual filing"])</code></pre>
-      <p>Today weights load via <code>src/model.py</code> in the repo; Sentence-Transformers export is planned. Hugging Face: <a href="https://huggingface.co/MenteEAI/mentee-embed-v1" target="_blank" rel="noopener">huggingface.co/MenteEAI/mentee-embed-v1</a>.</p>
+      <p>Today weights load via <code>src/model.py</code> in the repo; Sentence-Transformers export is planned. Hugging Face: <a href="https://huggingface.co/menteeai/mentee-embed-v1" target="_blank" rel="noopener">huggingface.co/menteeai/mentee-embed-v1</a>.</p>
 
       <h2>Why open?</h2>
       <p>At <strong>MenteE AI</strong> we ship products, not decks. Publishing mentee-embed-v1 preprint, code, weights and even failures is our way to earn trust like DeepSeek, BGE and sentence-transformers — not hide like closed APIs. If you use it, please cite:</p>
@@ -177,7 +177,7 @@ emb = model.encode(["How do I file a tax return?", "Steps to submit an annual fi
       <h2>When distillation still lags</h2>
       <p>On 15K-doc corpus-pool, mentee-embed-v1 gets MRR@10 ~0.19 — fine as a re-ranker, not a billion-doc retriever. That is data scale (810K triplets vs billions), not method. We document it openly in the <a href="https://doi.org/10.5281/zenodo.22087139" target="_blank" rel="noopener">Zenodo preprint</a>.</p>
       <h2>Try it</h2>
-      <p>Code: <a href="https://github.com/MenteE-s/mentee-embeddings" target="_blank" rel="noopener">github.com/MenteE-s/mentee-embeddings</a> · Model: <a href="https://huggingface.co/MenteEAI/mentee-embed-v1" target="_blank" rel="noopener">MenteEAI/mentee-embed-v1</a> · Contact via <a href="/contact">/contact</a> for collaboration.</p>
+      <p>Code: <a href="https://github.com/MenteE-s/mentee-embeddings" target="_blank" rel="noopener">github.com/MenteE-s/mentee-embeddings</a> · Model: <a href="https://huggingface.co/menteeai/mentee-embed-v1" target="_blank" rel="noopener">menteeai/mentee-embed-v1</a> · Contact via <a href="/contact">/contact</a> for collaboration.</p>
     `,
   },
   {
@@ -199,7 +199,7 @@ emb = model.encode(["How do I file a tax return?", "Steps to submit an annual fi
       <h2>First proof: mentee-embed-v1</h2>
       <p>We chose a hard first demo: trilingual embeddings for Arabic, English and Urdu from absolute zero on a single GPU. Published at <a href="https://doi.org/10.5281/zenodo.22087139" target="_blank" rel="noopener">doi:10.5281/zenodo.22087139</a> with an honest benchmark report at <a href="/research">/research</a> — avg MRR@10 0.585 beating MiniLM-L6-v2 and cross-lingual EN↔UR 0.757 where many small models fail.</p>
       <h2>Building in public</h2>
-      <p>MenteE is remote-first, product-focused and open by default. Code at <a href="https://github.com/MenteE-s" target="_blank" rel="noopener">github.com/MenteE-s</a>, model at <a href="https://huggingface.co/MenteEAI/mentee-embed-v1" target="_blank" rel="noopener">huggingface.co/MenteEAI/mentee-embed-v1</a>, and open roles at <a href="/careers">/careers</a>. We ship, we publish, we iterate.</p>
+      <p>MenteE is remote-first, product-focused and open by default. Code at <a href="https://github.com/MenteE-s" target="_blank" rel="noopener">github.com/MenteE-s</a>, model at <a href="https://huggingface.co/menteeai/mentee-embed-v1" target="_blank" rel="noopener">huggingface.co/menteeai/mentee-embed-v1</a>, and open roles at <a href="/careers">/careers</a>. We ship, we publish, we iterate.</p>
     `,
   },
   {
@@ -224,7 +224,7 @@ emb = model.encode(["How do I file a tax return?", "Steps to submit an annual fi
         <li><strong>Languages</strong>: mentee-embed focused on AR/EN/UR from scratch; E5/BGE cover 100+ but English-heavy</li>
       </ul>
       <h2>When to use mentee-embed-v1</h2>
-      <p>Use <a href="/embed-models">mentee-embed-v1</a> if you need a tiny, fast, honest model for AR/EN/UR retrieval, RAG re-ranking or on-device search — single GPU training, Apache 2.0 weights at <a href="https://huggingface.co/MenteEAI/mentee-embed-v1" target="_blank" rel="noopener">MenteEAI/mentee-embed-v1</a>. Use mpnet/E5/BGE if you need billion-doc open-domain search today and can pay the size.</p>
+      <p>Use <a href="/embed-models">mentee-embed-v1</a> if you need a tiny, fast, honest model for AR/EN/UR retrieval, RAG re-ranking or on-device search — single GPU training, Apache 2.0 weights at <a href="https://huggingface.co/menteeai/mentee-embed-v1" target="_blank" rel="noopener">menteeai/mentee-embed-v1</a>. Use mpnet/E5/BGE if you need billion-doc open-domain search today and can pay the size.</p>
       <h2>Try it from MenteE</h2>
       <p>Explore <a href="https://menteeai.org">menteeai.org</a> for platforms, <a href="/products">Products</a> and <a href="/blog">Blog</a> updates. Cite mentee-embed-v1 via Zenodo if you benchmark it.</p>
       <h2>FAQ</h2>
