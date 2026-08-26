@@ -13,6 +13,297 @@ export type BlogPost = {
 };
 
 export const posts: BlogPost[] = [
+  // ── NEW v3 posts (prepended — newest first) ──────────────────────────────
+  {
+    slug: "introducing-mentee-embed-v3-how-far-can-you-train-from-scratch",
+    title: "Introducing mentee-embed-v3: How Far Can Multilingual Embeddings Be Trained from Scratch?",
+    excerpt:
+      "MenteE AI publishes mentee-embed-v3 — a 41M trilingual embedding model for Arabic, English and Urdu trained from random init with 2.1M triplets, MS-MARCO retrieval data, hard negatives and batch size 512. Protocol A avg MRR@10 0.655. Published at doi:10.5281/zenodo.22117673.",
+    date: "2026-08-26",
+    author: "Syed Syab Ahmad",
+    authorLink: "https://syab.tech",
+    tags: ["Research", "mentee-embed", "AI"],
+    keywords: [
+      "mentee-embed-v3",
+      "mentee-embed",
+      "multilingual embeddings from scratch",
+      "Arabic NLP",
+      "Urdu NLP",
+      "MenteE AI",
+      "menteeai.org",
+      "MS-MARCO",
+      "hard negatives",
+      "knowledge distillation",
+      "text embeddings",
+    ],
+    readTime: "9 min read",
+    coverLabel: "Research",
+    content: `
+      <p><strong>MenteE AI</strong> publishes <strong>mentee-embed-v3</strong>, the latest model in our open trilingual embedding series for <strong>Arabic, English and Urdu</strong>. The preprint is citable at <a href="https://doi.org/10.5281/zenodo.22117673" target="_blank" rel="noopener">doi:10.5281/zenodo.22117673</a> and the model weights are live at <a href="https://huggingface.co/MenteEAI/mentee-embed-v3" target="_blank" rel="noopener">huggingface.co/MenteEAI/mentee-embed-v3</a>.</p>
+
+      <h2>What changed from v1 to v3?</h2>
+      <p>Same 41M architecture. Completely different data and training regime. v1 used ~810K triplets (NLI + XNLI + OPUS), batch 192, one distillation round. v3 uses <strong>2.1M triplets</strong>, batch 512, two distillation rounds with hard negative mining between rounds, and adds <strong>700K MS-MARCO BM25 + 200K MS-MARCO hard negative</strong> passages that v1 never saw. The table below tells the story:</p>
+
+      <div style="overflow:hidden; border-radius:16px; border:1px solid #e5e7eb; margin:24px 0;">
+        <table style="width:100%; border-collapse:collapse; font-size:13px;">
+          <thead style="background:#fafafa; border-bottom:1px solid #e5e7eb;">
+            <tr>
+              <th style="padding:10px 14px; text-align:left; font-weight:600; color:#525252;">Version</th>
+              <th style="padding:10px 14px; text-align:right; font-weight:600; color:#525252;">Params</th>
+              <th style="padding:10px 14px; text-align:right; font-weight:600; color:#525252;">Batch</th>
+              <th style="padding:10px 14px; text-align:right; font-weight:600; color:#525252;">Prot-A MRR@10</th>
+              <th style="padding:10px 14px; text-align:right; font-weight:600; color:#525252;">Prot-C MRR@10</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #f5f5f5;">
+              <td style="padding:10px 14px; color:#737373;">v1</td>
+              <td style="padding:10px 14px; text-align:right; color:#737373;">41M</td>
+              <td style="padding:10px 14px; text-align:right; color:#737373;">192</td>
+              <td style="padding:10px 14px; text-align:right; color:#737373;">0.585</td>
+              <td style="padding:10px 14px; text-align:right; color:#737373;">~0.20</td>
+            </tr>
+            <tr style="border-bottom:1px solid #f5f5f5;">
+              <td style="padding:10px 14px; color:#737373;">v2</td>
+              <td style="padding:10px 14px; text-align:right; color:#737373;">125M</td>
+              <td style="padding:10px 14px; text-align:right; color:#737373;">128</td>
+              <td style="padding:10px 14px; text-align:right; color:#737373;">0.429 ↓</td>
+              <td style="padding:10px 14px; text-align:right; color:#737373;">0.215</td>
+            </tr>
+            <tr style="background:#fafafa;">
+              <td style="padding:10px 14px; font-weight:700; color:#111;">v3</td>
+              <td style="padding:10px 14px; text-align:right; font-weight:600; color:#111;">41M</td>
+              <td style="padding:10px 14px; text-align:right; font-weight:600; color:#111;">512</td>
+              <td style="padding:10px 14px; text-align:right; font-weight:600; color:#111;">0.655</td>
+              <td style="padding:10px 14px; text-align:right; font-weight:600; color:#111;">0.645</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>The key scientific finding: batch size beats model size</h2>
+      <p>v2 was our biggest bet — 125M parameters with a bigger hidden dimension, hoping scale would win. It didn't: Protocol A dropped from 0.585 to 0.429 and Protocol C stayed at 0.215. The culprit? The extra parameters consumed so much VRAM that batch size was forced down from 192 to 128. Fewer negatives per batch means less contrastive signal, and the model suffered for it.</p>
+      <p>v3 returned to 41M, raised batch to 512, and the result is unambiguous: <strong>Protocol C jumped from 0.215 to 0.645 — a 3× improvement</strong> while model size decreased. Under a fixed VRAM budget, choose a smaller model that enables a larger batch. That is the headline finding.</p>
+
+      <h2>Training pipeline in full</h2>
+      <p><strong>Stage A — MLM (8,000 steps, batch 32, lr 5×10⁻⁴, bf16).</strong> Custom 50K BPE tokenizer trained from scratch on 1.1M trilingual sentences. Produces a language-aware backbone with no pretrained weights anywhere. ~45 minutes on RTX 5090.</p>
+      <p><strong>Stage B — Distillation Round 1 (4K steps, batch 512, temp 0.05).</strong> Teacher is <code>intfloat/multilingual-e5-base</code> (768-dim), frozen. Student learns to reproduce the teacher's full batch cosine similarity matrix via MSE + InfoNCE. No hard negatives yet.</p>
+      <p><strong>Stage B — Distillation Round 2 (10K steps, batch 512, temp 0.05).</strong> Hard negatives mined GPU-side via chunk-wise dot products after Round 1. Top-5 hardest negatives per anchor injected into training. This is where the MS-MARCO gap closes.</p>
+
+      <h2>Benchmark results — honest numbers</h2>
+      <p><strong>Protocol A (in-batch, ~97 candidates):</strong> avg MRR@10 <strong>0.655</strong>. The only sub-50M model functional across all three languages — <code>all-MiniLM-L6-v2</code> scores 0.144 AR and 0.140 UR (pretrained, 23M). mentee-embed-v3 scores 0.475 AR and 0.443 UR from random initialization.</p>
+      <p><strong>Protocol B (MIRACL Wikipedia corpus, up to 15,201 passages):</strong> avg MRR@10 0.260. This is out-of-domain by design — zero Wikipedia passages in training. Pretrained mpnet-base-v2 reaches 0.670 here. We document the gap openly.</p>
+      <p><strong>Protocol C (MS-MARCO, 10,296 passages):</strong> MRR@10 <strong>0.645</strong>, R@100 <strong>0.957</strong>. In-domain, strong. The 3× jump from v2 isolates MS-MARCO retrieval data and batch size as the causal factors.</p>
+      <p><strong>STS-B (Spearman ρ):</strong> 0.683. Training was optimized for retrieval, not graded similarity — yet v3 generalizes to STS with no similarity supervision.</p>
+
+      <h2>How to use v3 — three lines</h2>
+      <pre><code>from transformers import AutoModel, AutoTokenizer
+
+tok   = AutoTokenizer.from_pretrained("MenteEAI/mentee-embed-v3", trust_remote_code=True)
+model = AutoModel.from_pretrained("MenteEAI/mentee-embed-v3",    trust_remote_code=True)
+
+embeddings = model.encode(texts, tokenizer=tok)
+# torch.Tensor of shape (N, 384), L2-normalised</code></pre>
+      <p><code>trust_remote_code=True</code> is standard for custom-architecture HuggingFace models — the code runs locally on your machine.</p>
+
+      <h2>What's honest and what's a gap</h2>
+      <p>We beat <code>all-MiniLM-L6-v2</code> on Protocol A and C despite training from scratch. We lag pretrained models on Protocol B (Wikipedia, out-of-domain) and STS-B (not our training objective). Single-seed results — variance unquantified. Full breakdown on <a href="/research">/research</a>.</p>
+
+      <h2>Cite v3</h2>
+      <pre style="white-space: pre-wrap; word-break: break-word; overflow-wrap: anywhere; max-width: 100%; overflow-x: auto; background: #171717; color: #f5f5f5; padding: 16px; border-radius: 16px; font-size: 12px; line-height: 1.6;"><code style="white-space: pre-wrap; word-break: break-word; overflow-wrap: anywhere;">@misc{mentee-embed-v3-2026,
+  title   = {mentee-embed-v3: Trilingual Text Embeddings Trained from Scratch},
+  author  = {Syed Syab Ahmad Shah and Team MenteE AI},
+  year    = {2026},
+  url     = {https://huggingface.co/MenteEAI/mentee-embed-v3},
+  note    = {Apache-2.0 License. DOI: 10.5281/zenodo.22117673}
+}</code></pre>
+      <p>Model card: <a href="/embed-models">/embed-models</a> · Full technical report: <a href="/research">/research</a> · GitHub: <a href="https://github.com/MenteE-s/mentee-embeddings" target="_blank" rel="noopener">github.com/MenteE-s/mentee-embeddings</a></p>
+    `,
+  },
+  {
+    slug: "batch-size-beats-model-size-contrastive-learning-lesson",
+    title: "Batch Size Beats Model Size: The Lesson from Training mentee-embed-v2 and v3",
+    excerpt:
+      "MenteE AI scaled up to 125M parameters for v2 and performance dropped. Returning to 41M with batch 512 produced a 3× Protocol C improvement. Here is exactly why batch size dominates over parameter count in from-scratch contrastive embedding training.",
+    date: "2026-08-27",
+    author: "MenteE AI Research",
+    authorLink: "https://menteeai.org/research",
+    tags: ["Research", "AI", "Embeddings"],
+    keywords: [
+      "contrastive learning batch size",
+      "knowledge distillation",
+      "mentee-embed-v3",
+      "in-batch negatives",
+      "InfoNCE",
+      "embedding training",
+      "MenteE AI",
+      "menteeai.org",
+      "from scratch embeddings",
+    ],
+    readTime: "7 min read",
+    coverLabel: "Research",
+    content: `
+      <p>When <strong>MenteE AI</strong> published <a href="/embed-models">mentee-embed-v1</a> the most common question was: <em>what happens if you make the model bigger?</em> We answered it empirically with v2. The answer was: <strong>performance drops</strong>. This post explains why, and what v3 proves instead.</p>
+
+      <h2>The v2 experiment: 125M, batch forced to 128</h2>
+      <p>v2 increased the Transformer hidden dim to match a 125M parameter count — a 3× scale-up. On paper this should win: more capacity, more representation power. In practice, 125M parameters consume significantly more VRAM, which forced our training batch size down from 192 (v1) to 128 (v2). The results:</p>
+      <ul>
+        <li>Protocol A avg MRR@10: 0.585 (v1) → <strong>0.429 ↓</strong> (v2)</li>
+        <li>Protocol C MRR@10: ~0.20 (v1) → 0.215 (v2) — barely moved</li>
+      </ul>
+      <p>Bigger model, worse retrieval. That is not noise — it is a systematic signal.</p>
+
+      <h2>Why batch size matters more than parameters in contrastive training</h2>
+      <p>In InfoNCE-style contrastive learning, each training step asks the model to rank one positive against <em>N−1</em> in-batch negatives. With batch size 128, N−1 = 127. With batch size 512, N−1 = 511. More negatives per step means:</p>
+      <ul>
+        <li><strong>Harder gradient signal</strong> — easy negatives don't contribute meaningful loss</li>
+        <li><strong>Better calibration</strong> — the model must rank against a diverse, large pool every step</li>
+        <li><strong>More efficient training</strong> — each GPU forward pass does the work of ~4× smaller batches</li>
+      </ul>
+      <p>Our relational distillation loss compounds this: we compute a full <em>batch × batch</em> cosine similarity matrix and MSE it against the teacher's. At batch 128 that is 16,384 similarity pairs. At batch 512 that is <strong>262,144</strong> — 16× more dense supervision per step. The 125M model simply couldn't access that regime because VRAM was exhausted by its parameters.</p>
+
+      <h2>The v3 solution: smaller model, bigger batch</h2>
+      <p>v3 returned to 41M parameters — freeing enough VRAM to run batch 512. Add 2.1M triplets (vs ~810K in v1), two distillation rounds, and 700K MS-MARCO passages, and the results speak clearly:</p>
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:20px 0; text-align:center;">
+        <div style="border:1px solid #e5e7eb; border-radius:16px; padding:20px; background:#fff;">
+          <div style="font-size:26px; font-weight:800; color:#111;">3×</div>
+          <div style="font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:#737373; margin-top:4px;">Protocol C improvement</div>
+          <div style="font-size:12px; color:#a3a3a3; margin-top:2px;">0.215 → 0.645</div>
+        </div>
+        <div style="border:1px solid #e5e7eb; border-radius:16px; padding:20px; background:#fff;">
+          <div style="font-size:26px; font-weight:800; color:#111;">512</div>
+          <div style="font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:#737373; margin-top:4px;">Batch size unlocked</div>
+          <div style="font-size:12px; color:#a3a3a3; margin-top:2px;">vs 128 in v2</div>
+        </div>
+        <div style="border:1px solid #e5e7eb; border-radius:16px; padding:20px; background:#fff;">
+          <div style="font-size:26px; font-weight:800; color:#111;">41M</div>
+          <div style="font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:#737373; margin-top:4px;">Model size ↓</div>
+          <div style="font-size:12px; color:#a3a3a3; margin-top:2px;">125M → 41M</div>
+        </div>
+      </div>
+      <p>The 3× Protocol C jump happened while the model got <em>smaller</em>. That isolates batch size and MS-MARCO data as the two causal factors — not model capacity.</p>
+
+      <h2>Practical rule for from-scratch embedding training</h2>
+      <p>Under a fixed VRAM budget: <strong>pick the smallest model that fits your downstream latency requirement, then maximize batch size with the freed memory</strong>. Add in-domain retrieval data (MS-MARCO or domain-specific pairs) before scaling parameters. Our v1→v2→v3 ablation is a controlled experiment that demonstrates this on a real multilingual task.</p>
+
+      <h2>What's next</h2>
+      <p>The next question is whether Arabic and Urdu Protocol B (Wikipedia corpus retrieval) can be improved with domain-matched multilingual retrieval data. We have the pipeline — it is a data question now. Full numbers and reproduction steps at <a href="/research">/research</a>. Model at <a href="https://huggingface.co/MenteEAI/mentee-embed-v3" target="_blank" rel="noopener">MenteEAI/mentee-embed-v3</a>. Preprint: <a href="https://doi.org/10.5281/zenodo.22117673" target="_blank" rel="noopener">doi:10.5281/zenodo.22117673</a>.</p>
+    `,
+  },
+  {
+    slug: "mentee-embed-v3-vs-minilm-mpnet-arabic-urdu-benchmark-2026",
+    title: "mentee-embed-v3 vs MiniLM vs mpnet: Arabic, English and Urdu Benchmark 2026",
+    excerpt:
+      "Side-by-side benchmark: mentee-embed-v3 (41M, random init) vs all-MiniLM-L6-v2, paraphrase-MiniLM-L12-v2 and mpnet-base-v2 across in-batch retrieval, Wikipedia corpus and MS-MARCO. The only sub-50M model that works across all three languages.",
+    date: "2026-08-28",
+    author: "MenteE AI Team",
+    authorLink: "https://menteeai.org",
+    tags: ["Research", "Guide", "Embeddings"],
+    keywords: [
+      "mentee-embed-v3 benchmark",
+      "mentee-embed vs minilm",
+      "mentee-embed vs mpnet",
+      "Arabic embedding model 2026",
+      "Urdu embedding model 2026",
+      "multilingual embedding comparison",
+      "MenteE AI",
+      "menteeai.org",
+      "MRR@10",
+      "text retrieval",
+    ],
+    readTime: "8 min read",
+    coverLabel: "Guide",
+    content: `
+      <p>If you need an embedding model that works across <strong>Arabic, English and Urdu</strong> without paying for a closed API, your options in 2026 are limited. This post benchmarks <strong>mentee-embed-v3</strong> from <a href="https://menteeai.org">MenteE AI</a> against the most common open alternatives on three protocols. All numbers are from our open technical report at <a href="/research">/research</a> and preprint <a href="https://doi.org/10.5281/zenodo.22117673" target="_blank" rel="noopener">doi:10.5281/zenodo.22117673</a>.</p>
+
+      <h2>The models compared</h2>
+      <ul>
+        <li><strong>mentee-embed-v3</strong> — 41M, 384-dim, random init, Apache 2.0. <a href="https://huggingface.co/MenteEAI/mentee-embed-v3" target="_blank" rel="noopener">MenteEAI/mentee-embed-v3</a></li>
+        <li><strong>all-MiniLM-L6-v2</strong> — 23M, 384-dim, pretrained on 1B+ English pairs</li>
+        <li><strong>paraphrase-MiniLM-L12-v2</strong> — 118M, 384-dim, pretrained</li>
+        <li><strong>paraphrase-mpnet-base-v2</strong> — 278M, 768-dim, pretrained</li>
+      </ul>
+
+      <h2>Protocol A — In-batch retrieval (MRR@10, ~97 candidates)</h2>
+      <p>Each query is ranked against ~97 in-batch candidates. This tests embedding quality in a realistic retrieval scenario.</p>
+
+      <div style="overflow:hidden; border-radius:16px; border:1px solid #e5e7eb; margin:20px 0;">
+        <table style="width:100%; border-collapse:collapse; font-size:13px;">
+          <thead style="background:#fafafa; border-bottom:1px solid #e5e7eb;">
+            <tr>
+              <th style="padding:10px 14px; text-align:left; color:#525252; font-weight:600;">Model</th>
+              <th style="padding:10px 14px; text-align:right; color:#525252; font-weight:600;">EN</th>
+              <th style="padding:10px 14px; text-align:right; color:#525252; font-weight:600;">AR</th>
+              <th style="padding:10px 14px; text-align:right; color:#525252; font-weight:600;">UR</th>
+              <th style="padding:10px 14px; text-align:right; color:#525252; font-weight:600;">xling</th>
+              <th style="padding:10px 14px; text-align:right; color:#525252; font-weight:600;">avg</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #f5f5f5;">
+              <td style="padding:10px 14px; color:#525252;">mpnet-base-v2</td>
+              <td style="padding:10px 14px; text-align:right; color:#737373;">0.931</td>
+              <td style="padding:10px 14px; text-align:right; color:#737373;">0.839</td>
+              <td style="padding:10px 14px; text-align:right; color:#737373;">0.806</td>
+              <td style="padding:10px 14px; text-align:right; color:#737373;">0.880</td>
+              <td style="padding:10px 14px; text-align:right; font-weight:600; color:#525252;">0.864</td>
+            </tr>
+            <tr style="border-bottom:1px solid #f5f5f5;">
+              <td style="padding:10px 14px; color:#525252;">MiniLM-L12-v2</td>
+              <td style="padding:10px 14px; text-align:right; color:#737373;">0.924</td>
+              <td style="padding:10px 14px; text-align:right; color:#737373;">0.819</td>
+              <td style="padding:10px 14px; text-align:right; color:#737373;">0.753</td>
+              <td style="padding:10px 14px; text-align:right; color:#737373;">0.841</td>
+              <td style="padding:10px 14px; text-align:right; font-weight:600; color:#525252;">0.836</td>
+            </tr>
+            <tr style="border-bottom:1px solid #f5f5f5; background:#fafafa;">
+              <td style="padding:10px 14px; font-weight:700; color:#111;">mentee-v3 ★</td>
+              <td style="padding:10px 14px; text-align:right; font-weight:600; color:#111;">0.766</td>
+              <td style="padding:10px 14px; text-align:right; font-weight:600; color:#111;">0.475</td>
+              <td style="padding:10px 14px; text-align:right; font-weight:600; color:#111;">0.443</td>
+              <td style="padding:10px 14px; text-align:right; font-weight:600; color:#111;">0.848</td>
+              <td style="padding:10px 14px; text-align:right; font-weight:700; color:#111;">0.655</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 14px; color:#525252;">MiniLM-L6-v2</td>
+              <td style="padding:10px 14px; text-align:right; color:#737373;">0.927</td>
+              <td style="padding:10px 14px; text-align:right; color:#d97706;">0.144</td>
+              <td style="padding:10px 14px; text-align:right; color:#d97706;">0.140</td>
+              <td style="padding:10px 14px; text-align:right; color:#d97706;">0.186</td>
+              <td style="padding:10px 14px; text-align:right; font-weight:600; color:#737373;">0.479</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Key takeaway: <strong>MiniLM-L6-v2 is effectively broken for Arabic and Urdu</strong> despite being pretrained on 1B+ English pairs. mentee-embed-v3 starts from random initialization and scores 0.475 AR / 0.443 UR — the only sub-50M model that works across all three languages. We trail pretrained models on English (0.766 vs 0.924–0.931), which is expected given the English-heavy baselines.</p>
+
+      <h2>Protocol B — Wikipedia corpus (up to 15,201 passages, out-of-domain)</h2>
+      <p>Honest gap: mentee-embed-v3 scores avg MRR@10 <strong>0.260</strong> vs 0.633–0.670 for pretrained models. Zero Wikipedia passages were in our training data. This is a domain boundary, not a method failure — fine-tuning on Wikipedia-style passages would close this. If your use case is open-domain Wikipedia search, use mpnet or E5-base.</p>
+
+      <h2>Protocol C — MS-MARCO (10,296 in-domain passages)</h2>
+      <p>When the evaluation domain matches the training data, mentee-embed-v3 is strong: MRR@10 <strong>0.645</strong>, R@100 <strong>0.957</strong>. MiniLM-L6-v2 reaches 0.951 here because it was pretrained on massive English-only data including MSMARCO. We're 0.306 points behind with a 7× smaller model trained from scratch — not bad.</p>
+
+      <h2>When to use mentee-embed-v3</h2>
+      <ul>
+        <li>✅ You need <strong>Arabic and/or Urdu</strong> retrieval — no other open sub-100M model is functional on both</li>
+        <li>✅ You need a tiny, fast, on-device model (41M, 384-dim)</li>
+        <li>✅ Your retrieval domain is <strong>conversational, NLI-style or MS-MARCO-style</strong></li>
+        <li>✅ You want an open, reproducible model (Apache 2.0, full training code on GitHub)</li>
+        <li>⚠️ Your use case is open-domain Wikipedia search — use mpnet-base-v2 instead</li>
+        <li>⚠️ You need graded similarity (STS) as primary metric — retrieval-first trade-off</li>
+      </ul>
+
+      <h2>Get started</h2>
+      <pre><code>from transformers import AutoModel, AutoTokenizer
+
+tok   = AutoTokenizer.from_pretrained("MenteEAI/mentee-embed-v3", trust_remote_code=True)
+model = AutoModel.from_pretrained("MenteEAI/mentee-embed-v3",    trust_remote_code=True)
+
+embeddings = model.encode(texts, tokenizer=tok)  # (N, 384)</code></pre>
+      <p>Full model card: <a href="/embed-models">/embed-models</a> · Technical report with all numbers: <a href="/research">/research</a> · Cite: <a href="https://doi.org/10.5281/zenodo.22117673" target="_blank" rel="noopener">doi:10.5281/zenodo.22117673</a></p>
+    `,
+  },
+  // ── existing posts below ─────────────────────────────────────────────────
   {
     slug: "introducing-mentee-embed-v1-multilingual-embeddings-from-scratch",
     title: "Introducing mentee-embed-v1: Training Competitive Multilingual Embeddings from Scratch for Arabic, English and Urdu",
@@ -47,13 +338,20 @@ export const posts: BlogPost[] = [
       <p>Training competitive embeddings from random initialization is hard — small models collapse when given only sparse triplet labels. We solved it with a two-stage recipe: <strong>Stage A — Masked Language Modeling</strong> on 1.1M trilingual sentences (6,000 steps, public loss curve on the report), then <strong>Stage B — Relational Knowledge Distillation</strong> from <code>intfloat/multilingual-e5-base</code>. Instead of 1 bit per triplet, the student sees 960 dense numbers per batch (MSE on cosine similarity matrices + InfoNCE). That is how a 41M student learns the teacher's geometry. Code is at <a href="https://github.com/MenteE-s/mentee-embeddings" target="_blank" rel="noopener">github.com/MenteE-s/mentee-embeddings</a>.</p>
 
       <h2>Honest benchmarks: strengths and where we lag</h2>
-      <p>We report two protocols fully. <strong>Protocol A (in-batch, ~97 candidates)</strong>: mentee-embed-v1 reaches <strong>avg MRR@10 0.585</strong> beating <code>all-MiniLM-L6-v2</code> (0.396) and <strong>val acc@1 0.820</strong> even above paraphrase-MiniLM-L12-v2 (0.795), plus <strong>cross-lingual EN↔UR 0.757</strong> with no shared script. <strong>Protocol B (corpus-pool, 15K docs/lang)</strong>: MRR@10 ~0.19 per language and R@100 ~0.47 — usable as a re-ranker, not a billion-document standalone engine — while mpnet-base hits 0.94/0.68/0.58. We publish both wins and limits. See charts on <a href="/research">/research</a>.</p>
+      <p>We report two protocols fully. <strong>Protocol A (in-batch, ~97 candidates)</strong>: mentee-embed-v1 reaches <strong>avg MRR@10 0.585</strong> beating <code>all-MiniLM-L6-v2</code> (0.449) and <strong>val acc@1 0.820</strong> even above paraphrase-MiniLM-L12-v2 (0.795), plus <strong>cross-lingual EN↔UR 0.757</strong> with no shared script. <strong>Protocol B (corpus-pool, 15K docs/lang)</strong>: MRR@10 ~0.19 per language and R@100 ~0.47 — usable as a re-ranker, not a billion-document standalone engine — while mpnet-base hits 0.94/0.68/0.58. We publish both wins and limits. See charts on <a href="/research">/research</a>.</p>
 
       <h2>How to use it</h2>
-      <pre><code>from sentence_transformers import SentenceTransformer
-model = SentenceTransformer("menteeai/mentee-embed-v1")
-emb = model.encode(["How do I file a tax return?", "Steps to submit an annual filing"])</code></pre>
-      <p>Today weights load via <code>src/model.py</code> in the repo; Sentence-Transformers export is planned. Hugging Face: <a href="https://huggingface.co/menteeai/mentee-embed-v1" target="_blank" rel="noopener">huggingface.co/menteeai/mentee-embed-v1</a>.</p>
+      <pre><code>import torch
+from huggingface_hub import hf_hub_download
+from src.model import build_embedder
+
+model_pt = hf_hub_download("MenteEAI/mentee-embed-v1", "model.pt")
+tok_path = hf_hub_download("MenteEAI/mentee-embed-v1", "tokenizer.json")
+
+payload = torch.load(model_pt, map_location="cpu", weights_only=False)
+model = build_embedder(payload["encoder_config"], payload["vocab_size"])
+model.load_state_dict(payload["state_dict"])</code></pre>
+      <p>Today weights load via <code>src/model.py</code> in the repo; Sentence-Transformers export is planned. Hugging Face: <a href="https://huggingface.co/MenteEAI/mentee-embed-v1" target="_blank" rel="noopener">huggingface.co/MenteEAI/mentee-embed-v1</a>.</p>
 
       <h2>Why open?</h2>
       <p>At <strong>MenteE AI</strong> we ship products, not decks. Publishing mentee-embed-v1 preprint, code, weights and even failures is our way to earn trust like DeepSeek, BGE and sentence-transformers — not hide like closed APIs. If you use it, please cite:</p>
@@ -138,7 +436,7 @@ emb = model.encode(["How do I file a tax return?", "Steps to submit an annual fi
       <div style="border: 1px solid #e5e7eb; border-radius: 16px; padding: 20px; background: #fff; margin: 20px 0;">
         <p style="margin: 0 0 12px; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #71717a; font-weight: 600;">Result — honest numbers</p>
         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; text-align: center;">
-          <div><div style="font-size: 22px; font-weight: 700; color: #111;">0.585</div><div style="font-size: 11px; color: #71717a; margin-top: 4px;">avg MRR@10<br/>vs 0.396 MiniLM-L6</div></div>
+          <div><div style="font-size: 22px; font-weight: 700; color: #111;">0.585</div><div style="font-size: 11px; color: #71717a; margin-top: 4px;">avg MRR@10<br/>vs 0.449 MiniLM-L6</div></div>
           <div><div style="font-size: 22px; font-weight: 700; color: #111;">41M</div><div style="font-size: 11px; color: #71717a; margin-top: 4px;">params<br/>single GPU</div></div>
           <div><div style="font-size: 22px; font-weight: 700; color: #111;">Open</div><div style="font-size: 11px; color: #71717a; margin-top: 4px;">code + weights<br/>+ report</div></div>
         </div>
@@ -160,7 +458,7 @@ emb = model.encode(["How do I file a tax return?", "Steps to submit an annual fi
     slug: "relational-knowledge-distillation-small-models-41m",
     title: "How Relational Knowledge Distillation Makes a 41M Model Beat 100M+ Giants",
     excerpt:
-      "Contrastive training from scratch collapses. Relational distillation from multilingual-e5-base fixes it: a 41M mentee-embed student learns 960 dense numbers per batch to reach 0.585 MRR@10 vs 0.396 for all-MiniLM-L6-v2.",
+      "Contrastive training from scratch collapses. Relational distillation from multilingual-e5-base fixes it: a 41M mentee-embed student learns 960 dense numbers per batch to reach 0.585 MRR@10 vs 0.449 for all-MiniLM-L6-v2.",
     date: "2026-08-16",
     author: "MenteE AI Research",
     authorLink: "https://menteeai.org/research",
@@ -171,13 +469,13 @@ emb = model.encode(["How do I file a tax return?", "Steps to submit an annual fi
     content: `
       <p>Small embedding models trained contrastively from scratch usually fail — embeddings spread on the sphere but carry zero retrieval signal (chance ~1/97). <strong>MenteE AI Research</strong> at <a href="https://menteeai.org">menteeai.org</a> fixed it for <a href="/embed-models">mentee-embed-v1</a> with <strong>relational knowledge distillation</strong>.</p>
       <h2>Teacher: intfloat/multilingual-e5-base</h2>
-      <p>We distill a 768-dim teacher into our 41M, 384-dim student. For each batch we compute cosine matrices <em>C_student</em> and <em>C_teacher</em> and minimize <code>rel_weight·MSE(Cs, Ct) + ce_weight·InfoNCE</code>. One sparse label becomes 960 dense supervision signals per batch. That is why mentee-embed-v1 reaches <strong>rel_mse 0.046</strong> and <strong>avg MRR@10 0.585</strong> vs <strong>all-MiniLM-L6-v2 0.396</strong>.</p>
+      <p>We distill a 768-dim teacher into our 41M, 384-dim student. For each batch we compute cosine matrices <em>C_student</em> and <em>C_teacher</em> and minimize <code>rel_weight·MSE(Cs, Ct) + ce_weight·InfoNCE</code>. One sparse label becomes 960 dense supervision signals per batch. That is why mentee-embed-v1 reaches <strong>rel_mse 0.046</strong> and <strong>avg MRR@10 0.585</strong> vs <strong>all-MiniLM-L6-v2 0.449</strong>.</p>
       <h2>Why MLM bootstrap matters</h2>
       <p>Stage A MLM (50K BPE, 1.1M sentences, 6,000 steps) gives language-aware initialization free of any pretrained backbone. Contrastive-only from random weights collapses regardless of learning rate — classic representation collapse. MLM breaks it cheaply. Chart on <a href="/research">/research</a>.</p>
       <h2>When distillation still lags</h2>
       <p>On 15K-doc corpus-pool, mentee-embed-v1 gets MRR@10 ~0.19 — fine as a re-ranker, not a billion-doc retriever. That is data scale (810K triplets vs billions), not method. We document it openly in the <a href="https://doi.org/10.5281/zenodo.22087139" target="_blank" rel="noopener">Zenodo preprint</a>.</p>
       <h2>Try it</h2>
-      <p>Code: <a href="https://github.com/MenteE-s/mentee-embeddings" target="_blank" rel="noopener">github.com/MenteE-s/mentee-embeddings</a> · Model: <a href="https://huggingface.co/menteeai/mentee-embed-v1" target="_blank" rel="noopener">menteeai/mentee-embed-v1</a> · Contact via <a href="/contact">/contact</a> for collaboration.</p>
+      <p>Code: <a href="https://github.com/MenteE-s/mentee-embeddings" target="_blank" rel="noopener">github.com/MenteE-s/mentee-embeddings</a> · Model: <a href="https://huggingface.co/MenteEAI/mentee-embed-v1" target="_blank" rel="noopener">MenteEAI/mentee-embed-v1</a> · Contact via <a href="/contact">/contact</a> for collaboration.</p>
     `,
   },
   {
@@ -199,7 +497,7 @@ emb = model.encode(["How do I file a tax return?", "Steps to submit an annual fi
       <h2>First proof: mentee-embed-v1</h2>
       <p>We chose a hard first demo: trilingual embeddings for Arabic, English and Urdu from absolute zero on a single GPU. Published at <a href="https://doi.org/10.5281/zenodo.22087139" target="_blank" rel="noopener">doi:10.5281/zenodo.22087139</a> with an honest benchmark report at <a href="/research">/research</a> — avg MRR@10 0.585 beating MiniLM-L6-v2 and cross-lingual EN↔UR 0.757 where many small models fail.</p>
       <h2>Building in public</h2>
-      <p>MenteE is remote-first, product-focused and open by default. Code at <a href="https://github.com/MenteE-s" target="_blank" rel="noopener">github.com/MenteE-s</a>, model at <a href="https://huggingface.co/menteeai/mentee-embed-v1" target="_blank" rel="noopener">huggingface.co/menteeai/mentee-embed-v1</a>, and open roles at <a href="/careers">/careers</a>. We ship, we publish, we iterate.</p>
+      <p>MenteE is remote-first, product-focused and open by default. Code at <a href="https://github.com/MenteE-s" target="_blank" rel="noopener">github.com/MenteE-s</a>, model at <a href="https://huggingface.co/MenteEAI/mentee-embed-v1" target="_blank" rel="noopener">huggingface.co/MenteEAI/mentee-embed-v1</a>, and open roles at <a href="/careers">/careers</a>. We ship, we publish, we iterate.</p>
     `,
   },
   {
@@ -218,13 +516,13 @@ emb = model.encode(["How do I file a tax return?", "Steps to submit an annual fi
       <p>Choosing an embedding model for <strong>Arabic, English and Urdu</strong> in 2026? Compare <strong>mentee-embed-v1 (41M, 384-dim)</strong> from <a href="https://menteeai.org">MenteE AI</a> vs <code>all-MiniLM-L6-v2</code>, <code>paraphrase-MiniLM-L12-v2</code>, <code>all-mpnet-base-v2</code>, <code>multilingual-e5-base</code> and <code>BGE</code>. Benchmarks below are from our open report at <a href="/research">/research</a> and preprint <a href="https://doi.org/10.5281/zenodo.22087139" target="_blank" rel="noopener">doi:10.5281/zenodo.22087139</a>.</p>
       <h2>Quick comparison (honest numbers)</h2>
       <ul>
-        <li><strong>In-batch MRR@10</strong>: mentee-embed 0.585 vs MiniLM-L6 0.396 vs MiniLM-L12 0.840 vs mpnet 0.867</li>
+        <li><strong>In-batch MRR@10</strong>: mentee-embed 0.585 vs MiniLM-L6 0.449 vs MiniLM-L12 0.840 vs mpnet 0.867</li>
         <li><strong>Corpus-pool MRR@10 (15K docs)</strong>: mentee-embed ~0.19 per language vs mpnet 0.94/0.68/0.58 — re-ranker tier</li>
         <li><strong>Size</strong>: 41M vs 23M (L6) vs 118M (L12) vs 278M (mpnet) vs 278M (E5-base) vs 335M (BGE-m3)</li>
         <li><strong>Languages</strong>: mentee-embed focused on AR/EN/UR from scratch; E5/BGE cover 100+ but English-heavy</li>
       </ul>
       <h2>When to use mentee-embed-v1</h2>
-      <p>Use <a href="/embed-models">mentee-embed-v1</a> if you need a tiny, fast, honest model for AR/EN/UR retrieval, RAG re-ranking or on-device search — single GPU training, Apache 2.0 weights at <a href="https://huggingface.co/menteeai/mentee-embed-v1" target="_blank" rel="noopener">menteeai/mentee-embed-v1</a>. Use mpnet/E5/BGE if you need billion-doc open-domain search today and can pay the size.</p>
+      <p>Use <a href="/embed-models">mentee-embed-v1</a> if you need a tiny, fast, honest model for AR/EN/UR retrieval, RAG re-ranking or on-device search — single GPU training, Apache 2.0 weights at <a href="https://huggingface.co/MenteEAI/mentee-embed-v1" target="_blank" rel="noopener">MenteEAI/mentee-embed-v1</a>. Use mpnet/E5/BGE if you need billion-doc open-domain search today and can pay the size.</p>
       <h2>Try it from MenteE</h2>
       <p>Explore <a href="https://menteeai.org">menteeai.org</a> for platforms, <a href="/products">Products</a> and <a href="/blog">Blog</a> updates. Cite mentee-embed-v1 via Zenodo if you benchmark it.</p>
       <h2>FAQ</h2>
