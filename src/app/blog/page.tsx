@@ -8,7 +8,7 @@ import { posts } from "./posts";
 export const metadata: Metadata = {
   title: "Blog — MenteE AI",
   description:
-    "Insights from MenteE AI: product updates, research behind mentee-embed-v1, and notes on building AI platforms for Arabic, English and Urdu — from the team at menteeai.org and founder Syed Syab Ahmad.",
+    "Insights from MenteE AI: product updates, research behind mentee-embed-v1, and notes on building AI platforms for Arabic, English and Urdu — from the team at menteeai.org.",
   keywords: [
     "MenteE AI blog",
     "menteeai.org",
@@ -50,11 +50,7 @@ export default function BlogPage() {
               <a href="/embed-models" className="underline underline-offset-4">
                 model card
               </a>{" "}
-              for mentee-embed-v1, or explore work by founder{" "}
-              <a href="https://syab.tech" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">
-                Syed Syab Ahmad
-              </a>
-              .
+              for mentee-embed-v1.
             </p>
           </Reveal>
         </section>

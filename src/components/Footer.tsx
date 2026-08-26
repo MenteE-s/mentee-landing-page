@@ -129,17 +129,6 @@ export function Footer() {
         </div>
         <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-neutral-200 pt-6 text-[12px] text-neutral-400 sm:flex-row">
           <p>© 2026 MenteE. All rights reserved.</p>
-          <p>
-            Founded by{" "}
-            <a
-              href="https://syab.tech"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition-colors hover:text-black"
-            >
-              Syab
-            </a>
-          </p>
           <ul className="flex gap-6">
             <li>
               <a href="/privacy" className="transition-colors hover:text-black">

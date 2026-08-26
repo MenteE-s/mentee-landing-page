@@ -67,7 +67,12 @@ export default function CareersPage() {
             </h1>
             <p className="mt-6 max-w-2xl text-lg text-neutral-600">
               We are a small, early-stage team building production AI systems.
-              Every hire shapes the company. All roles are remote.
+              Every hire shapes the company. All roles are remote — candidates
+              based in Pakistan are preferred.
+            </p>
+            <p className="mt-3 max-w-2xl text-sm text-neutral-500">
+              We welcome global talent, but we prioritize builders in Pakistan as
+              we work closely with local product and research context.
             </p>
           </Reveal>
         </section>
@@ -98,7 +103,7 @@ export default function CareersPage() {
               Open roles
             </h2>
             <p className="mt-3 text-neutral-600">
-              We are hiring. These are the first seats.
+              We are hiring. These are the first seats. Remote-first; Pakistan-based candidates are preferred.
             </p>
           </Reveal>
           <div className="mt-10 divide-y divide-neutral-200 border-y border-neutral-200">

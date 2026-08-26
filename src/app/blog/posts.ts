@@ -56,7 +56,7 @@ emb = model.encode(["How do I file a tax return?", "Steps to submit an annual fi
       <p>Today weights load via <code>src/model.py</code> in the repo; Sentence-Transformers export is planned. Hugging Face: <a href="https://huggingface.co/MenteEAI/mentee-embed-v1" target="_blank" rel="noopener">huggingface.co/MenteEAI/mentee-embed-v1</a>.</p>
 
       <h2>Why open?</h2>
-      <p><a href="https://syab.tech" target="_blank" rel="noopener">Syed Syab Ahmad (syab.tech)</a> founded <strong>MenteE AI</strong> to ship products, not decks. Publishing mentee-embed-v1 preprint, code, weights and even failures is our way to earn trust like DeepSeek, BGE and sentence-transformers — not hide like closed APIs. If you use it, please cite:</p>
+      <p>At <strong>MenteE AI</strong> we ship products, not decks. Publishing mentee-embed-v1 preprint, code, weights and even failures is our way to earn trust like DeepSeek, BGE and sentence-transformers — not hide like closed APIs. If you use it, please cite:</p>
       <pre style="white-space: pre-wrap; word-break: break-word; overflow-wrap: anywhere; max-width: 100%; overflow-x: auto; background: #171717; color: #f5f5f5; padding: 16px; border-radius: 16px; font-size: 12px; line-height: 1.6;"><code style="white-space: pre-wrap; word-break: break-word; overflow-wrap: anywhere;">@software{shah2026menteeembed,
   title = {mentee-embed: Training Competitive
     Multilingual Text Embeddings from Scratch
@@ -88,13 +88,13 @@ emb = model.encode(["How do I file a tax return?", "Steps to submit an annual fi
     readTime: "6 min read",
     coverLabel: "Vision",
     content: `
-      <p>At <strong>MenteE AI (menteeai.org)</strong>, founded by <a href="https://syab.tech" target="_blank" rel="noopener">Syed Syab Ahmad — syab.tech</a>, we start with a simple observation: <strong>Urdu has ~230 million speakers</strong> yet almost no open embedding model treats it as a first-class language. Arabic has coverage but almost nothing competitive under 100M parameters. That is not a data problem — it is a priority problem.</p>
+      <p>At <strong>MenteE AI (menteeai.org)</strong> we start with a simple observation: <strong>Urdu has ~230 million speakers</strong> yet almost no open embedding model treats it as a first-class language. Arabic has coverage but almost nothing competitive under 100M parameters. That is not a data problem — it is a priority problem.</p>
       <h2>The gap in open embeddings</h2>
       <p>OpenAI, Cohere and Google hide their embeddings behind APIs. Open models like MiniLM, E5 and BGE are excellent for English but Urdu evaluation is an afterthought — often zero Urdu in the benchmark table. MenteE published <a href="/research">mentee-embed-v1</a> precisely to close this gap: 41M params, 50K BPE trained on Arabic+English+Urdu, beating all-MiniLM-L6-v2 on every in-batch slice and reaching <strong>EN↔UR cross-lingual acc@1 0.757</strong>.</p>
       <h2>Why we chose 50K BPE from scratch</h2>
       <p>Off-the-shelf tokenizers over-fragment Urdu (Nastaliq-influenced script) and Arabic. We trained a ByteLevel BPE on our trilingual corpus so Urdu and Arabic get fair vocabulary share. That plus 1.1M sentences of MLM gives the encoder real morphology, not transliteration hacks.</p>
       <h2>What this means for products at menteeai.org</h2>
-      <p>MenteE does not sell consulting — we ship AI platforms. Urdu/Arabic-first embeddings unlock search, RAG and classification for fintech, legal and government workflows in Pakistan, MENA and diaspora — markets where <strong>syab.tech</strong> has built before. See <a href="/products">Products</a> and <a href="/embed-models">Embed Models</a>.</p>
+      <p>MenteE does not sell consulting — we ship AI platforms. Urdu/Arabic-first embeddings unlock search, RAG and classification for fintech, legal and government workflows in Pakistan, MENA and diaspora. See <a href="/products">Products</a> and <a href="/embed-models">Embed Models</a>.</p>
       <h2>Open and honest</h2>
       <p>We also publish where we lag: corpus-pool MRR@10 ~0.19. That honesty is rare and intentional — read the full report at <a href="/research">/research</a> and cite the preprint <a href="https://doi.org/10.5281/zenodo.22087139" target="_blank" rel="noopener">doi:10.5281/zenodo.22087139</a>.</p>
     `,
@@ -102,8 +102,8 @@ emb = model.encode(["How do I file a tax return?", "Steps to submit an annual fi
   {
     slug: "mentee-ai-product-company-not-agency",
     title: "MenteE AI Is a Product Company, Not an Agency: We Build AI Platforms That Ship",
-    excerpt:
-      "MenteE AI (menteeai.org) builds and deploys AI-powered platforms — we do not take briefs. How founder Syed Syab Ahmad (syab.tech) runs MenteE like a product lab, with open research like mentee-embed-v1 to prove it.",
+      excerpt:
+        "MenteE AI (menteeai.org) builds and deploys AI-powered platforms — we do not take briefs. How MenteE operates as a product lab, with open research like mentee-embed-v1 to prove it.",
     date: "2026-08-18",
     author: "MenteE AI Team",
     authorLink: "https://menteeai.org",
@@ -112,12 +112,12 @@ emb = model.encode(["How do I file a tax return?", "Steps to submit an annual fi
     readTime: "5 min read",
     coverLabel: "Business",
     content: `
-      <p class="lead">Search <strong>MenteE</strong> or <strong>menteeai.org</strong> and one line follows you everywhere across our site. This post explains what it means and why we run <strong>MenteE AI</strong> that way.</p>
+      <p class="lead">Search <strong>MenteE</strong> or <strong>menteeai.org</strong> and one line follows you everywhere across our site. This post explains what it means and how <strong>MenteE AI</strong> operates.</p>
 
       <blockquote style="border-left: 3px solid #111; padding-left: 16px; margin: 28px 0; font-size: 1.15rem; font-weight: 600; color: #111; line-height: 1.5;">
         MenteE builds and deploys AI-powered platforms. We do not consult — we ship products.
       </blockquote>
-      <p>That is not marketing copy. It is how <a href="https://syab.tech" target="_blank" rel="noopener">Syed Syab Ahmad — syab.tech</a> runs <strong>MenteE AI</strong> at <a href="https://menteeai.org">menteeai.org</a>: as a product lab, not a services agency.</p>
+      <p>That is not marketing copy. It is how <strong>MenteE AI</strong> at <a href="https://menteeai.org">menteeai.org</a> operates: as a product lab, not a services agency.</p>
 
       <h2>Why not an agency?</h2>
       <p>Agencies and product companies optimize for different outcomes. Here is how we work:</p>
@@ -153,7 +153,7 @@ emb = model.encode(["How do I file a tax return?", "Steps to submit an annual fi
         <li><strong>Decision engines</strong> — retrieval and ranking where latency and recall matter</li>
         <li><strong>Document processing</strong> — extraction, classification and routing at volume</li>
       </ul>
-      <p>Careers at <a href="/careers">/careers</a> · Contact at <a href="/contact">/contact</a> · Explore <a href="/products">Products</a>, <a href="/research">Research</a> and the founder portfolio at <a href="https://syab.tech" target="_blank" rel="noopener">syab.tech</a>.</p>
+      <p>Careers at <a href="/careers">/careers</a> · Contact at <a href="/contact">/contact</a> · Explore <a href="/products">Products</a> and <a href="/research">Research</a>.</p>
     `,
   },
   {
@@ -177,29 +177,29 @@ emb = model.encode(["How do I file a tax return?", "Steps to submit an annual fi
       <h2>When distillation still lags</h2>
       <p>On 15K-doc corpus-pool, mentee-embed-v1 gets MRR@10 ~0.19 — fine as a re-ranker, not a billion-doc retriever. That is data scale (810K triplets vs billions), not method. We document it openly in the <a href="https://doi.org/10.5281/zenodo.22087139" target="_blank" rel="noopener">Zenodo preprint</a>.</p>
       <h2>Try it</h2>
-      <p>Code: <a href="https://github.com/MenteE-s/mentee-embeddings" target="_blank" rel="noopener">github.com/MenteE-s/mentee-embeddings</a> · Model: <a href="https://huggingface.co/MenteEAI/mentee-embed-v1" target="_blank" rel="noopener">MenteEAI/mentee-embed-v1</a> · Contact <a href="https://syab.tech" target="_blank" rel="noopener">syab.tech</a> for collaboration.</p>
+      <p>Code: <a href="https://github.com/MenteE-s/mentee-embeddings" target="_blank" rel="noopener">github.com/MenteE-s/mentee-embeddings</a> · Model: <a href="https://huggingface.co/MenteEAI/mentee-embed-v1" target="_blank" rel="noopener">MenteEAI/mentee-embed-v1</a> · Contact via <a href="/contact">/contact</a> for collaboration.</p>
     `,
   },
   {
     slug: "from-syab-tech-to-menteeai-org-founder-story",
-    title: "From syab.tech to menteeai.org: Building MenteE AI in 2026 — Founder Story of Syed Syab Ahmad",
+    title: "Building MenteE AI in 2026: From Idea to Product Lab at menteeai.org",
     excerpt:
-      "How Syed Syab Ahmad went from syab.tech portfolio to founding MenteE AI at menteeai.org — building mentee-embed-v1, shipping AI platforms, and publishing open research at Zenodo.",
+      "How MenteE AI at menteeai.org became a product lab in 2026 — building mentee-embed-v1, shipping AI platforms, and publishing open research at Zenodo.",
     date: "2026-08-14",
-    author: "Syed Syab Ahmad",
-    authorLink: "https://syab.tech",
-    tags: ["Founder", "MenteE AI", "syab.tech"],
-    keywords: ["syab.tech", "Syed Syab Ahmad", "MenteE", "MenteE AI", "menteeai.org", "founder story", "AI startup Pakistan"],
+    author: "MenteE AI Team",
+    authorLink: "https://menteeai.org",
+    tags: ["Culture", "MenteE AI", "Building in Public"],
+    keywords: ["MenteE", "MenteE AI", "menteeai.org", "AI product lab", "building in public", "AI startup Pakistan"],
     readTime: "5 min read",
-    coverLabel: "Founder",
+    coverLabel: "Culture",
     content: `
-      <p>I am <a href="https://syab.tech" target="_blank" rel="noopener">Syed Syab Ahmad — syab.tech</a>, founder of <strong>MenteE AI (menteeai.org)</strong>. This is how a personal portfolio became a product AI company in 2026.</p>
-      <h2>syab.tech → menteeai.org</h2>
-      <p>syab.tech was my engineering home — full-stack, AI, shipping. MenteE started when I decided to stop selling services by the hour and start building systems that run. The domain <strong>menteeai.org</strong> is that bet: a lab that ships.</p>
+      <p><strong>MenteE AI (menteeai.org)</strong> started as a simple bet: stop selling services by the hour and start building systems that run. In 2026 that bet became a product lab that ships.</p>
+      <h2>From prototype to product lab</h2>
+      <p>The early work was engineering-led — full-stack, AI, shipping. The turning point was choosing to build platforms, not decks. The domain <strong>menteeai.org</strong> reflects that focus: a lab measured by production uptime, not presentation slides.</p>
       <h2>First proof: mentee-embed-v1</h2>
-      <p>We chose the hardest demo: trilingual embeddings for Arabic, English and Urdu from absolute zero on a single GPU. Published at <a href="https://doi.org/10.5281/zenodo.22087139" target="_blank" rel="noopener">doi:10.5281/zenodo.22087139</a> with authors Sania Shakeel, Hamza Rustam, Mahboob Khan and me. Avg MRR@10 0.585 beating MiniLM-L6-v2, cross-lingual 0.757 — documented honestly with benchmarks at <a href="/research">/research</a>.</p>
-      <h2>Hiring and building in public</h2>
-      <p>MenteE is remote, product-first, open. If you want to build AI platforms (not decks), see <a href="/careers">/careers</a> at menteeai.org. My portfolio stays at <a href="https://syab.tech" target="_blank" rel="noopener">syab.tech</a>; MenteE lives at <a href="https://menteeai.org">menteeai.org</a> and <a href="https://github.com/MenteE-s" target="_blank" rel="noopener">github.com/MenteE-s</a>.</p>
+      <p>We chose a hard first demo: trilingual embeddings for Arabic, English and Urdu from absolute zero on a single GPU. Published at <a href="https://doi.org/10.5281/zenodo.22087139" target="_blank" rel="noopener">doi:10.5281/zenodo.22087139</a> with an honest benchmark report at <a href="/research">/research</a> — avg MRR@10 0.585 beating MiniLM-L6-v2 and cross-lingual EN↔UR 0.757 where many small models fail.</p>
+      <h2>Building in public</h2>
+      <p>MenteE is remote-first, product-focused and open by default. Code at <a href="https://github.com/MenteE-s" target="_blank" rel="noopener">github.com/MenteE-s</a>, model at <a href="https://huggingface.co/MenteEAI/mentee-embed-v1" target="_blank" rel="noopener">huggingface.co/MenteEAI/mentee-embed-v1</a>, and open roles at <a href="/careers">/careers</a>. We ship, we publish, we iterate.</p>
     `,
   },
   {
@@ -225,8 +225,8 @@ emb = model.encode(["How do I file a tax return?", "Steps to submit an annual fi
       </ul>
       <h2>When to use mentee-embed-v1</h2>
       <p>Use <a href="/embed-models">mentee-embed-v1</a> if you need a tiny, fast, honest model for AR/EN/UR retrieval, RAG re-ranking or on-device search — single GPU training, Apache 2.0 weights at <a href="https://huggingface.co/MenteEAI/mentee-embed-v1" target="_blank" rel="noopener">MenteEAI/mentee-embed-v1</a>. Use mpnet/E5/BGE if you need billion-doc open-domain search today and can pay the size.</p>
-      <h2>Try it from MenteE and syab.tech</h2>
-      <p>Explore <a href="https://syab.tech" target="_blank" rel="noopener">syab.tech</a> (founder Syed Syab Ahmad) and <a href="https://menteeai.org">menteeai.org</a> for platforms, <a href="/products">Products</a> and <a href="/blog">Blog</a> updates. Cite mentee-embed-v1 via Zenodo if you benchmark it.</p>
+      <h2>Try it from MenteE</h2>
+      <p>Explore <a href="https://menteeai.org">menteeai.org</a> for platforms, <a href="/products">Products</a> and <a href="/blog">Blog</a> updates. Cite mentee-embed-v1 via Zenodo if you benchmark it.</p>
       <h2>FAQ</h2>
       <p><strong>Is mentee-embed open?</strong> Yes — code at <a href="https://github.com/MenteE-s/mentee-embeddings" target="_blank" rel="noopener">github.com/MenteE-s/mentee-embeddings</a>, CC BY 4.0 preprint. <strong>Context length?</strong> 128 tokens — chunk longer docs. <strong>License?</strong> Apache 2.0 weights, CC BY 4.0 paper.</p>
     `,
