@@ -2,30 +2,39 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import type { ModelId, TocSection } from "./research/data";
 
-export interface TocSection {
-  id: string;
+export interface TocModel {
+  id: ModelId;
   label: string;
-  group: string; // "" = standalone top-level
+  tag?: string;
 }
 
 interface Props {
   sections: TocSection[];
   activeId: string;
   onSelect: (id: string) => void;
+  models: TocModel[];
+  selectedModel: ModelId;
+  onModelChange: (m: ModelId) => void;
 }
 
 /* Version colour tokens */
 const groupStyle: Record<string, { dot: string; badge: string; header: string }> = {
+  "mentee-embed-v4": {
+    dot: "bg-neutral-900",
+    badge: "bg-neutral-900 text-white",
+    header: "text-neutral-800",
+  },
+  "mentee-embed-v3": {
+    dot: "bg-neutral-700",
+    badge: "bg-neutral-700 text-white",
+    header: "text-neutral-700",
+  },
   "mentee-embed-v1": {
     dot: "bg-neutral-400",
     badge: "bg-neutral-100 text-neutral-600",
     header: "text-neutral-500",
-  },
-  "mentee-embed-v3": {
-    dot: "bg-neutral-900",
-    badge: "bg-neutral-900 text-white",
-    header: "text-neutral-800",
   },
   Shared: {
     dot: "bg-neutral-300",
@@ -34,7 +43,55 @@ const groupStyle: Record<string, { dot: string; badge: string; header: string }>
   },
 };
 
-export function ResearchTOC({ sections, activeId, onSelect }: Props) {
+/* ── model dropdown ──────────────────────────────────────── */
+
+function ModelDropdown({
+  models,
+  selectedModel: selected,
+  onModelChange: onChange,
+}: Pick<Props, "models" | "selectedModel" | "onModelChange">) {
+  return (
+    <div className="px-1 pb-3">
+      <label htmlFor="research-model-select" className="sr-only">
+        Select model version
+      </label>
+      <div className="relative">
+        <select
+          id="research-model-select"
+          value={selected}
+          onChange={(e) => onChange(e.target.value as ModelId)}
+          className="w-full cursor-pointer appearance-none rounded-xl border border-neutral-200 bg-white py-2.5 pl-3.5 pr-9 text-sm font-semibold text-neutral-900 shadow-sm transition-colors hover:border-neutral-400 focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-900/10"
+        >
+          {models.map((m) => (
+            <option key={m.id} value={m.id}>
+              {m.label}
+              {m.tag ? ` — ${m.tag}` : ""}
+            </option>
+          ))}
+        </select>
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+        </span>
+      </div>
+    </div>
+  );
+}
+
+/* ── TOC ─────────────────────────────────────────────────── */
+
+export function ResearchTOC({
+  sections,
+  activeId,
+  onSelect,
+  models,
+  selectedModel,
+  onModelChange,
+}: Props) {
   const groups = sections.reduce<string[]>((acc, s) => {
     if (s.group !== "" && !acc.includes(s.group)) acc.push(s.group);
     return acc;
@@ -54,10 +111,22 @@ export function ResearchTOC({ sections, activeId, onSelect }: Props) {
     setMobileOpen(false);
   }
 
+  function handleModelChange(m: ModelId) {
+    onModelChange(m);
+    setMobileOpen(false);
+  }
+
   const standaloneItems = sections.filter((s) => s.group === "");
 
   const navContent = (
-    <nav className="space-y-0.5">
+    <nav aria-label="Report contents" className="space-y-0.5">
+      {/* Model dropdown */}
+      <ModelDropdown
+        models={models}
+        selectedModel={selectedModel}
+        onModelChange={handleModelChange}
+      />
+
       {/* Standalone top-level (Overview) */}
       {standaloneItems.map((s) => {
         const isActive = s.id === activeId;
@@ -65,6 +134,7 @@ export function ResearchTOC({ sections, activeId, onSelect }: Props) {
           <button
             key={s.id}
             onClick={() => handleSelect(s.id)}
+            aria-current={isActive ? "true" : undefined}
             className={`flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-sm font-semibold transition-all duration-150 ease-out ${
               isActive
                 ? "bg-neutral-900 text-white shadow-sm"
@@ -97,10 +167,9 @@ export function ResearchTOC({ sections, activeId, onSelect }: Props) {
             {/* Group header */}
             <button
               onClick={() => toggleGroup(group)}
+              aria-expanded={isOpen}
               className={`flex w-full items-center justify-between rounded-lg px-2.5 py-1.5 text-left transition-all duration-150 ease-out ${
-                groupHasActive
-                  ? "bg-neutral-100"
-                  : "hover:bg-neutral-50"
+                groupHasActive ? "bg-neutral-100" : "hover:bg-neutral-50"
               }`}
             >
               <div className="flex items-center gap-2 min-w-0">
@@ -135,6 +204,7 @@ export function ResearchTOC({ sections, activeId, onSelect }: Props) {
                         <button
                           key={s.id}
                           onClick={() => handleSelect(s.id)}
+                          aria-current={isActive ? "true" : undefined}
                           className={`flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-xs transition-all duration-150 ease-out ${
                             isActive
                               ? "bg-neutral-900 font-semibold text-white shadow-sm"
@@ -163,10 +233,10 @@ export function ResearchTOC({ sections, activeId, onSelect }: Props) {
   return (
     <>
       {/* ── Desktop sidebar ─────────────────────────────── */}
-      <aside className="hidden md:block w-44 flex-shrink-0">
+      <aside className="hidden md:block w-52 flex-shrink-0">
         <div className="sticky top-24">
           {/* Header */}
-          <div className="mb-3 flex items-center gap-2 px-2.5">
+          <div className="mb-3 flex items-center gap-2 px-1">
             <span className="h-px flex-1 bg-neutral-200" />
             <p className="text-[9px] font-bold uppercase tracking-widest text-neutral-400">
               Contents
@@ -179,10 +249,11 @@ export function ResearchTOC({ sections, activeId, onSelect }: Props) {
         </div>
       </aside>
 
-      {/* ── Mobile collapsible ───────────────────────────── */}
+      {/* ── Mobile collapsible ──────────────────────────── */}
       <div className="mb-6 md:hidden">
         <button
           onClick={() => setMobileOpen((v) => !v)}
+          aria-expanded={mobileOpen}
           className="flex w-full items-center justify-between rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm font-semibold text-neutral-700 transition-colors duration-150 hover:bg-neutral-100"
         >
           <span className="flex items-center gap-2">

@@ -24,6 +24,15 @@ const BIBTEX_V3 = `@misc{mentee-embed-v3-2026,
   note    = {Apache-2.0 License. DOI: 10.5281/zenodo.22117673}
 }`;
 
+const BIBTEX_V4 = `@misc{mentee-embed-v4-2026,
+  title   = {How Far Can Multilingual Text Embeddings Be Trained From Scratch?
+             A Compute-Efficient Study of Arabic, English, and Urdu},
+  author  = {Shah, Syed Syab Ahmad and Team MenteE AI},
+  year    = {2026},
+  url     = {https://huggingface.co/MenteEAI/mentee-embed-v4},
+  note    = {Apache-2.0 License}
+}`;
+
 const models = {
   v1: {
     label: "mentee-embed-v1",
@@ -57,6 +66,21 @@ const models = {
       "Three controlled experiments (v1–v3) using a 41M-parameter Transformer encoder trained from scratch on Arabic, English, and Urdu. v3 achieves Protocol A MRR@10 0.655 and Protocol C 0.645 with batch size 512 and 2.1M triplets including MS-MARCO retrieval data.",
     bibtex: BIBTEX_V3,
   },
+  v4: {
+    label: "mentee-embed-v4",
+    version: "v4",
+    date: "28 Aug 2026",
+    doi: "",
+    doiUrl: "https://huggingface.co/MenteEAI/mentee-embed-v4",
+    pdfUrl: "https://huggingface.co/MenteEAI/mentee-embed-v4",
+    authors:
+      "Shah, Syed Syab Ahmad · Team MenteE AI — MenteE AI",
+    title:
+      "How Far Can Multilingual Text Embeddings Be Trained From Scratch? A Compute-Efficient Study of Arabic, English, and Urdu",
+    description:
+      "41M-parameter trilingual embedding model trained from scratch with ~2.6M triplets, 50K MLM steps, and 3-round distillation. Bench MRR@10 0.252 (+146% vs v3), MIRACL AR 0.874 (+96%), 18,115 sents/sec on RTX 5090 — the fastest model tested.",
+    bibtex: BIBTEX_V4,
+  },
 };
 
 export function PublicationCard({
@@ -64,7 +88,7 @@ export function PublicationCard({
   version = "v3",
 }: {
   compact?: boolean;
-  version?: "v1" | "v3";
+  version?: "v1" | "v3" | "v4";
 }) {
   const [copied, setCopied] = useState(false);
   const m = models[version];
@@ -169,6 +193,24 @@ export function PublicationCard({
               className="font-medium text-neutral-700 underline underline-offset-4 hover:text-neutral-900"
             >
               DOI 10.5281/zenodo.22117673
+            </a>
+          </span>
+        </div>
+      )}
+      {version === "v3" && (
+        <div className="mt-4 flex items-center gap-2 rounded-xl border border-neutral-100 bg-neutral-50 px-4 py-3 text-xs text-neutral-500">
+          <span className="rounded-full bg-neutral-900 px-2 py-0.5 text-[10px] font-semibold text-white">
+            v4
+          </span>
+          <span>
+            Newer version available —{" "}
+            <a
+              href="https://huggingface.co/MenteEAI/mentee-embed-v4"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-neutral-700 underline underline-offset-4 hover:text-neutral-900"
+            >
+              Hugging Face
             </a>
           </span>
         </div>
