@@ -82,16 +82,9 @@ function ModelDropdown({
   );
 }
 
-/* ── nav list (shared by desktop sidebar & mobile drawer) ── */
+/* ── nav list (shared by sidebar & drawer) ───────────────── */
 
-function NavList({
-  sections,
-  activeId,
-  onSelect,
-  models,
-  selectedModel,
-  onModelChange,
-}: Props) {
+function NavList({ sections, activeId, onSelect, models, selectedModel, onModelChange }: Props) {
   const groups = sections.reduce<string[]>((acc, s) => {
     if (s.group !== "" && !acc.includes(s.group)) acc.push(s.group);
     return acc;
@@ -215,94 +208,96 @@ function NavList({
   );
 }
 
-/* ── main export ──────────────────────────────────────────── */
+/* ── Desktop sidebar ─────────────────────────────────────── */
 
-export function ResearchTOC(props: Props) {
-  const [mobileOpen, setMobileOpen] = useState(false);
+export function ResearchSidebar(props: Props) {
+  return (
+    <aside className="hidden lg:block w-56 flex-shrink-0">
+      <div className="sticky top-24">
+        <div className="rounded-xl border border-neutral-200 bg-white p-3 shadow-sm">
+          <p className="mb-2 px-1 text-[10px] font-bold uppercase tracking-widest text-neutral-400">
+            Report
+          </p>
+          <NavList {...props} />
+        </div>
+      </div>
+    </aside>
+  );
+}
+
+/* ── Mobile sticky header (renders OUTSIDE flex) ─────────── */
+
+export function ResearchMobileHeader(props: Props) {
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   function handleSelect(id: string) {
     props.onSelect(id);
-    setMobileOpen(false);
+    setDrawerOpen(false);
   }
 
   function handleModelChange(m: ModelId) {
     props.onModelChange(m);
-    setMobileOpen(false);
+    setDrawerOpen(false);
   }
 
+  const activeLabel = props.sections.find((s) => s.id === props.activeId)?.label ?? "";
+
   return (
-    <>
-      {/* ── Desktop sidebar ─────────────────────────────── */}
-      <aside className="hidden lg:block w-56 flex-shrink-0">
-        <div className="sticky top-24 space-y-4">
-          <div className="rounded-xl border border-neutral-200 bg-white p-3 shadow-sm">
-            <p className="mb-2 px-1 text-[10px] font-bold uppercase tracking-widest text-neutral-400">
-              Report
-            </p>
-            <NavList {...props} onSelect={handleSelect} onModelChange={handleModelChange} />
-          </div>
+    <div className="lg:hidden">
+      {/* Sticky bar — full width, not inside flex */}
+      <div className="sticky top-16 z-30 border-b border-neutral-200 bg-white/90 backdrop-blur-sm">
+        <div className="flex items-center gap-3 px-4 py-2.5">
+          <button
+            onClick={() => setDrawerOpen(true)}
+            className="flex items-center gap-2 rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-1.5 text-xs font-semibold text-neutral-700 transition-colors hover:bg-neutral-100"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="3" x2="21" y1="6" y2="6" />
+              <line x1="3" x2="21" y1="12" y2="12" />
+              <line x1="3" x2="21" y1="18" y2="18" />
+            </svg>
+            Contents
+          </button>
+          <span className="text-[11px] text-neutral-400 truncate">{activeLabel}</span>
         </div>
-      </aside>
-
-      {/* ── Mobile top bar + drawer ─────────────────────── */}
-      <div className="lg:hidden">
-        {/* Sticky top bar */}
-        <div className="sticky top-16 z-30 border-b border-neutral-200 bg-white/90 backdrop-blur-sm">
-          <div className="flex items-center gap-3 px-4 py-2.5">
-            <button
-              onClick={() => setMobileOpen(true)}
-              className="flex items-center gap-2 rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-1.5 text-xs font-semibold text-neutral-700 transition-colors hover:bg-neutral-100"
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="3" x2="21" y1="6" y2="6" />
-                <line x1="3" x2="21" y1="12" y2="12" />
-                <line x1="3" x2="21" y1="18" y2="18" />
-              </svg>
-              Contents
-            </button>
-            <span className="text-[11px] text-neutral-400">
-              {props.sections.find((s) => s.id === props.activeId)?.label ?? ""}
-            </span>
-          </div>
-        </div>
-
-        {/* Drawer overlay */}
-        <AnimatePresence>
-          {mobileOpen && (
-            <>
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.15 }}
-                className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm lg:hidden"
-                onClick={() => setMobileOpen(false)}
-              />
-              <motion.div
-                initial={{ x: "-100%" }}
-                animate={{ x: 0 }}
-                exit={{ x: "-100%" }}
-                transition={{ duration: 0.2, ease: "easeOut" }}
-                className="fixed inset-y-0 left-0 z-50 w-72 overflow-y-auto border-r border-neutral-200 bg-white p-4 shadow-xl lg:hidden"
-              >
-                <div className="mb-4 flex items-center justify-between">
-                  <p className="text-xs font-bold uppercase tracking-widest text-neutral-400">Report</p>
-                  <button
-                    onClick={() => setMobileOpen(false)}
-                    className="rounded-lg p-1 text-neutral-400 hover:bg-neutral-100 hover:text-neutral-700"
-                  >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M18 6 6 18" />
-                      <path d="m6 6 12 12" />
-                    </svg>
-                  </button>
-                </div>
-                <NavList {...props} onSelect={handleSelect} onModelChange={handleModelChange} />
-              </motion.div>
-            </>
-          )}
-        </AnimatePresence>
       </div>
-    </>
+
+      {/* Drawer overlay */}
+      <AnimatePresence>
+        {drawerOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+              className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm lg:hidden"
+              onClick={() => setDrawerOpen(false)}
+            />
+            <motion.div
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="fixed inset-y-0 left-0 z-50 w-72 overflow-y-auto border-r border-neutral-200 bg-white p-4 shadow-xl lg:hidden"
+            >
+              <div className="mb-4 flex items-center justify-between">
+                <p className="text-xs font-bold uppercase tracking-widest text-neutral-400">Report</p>
+                <button
+                  onClick={() => setDrawerOpen(false)}
+                  className="rounded-lg p-1 text-neutral-400 hover:bg-neutral-100 hover:text-neutral-700"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M18 6 6 18" />
+                    <path d="m6 6 12 12" />
+                  </svg>
+                </button>
+              </div>
+              <NavList {...props} onSelect={handleSelect} onModelChange={handleModelChange} />
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }

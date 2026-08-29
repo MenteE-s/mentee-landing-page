@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ReadingProgress } from "@/components/ReadingProgress";
-import { ResearchTOC } from "@/components/ResearchTOC";
+import { ResearchSidebar, ResearchMobileHeader } from "@/components/ResearchTOC";
 import { ChapterBanner } from "./shared";
 import { modelsMeta, modelSections, sharedSections, type ModelId } from "./data";
 import { Overview } from "./Overview";
@@ -14,7 +14,6 @@ import { V4Approach, V4Benchmarks, V4Speed, V4Strengths, V4Limitations } from ".
 import { Roadmap } from "./Roadmap";
 import { Reproduction } from "./Reproduction";
 
-/* Chapter banner meta per model */
 const chapterMeta: Record<ModelId, { version: string; label: string }> = {
   v4: { version: "v4", label: "mentee-embed-v4" },
   v3: { version: "v3", label: "mentee-embed-v3" },
@@ -102,25 +101,30 @@ export function ResearchPage() {
 
   const chapter = chapterMeta[selectedModel];
 
+  const tocProps = {
+    sections,
+    activeId: activeSection,
+    onSelect: handleTocClick,
+    models: modelsMeta,
+    selectedModel,
+    onModelChange: handleModelChange,
+  };
+
   return (
     <>
       <ReadingProgress />
       <Navbar />
-      <main className="flex-1 bg-neutral-50/50">
-        {/* Desktop: sidebar + main grid */}
-        <div className="mx-auto max-w-[1400px] px-4 pb-20 pt-20 md:pt-28">
-          <div className="flex gap-6 lg:gap-8">
-            {/* Sidebar — hidden on mobile (handled by top-bar + drawer in ResearchTOC) */}
-            <ResearchTOC
-              sections={sections}
-              activeId={activeSection}
-              onSelect={handleTocClick}
-              models={modelsMeta}
-              selectedModel={selectedModel}
-              onModelChange={handleModelChange}
-            />
 
-            {/* Main content */}
+      {/* Mobile sticky header — full width, outside flex */}
+      <ResearchMobileHeader {...tocProps} />
+
+      <main className="flex-1 bg-neutral-50/50">
+        <div className="mx-auto max-w-[1400px] px-4 pb-20 pt-4 lg:pt-28">
+          <div className="flex gap-6 lg:gap-8">
+            {/* Desktop sidebar — hidden below lg */}
+            <ResearchSidebar {...tocProps} />
+
+            {/* Main content — full width on mobile */}
             <div className="min-w-0 flex-1">
               <div className="mx-auto max-w-3xl">
                 <Overview />
@@ -137,7 +141,6 @@ export function ResearchPage() {
           </div>
         </div>
 
-        {/* Footer note */}
         <div className="border-t border-neutral-200 bg-white">
           <div className="mx-auto max-w-[1400px] px-4 py-5">
             <p className="text-[11px] leading-relaxed text-neutral-400">
