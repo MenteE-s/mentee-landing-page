@@ -2,37 +2,41 @@ import type { Metadata } from "next";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Reveal } from "@/components/Reveal";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Products — MenteE",
   description:
-    "AI-powered platforms built for production — designed for scale, reliability, and real-world use.",
+    "AI-powered platforms built for production — multilingual embeddings and autonomous software engineering.",
 };
 
 const products = [
   {
-    t: "MenteE Automate",
-    d: "End-to-end workflow orchestration. Multi-step processes handled autonomously — from data intake to decision output — with self-healing pipelines and full auditability.",
+    label: "MenteE Embed",
+    tag: null,
+    href: "/research",
+    hrefLabel: "Read the research",
+    d: "Compact multilingual text embedding model — ~41M params, trained from scratch for Arabic, English, and Urdu retrieval. 384-dimensional outputs, up to 512-token context, fully reproducible. Apache 2.0.",
+    stats: [
+      { k: "~41M", v: "Parameters" },
+      { k: "384", v: "Dimensions" },
+      { k: "3", v: "Languages" },
+      { k: "Apache 2.0", v: "License" },
+    ],
   },
   {
-    t: "MenteE Insight",
-    d: "Real-time data intelligence. Raw, fragmented datasets transformed into structured, actionable insight — surfaced at the point of decision, not after.",
+    label: "MenteE SWE",
+    tag: "Beta",
+    href: "/products/swe",
+    hrefLabel: "Learn more",
+    d: "Autonomous software-engineering agent that lives in your terminal. Investigates your repository, plans changes, edits files, verifies with your tests, and reports with evidence. Model-agnostic, safe by design.",
+    stats: [
+      { k: "Model-agnostic", v: "Kimi, GLM, Z.ai" },
+      { k: "Safe", v: "No silent deletions" },
+      { k: "Persistent", v: "Memory across sessions" },
+      { k: "MIT", v: "Licensed" },
+    ],
   },
-  {
-    t: "MenteE Assist",
-    d: "Context-aware decision support. AI that understands your domain, reasons over your data, and surfaces recommendations where work happens.",
-  },
-  {
-    t: "MenteE Process",
-    d: "Document and knowledge processing at scale. Read, classify, extract, and route unstructured information — without manual triage.",
-  },
-];
-
-const stats = [
-  { k: "99.9%", v: "Uptime SLA" },
-  { k: "<200ms", v: "Median response" },
-  { k: "SOC 2", v: "Type II compliant" },
-  { k: "ISO 27001", v: "Certified" },
 ];
 
 export default function ProductsPage() {
@@ -40,7 +44,7 @@ export default function ProductsPage() {
     <>
       <Navbar />
       <main className="flex-1">
-        <section className="mx-auto max-w-6xl px-6 pb-16 pt-20 md:pt-28">
+        <section className="mx-auto max-w-6xl px-6 pb-8 pt-20 md:pt-28">
           <Reveal>
             <p className="text-sm font-medium uppercase tracking-wide text-neutral-500">
               Products
@@ -55,41 +59,36 @@ export default function ProductsPage() {
           </Reveal>
         </section>
 
-        <section className="border-y border-neutral-100 bg-neutral-50">
-          <div className="mx-auto max-w-6xl px-6 py-20">
-            <div className="grid gap-12 md:grid-cols-2">
-              {products.map((p, i) => (
-                <Reveal key={p.t} delay={i * 0.08}>
-                  <div>
-                    <h2 className="text-xl font-semibold text-neutral-900">
-                      {p.t}
-                    </h2>
-                    <p className="mt-3 text-sm leading-relaxed text-neutral-600">
-                      {p.d}
-                    </p>
+        <section className="mx-auto max-w-6xl px-6 py-16">
+          <div className="grid gap-8 md:grid-cols-2">
+            {products.map((p, i) => (
+              <Reveal key={p.label} delay={i * 0.1}>
+                <div className="flex h-full flex-col rounded-2xl border border-neutral-200 bg-white p-8">
+                  <div className="flex items-center gap-3">
+                    <h2 className="text-xl font-semibold text-neutral-900">{p.label}</h2>
+                    {p.tag && (
+                      <span className="rounded-full bg-amber-100 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-amber-700">
+                        {p.tag}
+                      </span>
+                    )}
                   </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-6xl px-6 py-20">
-          <Reveal>
-            <h2 className="text-2xl font-semibold tracking-tight text-neutral-900">
-              Enterprise-grade by default
-            </h2>
-            <p className="mt-3 max-w-xl text-neutral-600">
-              Security, uptime, and compliance are not afterthoughts — they are
-              foundational requirements.
-            </p>
-          </Reveal>
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {stats.map((s, i) => (
-              <Reveal key={s.v} delay={i * 0.06}>
-                <div className="rounded-2xl border border-neutral-100 p-6">
-                  <p className="text-2xl font-bold text-neutral-900">{s.k}</p>
-                  <p className="mt-1 text-sm text-neutral-500">{s.v}</p>
+                  <p className="mt-4 text-sm leading-relaxed text-neutral-600">{p.d}</p>
+                  <div className="mt-6 grid grid-cols-2 gap-3">
+                    {p.stats.map((s) => (
+                      <div key={s.v} className="rounded-lg bg-neutral-50 px-3 py-2">
+                        <p className="text-sm font-bold text-neutral-900">{s.k}</p>
+                        <p className="text-[11px] text-neutral-500">{s.v}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-6">
+                    <Link
+                      href={p.href}
+                      className="text-sm font-medium text-neutral-900 underline underline-offset-4 hover:no-underline"
+                    >
+                      {p.hrefLabel} →
+                    </Link>
+                  </div>
                 </div>
               </Reveal>
             ))}
@@ -108,41 +107,6 @@ export default function ProductsPage() {
                   className="rounded-full bg-neutral-900 px-6 py-3 text-sm font-medium text-white transition-transform hover:scale-105"
                 >
                   Get in touch
-                </a>
-              </div>
-            </Reveal>
-          </div>
-        </section>
-
-        <section className="border-t border-neutral-100 bg-neutral-50">
-          <div className="mx-auto max-w-6xl px-6 py-20">
-            <Reveal>
-              <p className="text-sm font-medium uppercase tracking-wide text-neutral-500">
-                Research model
-              </p>
-              <h2 className="mt-3 text-2xl font-semibold tracking-tight text-neutral-900">
-                mentee-embed
-              </h2>
-              <p className="mt-3 max-w-2xl text-neutral-600">
-                Our compact, multilingual text embedding model — ~41M
-                parameters, trained from scratch for Arabic, English, and Urdu
-                retrieval. 384-dimensional outputs, up to 512-token context,
-                fully reproducible.
-              </p>
-              <div className="mt-6 flex flex-wrap gap-4">
-                <a
-                  href="/research"
-                  className="rounded-full bg-neutral-900 px-6 py-3 text-sm font-medium text-white transition-transform hover:scale-105"
-                >
-                  Read the research
-                </a>
-                <a
-                  href="https://github.com/MenteE-s/mentee-embeddings"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-full border border-neutral-200 px-6 py-3 text-sm font-medium text-neutral-700 transition-colors hover:border-neutral-400 hover:text-black"
-                >
-                  View on GitHub
                 </a>
               </div>
             </Reveal>

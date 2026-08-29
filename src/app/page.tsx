@@ -5,6 +5,7 @@ import { Marquee } from "@/components/Marquee";
 import { ResearchTeaser } from "@/components/ResearchTeaser";
 import { WhatWeBuild } from "@/components/WhatWeBuild";
 import { Capabilities } from "@/components/Capabilities";
+import { ProductCards } from "@/components/ProductCards";
 import { FAQ } from "@/components/FAQ";
 import { CTA } from "@/components/CTA";
 import { Footer } from "@/components/Footer";
@@ -47,6 +48,7 @@ export default function Home() {
         <ResearchTeaser />
         <WhatWeBuild />
         <Capabilities />
+        <ProductCards />
         <section className="mx-auto max-w-6xl px-6 py-20">
           <div className="flex items-end justify-between">
             <div>
