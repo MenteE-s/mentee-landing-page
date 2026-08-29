@@ -6,28 +6,40 @@ import { Reveal } from "./Reveal";
 
 const faqs = [
   {
-    q: "What does MenteE do?",
-    a: "MenteE builds and deploys AI-powered platforms — products designed for real-world use at scale. We do not consult; we ship.",
+    q: "What is MenteE?",
+    a: "MenteE is a product company. We build and ship AI-powered platforms — not custom solutions. Our two products are MenteE Embed (multilingual text embeddings) and MenteE SWE (autonomous software engineering agent).",
   },
   {
-    q: "What kind of platforms does MenteE build?",
-    a: "We focus on AI-driven platforms that automate complex workflows, process data at scale, and support better decision-making. Our products serve businesses and individuals across multiple industries.",
+    q: "What is MenteE Embed?",
+    a: "A compact multilingual text embedding model — ~41M parameters, trained from scratch for Arabic, English, and Urdu retrieval. 384-dimensional outputs, up to 512-token context, Apache 2.0 licensed. Available on Hugging Face.",
+  },
+  {
+    q: "What is MenteE SWE?",
+    a: "An autonomous software-engineering agent that lives in your terminal. You describe a task in plain English, and it explores your repo, edits files, verifies with your tests, and reports back with evidence. Model-agnostic — bring your own API key.",
   },
   {
     q: "Is MenteE an agency?",
     a: "No. We are a product company. We build, deploy, and operate our own platforms — we do not take client briefs or build custom solutions to order.",
   },
   {
-    q: "How do I use MenteE's products?",
-    a: "Our platforms are built to be deployed and used directly. Reach out through our contact page and we will walk you through what is available.",
+    q: "How do I install MenteE SWE?",
+    a: "npm i -g @menteeai/menteeswe, then run mentee in your terminal. Configure a provider with mentee config. It requires Node 20 or later.",
   },
   {
-    q: "Is MenteE suitable for both small teams and large enterprises?",
-    a: "Yes. Our platforms are designed to scale — from focused team-level use to organization-wide deployments.",
+    q: "Which models does MenteE SWE support?",
+    a: "It is model-agnostic. Supported providers include Z.ai Coding (default), Z.ai GLM, Kimi Moonshot, and GLM Zhipu. Switch providers with a flag or inside the terminal UI.",
   },
   {
-    q: "How do we get started?",
-    a: "Get in touch through our contact page. We will show you what we have built and how it fits your needs.",
+    q: "Is MenteE SWE safe to run?",
+    a: "Yes. Read-only and diagnostic operations run automatically. Installs and git-history changes ask for approval. Destructive commands like rm -rf or sudo are blocked entirely. Deletion is never automatic.",
+  },
+  {
+    q: "Where can I find the Embed model?",
+    a: "On Hugging Face under MenteEAI. The latest version is mentee-embed-v4 with 41M parameters, 384-dim output, and a 146% improvement on our custom trilingual benchmark over v3.",
+  },
+  {
+    q: "How do I get started?",
+    a: "For MenteE Embed, visit the Research page or Hugging Face. For MenteE SWE, install via npm and run mentee config. For general inquiries, reach out through our Contact page.",
   },
 ];
 

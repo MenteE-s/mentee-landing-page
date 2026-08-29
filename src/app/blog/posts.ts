@@ -13,6 +13,230 @@ export type BlogPost = {
 };
 
 export const posts: BlogPost[] = [
+  // ── NEW v4 + SWE posts (newest first) ──────────────────────────────
+  {
+    slug: "introducing-mentee-swe-autonomous-coding-agent",
+    title: "Introducing MenteE SWE: An Autonomous Coding Agent for Your Terminal",
+    excerpt:
+      "MenteE SWE is a model-agnostic autonomous software-engineering agent. It investigates, edits, verifies with your tests, and reports with evidence. Install via npm, bring your own API key.",
+    date: "2026-08-29",
+    author: "MenteE AI Team",
+    authorLink: "https://menteeai.org",
+    tags: ["Product", "MenteE SWE", "Developer Tools"],
+    keywords: [
+      "MenteE SWE", "autonomous coding agent", "terminal agent",
+      "AI software engineering", "@menteeai/menteeswe", "SWE agent",
+    ],
+    readTime: "6 min read",
+    coverLabel: "Product",
+    content: `
+      <p><strong>MenteE SWE</strong> is our autonomous software-engineering agent. It lives in your terminal, investigates your repository, plans the change, edits files with surgical precision, verifies with your own tests, and reports back with evidence — never claiming success without proof.</p>
+
+      <h2>What it is</h2>
+      <p>MenteE SWE is a <strong>model-agnostic</strong> autonomous SWE agent. You bring your own model key; MenteE supplies the brain-to-editor harness: the tool layer, the verification loop, context management, and orchestration. The product is the harness — not the underlying LLM.</p>
+      <ul>
+        <li><strong>Autonomous by default</strong> — describe a task in plain English; it explores, edits, and verifies on its own.</li>
+        <li><strong>Model-agnostic</strong> — switch providers without changing how you work.</li>
+        <li><strong>Safe by design</strong> — no silent deletions, no unbounded reads, no destructive commands without approval.</li>
+        <li><strong>Persistent</strong> — remembers prior conversations and project knowledge across restarts.</li>
+      </ul>
+
+      <h2>Install and go</h2>
+      <pre><code>npm i -g @menteeai/menteeswe
+mentee config
+cd your-project
+mentee "fix the failing auth tests"</code></pre>
+      <p>Or try without installing: <code>npx @menteeai/menteeswe "your task"</code>. Requires Node 20+. MIT licensed.</p>
+
+      <h2>The tool suite</h2>
+      <p>MenteE SWE ships with a complete tool layer: filesystem (read, write, patch, move), search (regex, files, list), git (status, diff, log, branches), execution (with safe auto-approve for reads), testing (run tests, linter, typecheck), environment inspection, persistent memory, and web search. There is no <code>delete_file</code> tool — deletion is never automatic.</p>
+
+      <h2>Supported providers</h2>
+      <p>Z.ai Coding is the default. Also supports Kimi Moonshot, GLM Zhipu, and Z.ai GLM international. All configurable via <code>mentee config</code> or environment variables.</p>
+
+      <h2>What's next</h2>
+      <p>Subagents for parallel investigation, PR creation workflows, and team/shared memory scopes are on the roadmap. Install it today from <a href="https://www.npmjs.com/package/@menteeai/menteeswe" target="_blank" rel="noopener">npm</a> or visit <a href="/products/swe">/products/swe</a> for details.</p>
+    `,
+  },
+  {
+    slug: "mentee-embed-v4-41m-model-benchmarks",
+    title: "mentee-embed-v4: 146% Custom Bench Improvement, 18K sents/sec, mMARCO Arabic",
+    excerpt:
+      "MenteE AI publishes mentee-embed-v4 — 2.6M triplets, 3-round distillation, mMARCO Arabic data. Custom bench MRR@10 0.252 (+146% vs v3), MIRACL AR 0.874, 18,115 sents/sec on RTX 5090.",
+    date: "2026-08-28",
+    author: "MenteE AI Research",
+    authorLink: "https://menteeai.org/research",
+    tags: ["Research", "mentee-embed", "AI"],
+    keywords: [
+      "mentee-embed-v4", "trilingual embeddings", "mMARCO Arabic",
+      "embedding benchmarks", "MenteE AI", "knowledge distillation",
+    ],
+    readTime: "8 min read",
+    coverLabel: "Research",
+    content: `
+      <p><strong>MenteE AI</strong> publishes <strong>mentee-embed-v4</strong>, the latest model in our trilingual embedding series for Arabic, English, and Urdu. v4 retains the 41M architecture from v3 but expands training data to <strong>2.6M triplets</strong> with mMARCO Arabic retrieval data (500K) and adds a <strong>third distillation round</strong> with re-mined hard negatives.</p>
+
+      <h2>What changed from v3 to v4</h2>
+      <ul>
+        <li>Training data: 2.1M → <strong>2.6M triplets</strong> (+500K mMARCO Arabic)</li>
+        <li>Distillation rounds: 2 → <strong>3 rounds</strong> with progressive hard negative mining</li>
+        <li>Custom bench MRR@10: 0.103 → <strong>0.252 (+146%)</strong></li>
+        <li>MIRACL AR: 0.475 → <strong>0.825 (acc@1) / 0.874 (MRR@10)</strong></li>
+        <li>Throughput: <strong>18,115 sents/sec</strong> on RTX 5090 — 3.5× faster than mpnet-base</li>
+        <li>Cost: <strong>$7.15 per 1B sentences</strong></li>
+      </ul>
+
+      <h2>Training pipeline</h2>
+      <p>Stage A: 50K-step MLM pretraining (6× more than v3). Stage B: three distillation rounds with GPU-accelerated hard negative mining between each. Teacher: multilingual-e5-base. The third round polished performance on dialect Arabic and Roman Urdu — the hardest slices.</p>
+
+      <h2>Key finding: Arabic is strong</h2>
+      <p>v4 scores 0.825/0.874 on MIRACL Arabic — close to pretrained mpnet-base (0.860/0.898) at <strong>6.8× fewer parameters</strong>. This is the first sub-50M model to approach pretrained performance on Arabic retrieval from random initialization.</p>
+
+      <h2>How to use v4</h2>
+      <pre><code>from transformers import AutoModel, AutoTokenizer
+
+tok   = AutoTokenizer.from_pretrained("MenteEAI/mentee-embed-v4", trust_remote_code=True)
+model = AutoModel.from_pretrained("MenteEAI/mentee-embed-v4",    trust_remote_code=True)
+
+embeddings = model.encode(texts, tokenizer=tok)
+# torch.Tensor of shape (N, 384), L2-normalised</code></pre>
+
+      <h2>Full report</h2>
+      <p>All benchmarks, charts, and reproduction steps at <a href="/research">/research</a>. Model: <a href="https://huggingface.co/MenteEAI/mentee-embed-v4" target="_blank" rel="noopener">MenteEAI/mentee-embed-v4</a>. GitHub: <a href="https://github.com/MenteE-s/mentee-embeddings" target="_blank" rel="noopener">github.com/MenteE-s/mentee-embeddings</a>.</p>
+    `,
+  },
+  {
+    slug: "using-mentee-swe-in-ci-cd-pipelines",
+    title: "Using MenteE SWE in CI/CD: Headless Mode for Automated Code Fixes",
+    excerpt:
+      "MenteE SWE supports headless mode for CI/CD pipelines. Run tasks without the terminal UI, get structured output, and integrate autonomous code fixes into your workflow.",
+    date: "2026-08-27",
+    author: "MenteE AI Team",
+    authorLink: "https://menteeai.org",
+    tags: ["Guide", "MenteE SWE", "DevOps"],
+    keywords: [
+      "MenteE SWE CI/CD", "headless mode", "automated code fixes",
+      "pipeline automation", "@menteeai/menteeswe",
+    ],
+    readTime: "5 min read",
+    coverLabel: "Guide",
+    content: `
+      <p>MenteE SWE is not just a terminal tool — it supports <strong>headless mode</strong> for scripted and CI/CD workflows. Here is how to integrate it into your pipeline.</p>
+
+      <h2>Headless mode</h2>
+      <pre><code>mentee --yes --no-tui "fix the failing tests"</code></pre>
+      <p>The <code>--yes</code> flag auto-approves restricted operations. <code>--no-tui</code> disables the interactive terminal UI and outputs plain text. This is ideal for GitHub Actions, GitLab CI, or any scripted environment.</p>
+
+      <h2>Example: GitHub Actions</h2>
+      <pre><code>- name: Auto-fix lint issues
+  run: |
+    npx @menteeai/menteeswe --yes --no-tui "fix all ESLint errors in src/"</code></pre>
+      <p>MenteE SWE will explore the codebase, identify the lint errors, apply fixes, run your linter to verify, and report what changed — all without human intervention.</p>
+
+      <h2>Safety in automation</h2>
+      <p>Even in headless mode, the safety model applies. Dangerous commands are blocked. Deletion is never automatic. The agent is scoped to your workspace. In CI, this means it can fix code but cannot push — you review and merge.</p>
+
+      <h2>Provider configuration for CI</h2>
+      <p>Set your API key as a CI secret: <code>MENTEE_ZAI_API_KEY: \${{ secrets.MENTEE_ZAI_API_KEY }}</code>. The agent reads it from the environment — no config file needed in CI.</p>
+
+      <h2>Learn more</h2>
+      <p>Full CLI reference and provider setup at <a href="/products/swe">/products/swe</a>. Package: <a href="https://www.npmjs.com/package/@menteeai/menteeswe" target="_blank" rel="noopener">@menteeai/menteeswe</a>.</p>
+    `,
+  },
+  {
+    slug: "arabic-embedding-benchmark-2026-mentee-embed-v4",
+    title: "Arabic Embedding Benchmark 2026: How mentee-embed-v4 Approaches Pretrained Performance",
+    excerpt:
+      "mentee-embed-v4 scores 0.874 MRR@10 on MIRACL Arabic — close to mpnet-base (0.898) at 6.8× fewer parameters. A deep dive into Arabic retrieval from scratch.",
+    date: "2026-08-26",
+    author: "MenteE AI Research",
+    authorLink: "https://menteeai.org/research",
+    tags: ["Research", "Arabic NLP", "Embeddings"],
+    keywords: [
+      "Arabic embeddings", "MIRACL Arabic", "mentee-embed-v4",
+      "Arabic NLP 2026", "multilingual retrieval", "MenteE AI",
+    ],
+    readTime: "7 min read",
+    coverLabel: "Research",
+    content: `
+      <p>Arabic is one of the hardest languages for small embedding models. Most sub-100M models either ignore it entirely or score poorly. <strong>mentee-embed-v4</strong> from <a href="https://menteeai.org">MenteE AI</a> changes that — scoring <strong>0.874 MRR@10 on MIRACL Arabic</strong>, close to pretrained mpnet-base (0.898) at 6.8× fewer parameters.</p>
+
+      <h2>The Arabic problem in small models</h2>
+      <p>all-MiniLM-L6-v2 (23M, pretrained on 1B+ English pairs) scores 0.084 on dialect Arabic in our custom bench. That is effectively random. Arabic has complex morphology, diglossia (MSA vs dialect), and right-to-left script — none of which English-pretrained models handle well.</p>
+
+      <h2>How v4 solves it</h2>
+      <ul>
+        <li>Custom 50K BPE tokenizer trained on trilingual corpus — Arabic gets fair vocabulary share</li>
+        <li>500K mMARCO Arabic retrieval triplets added to training data</li>
+        <li>3-round distillation with progressive hard negative mining</li>
+        <li>50K MLM pretraining steps (6× more than v3) for deeper language understanding</li>
+      </ul>
+
+      <h2>Results</h2>
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:20px 0; text-align:center;">
+        <div style="border:1px solid #e5e7eb; border-radius:16px; padding:20px;">
+          <div style="font-size:26px; font-weight:800; color:#111;">0.874</div>
+          <div style="font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:#737373;">MIRACL AR MRR@10</div>
+          <div style="font-size:12px; color:#a3a3a3;">vs 0.898 mpnet</div>
+        </div>
+        <div style="border:1px solid #e5e7eb; border-radius:16px; padding:20px;">
+          <div style="font-size:26px; font-weight:800; color:#111;">41M</div>
+          <div style="font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:#737373;">Parameters</div>
+          <div style="font-size:12px; color:#a3a3a3;">vs 278M mpnet</div>
+        </div>
+        <div style="border:1px solid #e5e7eb; border-radius:16px; padding:20px;">
+          <div style="font-size:26px; font-weight:800; color:#111;">3.5×</div>
+          <div style="font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:#737373;">Faster inference</div>
+          <div style="font-size:12px; color:#a3a3a3;">18,115 sents/sec</div>
+        </div>
+      </div>
+
+      <h2>What this means</h2>
+      <p>For the first time, a sub-50M model trained from scratch approaches pretrained performance on Arabic retrieval. This unlocks Arabic-first search, RAG, and classification for fintech, legal, and government workflows in MENA — at a fraction of the compute cost.</p>
+
+      <h2>Full report</h2>
+      <p>Per-language breakdowns, charts, and reproduction steps at <a href="/research">/research</a>. Model: <a href="https://huggingface.co/MenteEAI/mentee-embed-v4" target="_blank" rel="noopener">MenteEAI/mentee-embed-v4</a>.</p>
+    `,
+  },
+  {
+    slug: "why-we-train-from-scratch-instead-of-fine-tuning",
+    title: "Why We Train From Scratch Instead of Fine-Tuning: The MenteE Embed Philosophy",
+    excerpt:
+      "Most embedding models fine-tune a pretrained backbone. MenteE Embed trains from random initialization. Here is why we chose the harder path and what it gives us.",
+    date: "2026-08-25",
+    author: "MenteE AI Research",
+    authorLink: "https://menteeai.org/research",
+    tags: ["Research", "AI", "Philosophy"],
+    keywords: [
+      "train from scratch", "embedding training", "knowledge distillation",
+      "MenteE AI", "MLM pretraining", "contrastive learning",
+    ],
+    readTime: "6 min read",
+    coverLabel: "Research",
+    content: `
+      <p>Every major embedding model — MiniLM, E5, BGE, mpnet — fine-tunes a pretrained backbone. <strong>MenteE Embed</strong> trains from random initialization. This is harder, slower, and produces smaller numbers on English benchmarks. We chose it anyway. Here is why.</p>
+
+      <h2>The fine-tuning trap</h2>
+      <p>Fine-tuning gives you strong English performance for free — the backbone already knows English. But it also means your model inherits the backbone's biases: English-heavy vocabulary, limited Arabic/Urdu morphology, and a fixed architecture that may not fit your latency budget. When we tested MiniLM-L6-v2 on Arabic, it scored 0.084 on dialect — effectively random despite being "pretrained on 1B+ pairs."</p>
+
+      <h2>What training from scratch gives us</h2>
+      <ul>
+        <li><strong>Custom tokenizer</strong> — 50K BPE trained on our trilingual corpus, giving Arabic and Urdu fair vocabulary share</li>
+        <li><strong>Controlled architecture</strong> — 41M params, 384-dim, 512-token context — exactly what we need, nothing more</li>
+        <li><strong>Language parity</strong> — no English head start means the model must learn all three languages equally</li>
+        <li><strong>Full reproducibility</strong> — random seed → trained model, no pretrained dependencies</li>
+      </ul>
+
+      <h2>The cost</h2>
+      <p>Training from scratch requires more data, more steps, and careful bootstrap. Our two-stage recipe (MLM → relational distillation) solves the collapse problem that kills most from-scratch attempts. Stage A gives language awareness; Stage B gives retrieval geometry. The v1→v4 progression proves the method scales.</p>
+
+      <h2>The result</h2>
+      <p>v4 scores 0.874 MIRACL AR from random init — approaching pretrained mpnet (0.898) at 6.8× fewer parameters. That is not a coincidence — it is what happens when you design the model for the task instead of adapting someone else's model to the task.</p>
+
+      <h2>Read more</h2>
+      <p>Full training details at <a href="/research">/research</a>. Code: <a href="https://github.com/MenteE-s/mentee-embeddings" target="_blank" rel="noopener">github.com/MenteE-s/mentee-embeddings</a>. Model: <a href="https://huggingface.co/MenteEAI/mentee-embed-v4" target="_blank" rel="noopener">MenteEAI/mentee-embed-v4</a>.</p>
+    `,
+  },
   // ── NEW v3 posts (prepended — newest first) ──────────────────────────────
   {
     slug: "introducing-mentee-embed-v3-how-far-can-you-train-from-scratch",
