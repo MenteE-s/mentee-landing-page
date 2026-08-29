@@ -53,11 +53,9 @@ const chapterComponents: Record<ModelId, React.ReactNode> = {
 };
 
 export function ResearchPage() {
-  // Latest model selected by default
   const [selectedModel, setSelectedModel] = useState<ModelId>("v4");
   const [activeSection, setActiveSection] = useState("overview");
 
-  /* TOC = Overview + selected model's sections + shared tail */
   const sections = useMemo(
     () => [
       ...sharedSections.filter((s) => s.id === "overview"),
@@ -67,7 +65,6 @@ export function ResearchPage() {
     [selectedModel]
   );
 
-  /* Scroll-spy — re-attach whenever the model (and its sections) change */
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -96,7 +93,6 @@ export function ResearchPage() {
     if (m === selectedModel) return;
     setSelectedModel(m);
     setActiveSection(modelSections[m][0]?.id ?? "overview");
-    // Scroll to the chapter banner after the new content renders
     requestAnimationFrame(() => {
       document
         .getElementById(`chapter-${m}`)
@@ -110,9 +106,11 @@ export function ResearchPage() {
     <>
       <ReadingProgress />
       <Navbar />
-      <main className="flex-1">
-        <div className="mx-auto max-w-7xl px-4 pb-20 pt-20 md:pt-28">
-          <div className="flex gap-8">
+      <main className="flex-1 bg-neutral-50/50">
+        {/* Desktop: sidebar + main grid */}
+        <div className="mx-auto max-w-[1400px] px-4 pb-20 pt-20 md:pt-28">
+          <div className="flex gap-6 lg:gap-8">
+            {/* Sidebar — hidden on mobile (handled by top-bar + drawer in ResearchTOC) */}
             <ResearchTOC
               sections={sections}
               activeId={activeSection}
@@ -122,25 +120,27 @@ export function ResearchPage() {
               onModelChange={handleModelChange}
             />
 
+            {/* Main content */}
             <div className="min-w-0 flex-1">
-              <Overview />
+              <div className="mx-auto max-w-3xl">
+                <Overview />
 
-              {/* Selected model chapter */}
-              <div id={`chapter-${selectedModel}`} className="mt-20 scroll-mt-24">
-                <ChapterBanner version={chapter.version} label={chapter.label} />
+                <div id={`chapter-${selectedModel}`} className="mt-16 scroll-mt-28 lg:mt-20">
+                  <ChapterBanner version={chapter.version} label={chapter.label} />
+                </div>
+                {chapterComponents[selectedModel]}
+
+                <Roadmap />
+                <Reproduction />
               </div>
-              {chapterComponents[selectedModel]}
-
-              <Roadmap />
-              <Reproduction />
             </div>
           </div>
         </div>
 
         {/* Footer note */}
-        <div className="border-t border-neutral-100 bg-neutral-50">
-          <div className="mx-auto max-w-7xl px-4 py-6">
-            <p className="text-xs text-neutral-400">
+        <div className="border-t border-neutral-200 bg-white">
+          <div className="mx-auto max-w-[1400px] px-4 py-5">
+            <p className="text-[11px] leading-relaxed text-neutral-400">
               MenteE AI · Trilingual embeddings trained from scratch · Arabic ·
               English · Urdu · v1: MLM → distillation · v3: + MS-MARCO + hard
               negatives + batch 512 · v4: + mMARCO Arabic + 3-round distillation.

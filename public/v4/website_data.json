@@ -1,0 +1,117 @@
+{
+  "model": "mentee-embed-v4",
+  "version": "4",
+  "params_M": 41,
+  "embedding_dim": 384,
+  "max_seq_len": 128,
+  "languages": ["ar", "en", "ur"],
+  "training_data": "~2.6M triplets",
+  "initialization": "random (from scratch)",
+  "architecture": "12-layer Transformer",
+  "huggingface": "MenteEAI/mentee-embed-v4",
+  "license": "apache-2.0",
+  "trained_on": "RTX 5090",
+
+  "benchmarks": {
+    "custom_bench": {
+      "description": "MenteE Embed Bench — 121 queries, 18 domains, dialect Arabic, Roman Urdu",
+      "all_mrr10": 0.252,
+      "all_ndcg10": 0.238,
+      "all_r1": 0.083,
+      "all_r5": 0.203,
+      "all_r10": 0.273,
+      "per_language": {
+        "en": { "mrr10": 0.369, "ndcg10": 0.331, "r1": 0.131, "r5": 0.298, "r10": 0.405 },
+        "ar": { "mrr10": 0.120, "ndcg10": 0.166, "r1": 0.025, "r5": 0.100, "r10": 0.175 },
+        "ur": { "mrr10": 0.261, "ndcg10": 0.212, "r1": 0.090, "r5": 0.205, "r10": 0.231 }
+      },
+      "special": {
+        "dialect_ar": { "mrr10": 0.095 },
+        "roman_urdu": { "mrr10": 0.399 }
+      }
+    },
+    "miracl": {
+      "protocol": "A — In-batch retrieval",
+      "en": { "acc1": 0.870, "mrr10": 0.916 },
+      "ar": { "acc1": 0.825, "mrr10": 0.874 },
+      "ur": { "acc1": 0.475, "mrr10": 0.572 }
+    },
+    "msmarco": {
+      "protocol": "C — 10K passage retrieval",
+      "mrr10": 0.706,
+      "r5": 0.913,
+      "r100": 0.980
+    },
+    "stsb": {
+      "spearman": 0.725,
+      "pearson": 0.730,
+      "mae": 2.059,
+      "rmse": 2.458
+    }
+  },
+
+  "speed": {
+    "device": "RTX 5090",
+    "sents_per_sec_bs128": 18115,
+    "latency_single_ms": 5.15,
+    "peak_vram_mb": 175,
+    "cost_per_1b_sents_usd": 7.15,
+    "batch_scaling": {
+      "bs1": { "sents_per_sec": 145, "latency_ms": 6.9, "vram_mb": 174 },
+      "bs8": { "sents_per_sec": 902, "latency_ms": 8.87, "vram_mb": 177 },
+      "bs16": { "sents_per_sec": 1707, "latency_ms": 9.37, "vram_mb": 181 },
+      "bs32": { "sents_per_sec": 3424, "latency_ms": 9.35, "vram_mb": 188 },
+      "bs64": { "sents_per_sec": 6470, "latency_ms": 9.89, "vram_mb": 202 },
+      "bs128": { "sents_per_sec": 12418, "latency_ms": 10.31, "vram_mb": 230 },
+      "bs256": { "sents_per_sec": 20546, "latency_ms": 12.46, "vram_mb": 287 },
+      "bs512": { "sents_per_sec": 22139, "latency_ms": 23.13, "vram_mb": 400 }
+    },
+    "precision": {
+      "fp32": { "sents_per_sec_bs128": 12500, "vram_mb": 289 },
+      "fp16": { "sents_per_sec_bs128": 3632, "vram_mb": 149 },
+      "bf16": { "sents_per_sec_bs128": 2837, "vram_mb": 149 }
+    }
+  },
+
+  "efficiency": {
+    "mrr_per_1m_params": 0.525,
+    "sents_per_sec_per_1m_params": 441.82
+  },
+
+  "v3_comparison": {
+    "v3_mrr10": 0.103,
+    "v4_mrr10": 0.252,
+    "v3_miracl_en": 0.768,
+    "v4_miracl_en": 0.916,
+    "v3_miracl_ar": 0.447,
+    "v4_miracl_ar": 0.874,
+    "v3_miracl_ur": 0.354,
+    "v4_miracl_ur": 0.572,
+    "v3_msmarco": 0.592,
+    "v4_msmarco": 0.706,
+    "v3_stsb": 0.683,
+    "v4_stsb": 0.725
+  },
+
+  "training_pipeline": [
+    { "stage": 1, "name": "MLM Pretraining", "steps": 50000, "description": "Random init → masked language modeling on trilingual corpus" },
+    { "stage": 2, "name": "Teacher Encoding", "description": "Encode all 2.6M triplets with multilingual-e5-base" },
+    { "stage": 3, "name": "Distillation Round 1", "steps": 4000, "description": "InfoNCE contrastive + relational distillation" },
+    { "stage": 4, "name": "Hard Negative Mining 1", "description": "GPU-accelerated top-5 mining across full corpus" },
+    { "stage": 5, "name": "Distillation Round 2", "steps": 10000, "description": "Train with hard negatives" },
+    { "stage": 6, "name": "Hard Negative Mining 2", "description": "Re-mine with improved model" },
+    { "stage": 7, "name": "Distillation Round 3", "steps": 15000, "description": "Final polish on round-2 mined negatives" }
+  ],
+
+  "training_data_sources": [
+    { "source": "all-NLI", "lang": "en", "triplets": 558000, "type": "NLI" },
+    { "source": "XNLI", "lang": "ar", "triplets": 128000, "type": "NLI" },
+    { "source": "XNLI", "lang": "ur", "triplets": 125000, "type": "NLI" },
+    { "source": "OPUS-100 EN-UR", "lang": "en/ur", "triplets": 300000, "type": "Parallel" },
+    { "source": "OPUS-100 AR-EN", "lang": "ar/en", "triplets": 300000, "type": "Parallel" },
+    { "source": "MS-MARCO BM25", "lang": "en", "triplets": 500000, "type": "Retrieval" },
+    { "source": "MS-MARCO hard neg", "lang": "en", "triplets": 200000, "type": "Retrieval" },
+    { "source": "mMARCO Arabic", "lang": "ar", "triplets": 500000, "type": "Retrieval" },
+    { "source": "MIRACL", "lang": "en/ar/ur", "triplets": 9000, "type": "Wikipedia" }
+  ]
+}

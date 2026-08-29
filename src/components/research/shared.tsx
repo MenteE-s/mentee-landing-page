@@ -158,8 +158,8 @@ export function TableCard({
 
 export function Figure({ src, alt, width = 840, height = 460 }: { src: string; alt: string; width?: number; height?: number }) {
   return (
-    <div className="mt-6 overflow-hidden rounded-xl border border-neutral-100">
-      <Image src={src} alt={alt} width={width} height={height} className="w-full" />
+    <div className="my-6 mx-auto max-w-2xl overflow-hidden rounded-xl border border-neutral-200 shadow-sm">
+      <Image src={src} alt={alt} width={width} height={height} className="w-full h-auto" />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { Reveal, SectionHeading, StatGrid, StrengthList, LimitationList, TableCard, InitBadge, ModelCell, NumCell, PublicationCard } from "./shared";
+import { Reveal, Figure, SectionHeading, StatGrid, StrengthList, LimitationList, TableCard, InitBadge, ModelCell, NumCell, PublicationCard } from "./shared";
 import { CustomBenchChart, EfficiencyScatterChart, TrainingDataChart, SpeedBarsChart } from "./Charts";
 import { v4Stats, v4CustomBench, v4MIRACL, v4MSCMARCO, v4Sts, v4Speed, v4Efficiency, v4DataSources, v4Strengths, v4Limitations } from "./data";
 
@@ -55,6 +55,10 @@ export function V4Approach() {
             ))}
           </ol>
         </div>
+      </Reveal>
+
+      <Reveal delay={0.14}>
+        <Figure src="/v4/charts/v4_radar.png" alt="mentee-embed-v4 vs mpnet-base normalized radar comparison" />
       </Reveal>
 
       {/* Training data */}
@@ -162,6 +166,10 @@ export function V4Benchmarks() {
         <CustomBenchChart />
       </Reveal>
 
+      <Reveal delay={0.09}>
+        <Figure src="/v4/charts/bench_per_lang.png" alt="Custom bench per-language MRR@10 comparison" />
+      </Reveal>
+
       {/* MIRACL */}
       <Reveal delay={0.1}>
         <div className="mt-4">
@@ -202,6 +210,10 @@ export function V4Benchmarks() {
         </div>
       </Reveal>
 
+      <Reveal delay={0.11}>
+        <Figure src="/v4/charts/miracl_protocol_a.png" alt="MIRACL Protocol A MRR@10 per language" />
+      </Reveal>
+
       {/* MS-MARCO + STS side-by-side */}
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
         <Reveal delay={0.14}>
@@ -231,6 +243,10 @@ export function V4Benchmarks() {
               </tbody>
             </table>
           </TableCard>
+        </Reveal>
+
+        <Reveal delay={0.15}>
+          <Figure src="/v4/charts/msmarco_protocol_c.png" alt="MS-MARCO Protocol C corpus retrieval comparison" />
         </Reveal>
 
         <Reveal delay={0.18}>
@@ -318,7 +334,19 @@ export function V4Speed() {
       </Reveal>
 
       <Reveal delay={0.08}>
+        <Figure src="/v4/charts/speed_comparison.png" alt="Speed comparison throughput and latency" />
+      </Reveal>
+
+      <Reveal delay={0.09}>
+        <Figure src="/v4/charts/cost_comparison.png" alt="Cost to encode 1 billion sentences" />
+      </Reveal>
+
+      <Reveal delay={0.1}>
         <EfficiencyScatterChart />
+      </Reveal>
+
+      <Reveal delay={0.11}>
+        <Figure src="/v4/charts/efficiency.png" alt="Efficiency accuracy and speed per parameter" />
       </Reveal>
 
       <Reveal delay={0.1}>
@@ -366,6 +394,9 @@ export function V4Strengths() {
     <section id="v4-strengths" className="mt-16 scroll-mt-24">
       <SectionHeading title="Strengths" />
       <StrengthList items={v4Strengths} />
+      <Reveal delay={0.1}>
+        <Figure src="/v4/charts/v4_per_domain.png" alt="mentee-embed-v4 per-domain MRR@10" />
+      </Reveal>
     </section>
   );
 }

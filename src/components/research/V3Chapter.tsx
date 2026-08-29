@@ -1,6 +1,6 @@
 "use client";
 
-import { Reveal, SectionHeading, StatGrid, StrengthList, LimitationList, TableCard, InitBadge, ModelCell, NumCell, PublicationCard } from "./shared";
+import { Reveal, Figure, SectionHeading, StatGrid, StrengthList, LimitationList, TableCard, InitBadge, ModelCell, NumCell, PublicationCard } from "./shared";
 import { VersionProgressionChart, ProtocolAChart } from "./Charts";
 import { v3Stats, v3VersionTable, v3ProtocolA, v3ProtocolB, v3ProtocolC, v3Sts, v3DataSources, v3Strengths, v3Limitations } from "./data";
 
@@ -22,6 +22,10 @@ export function V3Approach() {
         <div className="mt-6">
           <PublicationCard version="v3" />
         </div>
+      </Reveal>
+
+      <Reveal delay={0.07}>
+        <Figure src="/v3/fig1_architecture.png" alt="mentee-embed architecture and training pipeline" />
       </Reveal>
 
       {/* Version progression */}
@@ -106,6 +110,10 @@ export function V3Approach() {
       </Reveal>
 
       <StatGrid stats={v3Stats} />
+
+      <Reveal delay={0.18}>
+        <Figure src="/v3/fig2_training.png" alt="MLM loss curve and pipeline timing" />
+      </Reveal>
 
       {/* Training data */}
       <Reveal delay={0.2}>
@@ -202,6 +210,10 @@ export function V3Benchmarks() {
         </div>
       </Reveal>
 
+      <Reveal delay={0.08}>
+        <Figure src="/social/chart6_multilingual.png" alt="Multilingual performance Protocol A MRR@10 per language" />
+      </Reveal>
+
       {/* Protocol B */}
       <Reveal delay={0.1}>
         <div className="mt-4">
@@ -275,6 +287,10 @@ export function V3Benchmarks() {
           </TableCard>
         </Reveal>
 
+        <Reveal delay={0.16}>
+          <Figure src="/social/chart3_protocol_c.png" alt="Protocol C MS-MARCO corpus retrieval comparison" />
+        </Reveal>
+
         <Reveal delay={0.18}>
           <TableCard
             title="STS-B — Semantic Similarity"
@@ -343,6 +359,10 @@ export function V3KeyFinding() {
         </div>
       </Reveal>
 
+      <Reveal delay={0.1}>
+        <Figure src="/social/chart4_progression.png" alt="v1 to v2 to v3 progression across all protocols" />
+      </Reveal>
+
       <Reveal delay={0.12}>
         <div className="mt-6 rounded-xl border-l-4 border-green-500 bg-green-50 p-5 text-sm text-neutral-700">
           <strong>Practical implication:</strong> Under a fixed VRAM budget,
@@ -362,6 +382,12 @@ export function V3Strengths() {
     <section id="v3-strengths" className="mt-16 scroll-mt-24">
       <SectionHeading title="Strengths" />
       <StrengthList items={v3Strengths} />
+      <Reveal delay={0.1}>
+        <Figure src="/social/chart5_efficiency.png" alt="Efficiency frontier parameters vs quality" />
+      </Reveal>
+      <Reveal delay={0.14}>
+        <Figure src="/social/chart7_scorecard.png" alt="Full benchmark scorecard" />
+      </Reveal>
     </section>
   );
 }
