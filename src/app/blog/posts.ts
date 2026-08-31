@@ -59,6 +59,97 @@ mentee "fix the failing auth tests"</code></pre>
     `,
   },
   {
+    slug: "migrating-v3-to-v4-embedding-pipeline",
+    title: "Migrating from mentee-embed-v3 to v4: A Practical Guide",
+    excerpt:
+      "v4 is a drop-in replacement for v3 — same dimension, same API. But re-embedding your corpus, re-tuning thresholds, and a few gotchas are worth planning for.",
+    date: "2026-09-01",
+    author: "MenteE AI Research",
+    authorLink: "https://menteeai.org/research",
+    tags: ["Guide", "mentee-embed", "Migration"],
+    keywords: [
+      "mentee-embed-v4 migration", "upgrade embedding model",
+      "re-embedding corpus", "vector database migration", "MenteE AI",
+    ],
+    readTime: "6 min read",
+    coverLabel: "Guide",
+    content: `
+      <p><strong>mentee-embed-v4</strong> keeps the same 384-dimensional output and the same <code>encode()</code> API as v3, so switching models is a one-line change. But because v4 was trained with an extra distillation round and re-mined hard negatives, its embedding geometry shifted enough that <em>you must re-embed your corpus</em> — mixing v3 and v4 vectors in the same index will silently degrade retrieval quality.</p>
+
+      <h2>Step 1: Swap the model</h2>
+      <pre><code># before
+model = AutoModel.from_pretrained("MenteEAI/mentee-embed-v3", trust_remote_code=True)
+
+# after
+model = AutoModel.from_pretrained("MenteEAI/mentee-embed-v4", trust_remote_code=True)</code></pre>
+      <p>Tokenizer, normalization, and max sequence length are unchanged. If you pin versions in production, bump your pin and run your eval suite before continuing.</p>
+
+      <h2>Step 2: Re-embed everything</h2>
+      <p>v3 and v4 vectors are <strong>not compatible</strong> — cosine similarity between the same text embedded by both models averages ~0.7, far below the ~0.95 you'd expect from a drop-in upgrade. Do a full offline re-embed of your document store; don't mix old and new vectors in one index, even temporarily.</p>
+      <pre><code>for batch in chunked(docs, 512):
+    vecs = model.encode(batch, tokenizer=tok)
+    index.upsert(ids=batch_ids, vectors=vecs)</code></pre>
+      <p>At v4's throughput (~18K sentences/sec on an RTX 5090, ~900/sec on a mid-range GPU), a 1M-document corpus re-embeds in minutes, not hours. See the <a href="/research">research page</a> for hardware-specific numbers.</p>
+
+      <h2>Step 3: Re-tune your similarity thresholds</h2>
+      <p>v4 pushes relevant pairs slightly closer together and irrelevant pairs further apart (a side effect of the third distillation round). If you filter on a fixed cosine threshold — common for dedup or routing — expect the optimal cut-off to shift up by roughly 0.02–0.05. Re-run whatever threshold-sweep you used for v3 rather than copying the old value.</p>
+
+      <h2>Gotchas</h2>
+      <ul>
+        <li><strong>Cached embeddings:</strong> if you cache query embeddings keyed by text, invalidate the cache on deploy — stale v3 query vectors against a v4 index will hurt recall.</li>
+        <li><strong>Hybrid pipelines:</strong> BM25 + dense fusion weights may need a small re-tune; v4's stronger Arabic retrieval changes the score distribution on Arabic-heavy corpora.</li>
+        <li><strong>Rollback plan:</strong> keep the v3 index around until your v4 eval numbers are confirmed in production traffic.</li>
+      </ul>
+
+      <h2>Is it worth it?</h2>
+      <p>On our measured benchmarks: custom bench MRR@10 went from 0.103 to 0.252 (+146%), and MIRACL Arabic MRR@10 from 0.475 to 0.874. If your workload includes Arabic, Urdu, or mixed-language retrieval, the migration cost (one re-embed pass) pays for itself immediately. Full numbers and charts are at <a href="/research">/research</a>.</p>
+    `,
+  },
+  {
+    slug: "hard-negative-mining-multilingual-embeddings",
+    title: "Hard Negative Mining: The Highest-Leverage Trick in Multilingual Embedding Training",
+    excerpt:
+      "Random in-batch negatives get you 80% of the way. The last 20% — dialects, code-switching, near-duplicate retrieval — comes from mining negatives that are almost right.",
+    date: "2026-09-03",
+    author: "MenteE AI Research",
+    authorLink: "https://menteeai.org/research",
+    tags: ["Research", "Training", "Contrastive Learning"],
+    keywords: [
+      "hard negative mining", "contrastive learning embeddings",
+      "multilingual retrieval training", "InfoNCE", "mentee-embed",
+    ],
+    readTime: "7 min read",
+    coverLabel: "Research",
+    content: `
+      <p>Ask what drove the biggest quality jump between mentee-embed-v3 and v4 and the answer isn't more data or a bigger model — it's <strong>hard negative mining</strong>. This post explains what it is, why it matters disproportionately for low-resource languages, and how we do it without blowing up training time.</p>
+
+      <h2>The problem with easy negatives</h2>
+      <p>Standard contrastive training (InfoNCE) treats every other example in the batch as a negative. With random batches, those negatives are almost always trivially easy — an English query paired against a random Arabic document teaches the model nothing after the first few thousand steps. The loss drops, eval numbers plateau, and the model never learns fine-grained distinctions.</p>
+      <p>A <strong>hard negative</strong> is a document that is semantically close to the query but not the correct answer: a near-duplicate about a different entity, a same-language passage on a related topic, a dialect variant that says something subtly different. Training against these forces the model to learn actual relevance, not just language matching.</p>
+
+      <h2>Why this matters more for Arabic and Urdu</h2>
+      <p>Low-resource and morphologically rich languages suffer the most from easy-negative training. Arabic dialects and Roman Urdu share vocabulary with their formal counterparts, so a model trained on random negatives learns "Arabic query → any Arabic doc" and collapses dialect, script, and register distinctions. Our v3 error analysis showed exactly this: most retrieval failures were same-language, same-topic, wrong-answer cases.</p>
+
+      <h2>Our pipeline: mine between rounds, on GPU</h2>
+      <p>We run three distillation rounds. Between each round, the current model encodes the full corpus, retrieves the top-k nearest neighbors for every training query, and we sample negatives from ranks 5–50 (skipping the very top hits, which are often unlabeled positives). Everything — encoding, FAISS search, sampling — stays on GPU, so a mining pass over 2.6M triplets adds roughly 20 minutes instead of hours.</p>
+      <pre><code># conceptual sketch
+emb = model.encode(corpus)                  # current-round encoder
+D, I = faiss_index.search(emb, k=50)        # top-50 per query
+hard = sample_from_ranks(I, lo=5, hi=50)    # skip likely positives
+train_round(triplets_with(hard))            # next distillation round</code></pre>
+
+      <h2>Three lessons</h2>
+      <ul>
+        <li><strong>Re-mine every round.</strong> Negatives mined by a stale model go soft — the current model already ranks them correctly. Fresh negatives from the latest checkpoint are what keep the gradient informative.</li>
+        <li><strong>Skip the top ranks.</strong> The #1–4 retrieved "negatives" contain a surprising number of true positives the dataset never labeled. Training against them teaches the model to penalize correct answers.</li>
+        <li><strong>Mix in easy negatives too.</strong> 100% hard negatives destabilizes training. We keep roughly 70% mined / 30% in-batch random, which gave the best MIRACL and custom-bench numbers in our ablations.</li>
+      </ul>
+
+      <h2>Measured impact</h2>
+      <p>Adding the third distillation round with re-mined hard negatives took custom bench MRR@10 from 0.103 to 0.252 and MIRACL Arabic acc@1 from 0.475 to 0.825, with no architecture change and no new labeled data. Full ablation tables are in the <a href="/research">v4 report</a>.</p>
+    `,
+  },
+  {
     slug: "mentee-embed-v4-41m-model-benchmarks",
     title: "mentee-embed-v4: 146% Custom Bench Improvement, 18K sents/sec, mMARCO Arabic",
     excerpt:

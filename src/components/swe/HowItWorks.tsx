@@ -4,56 +4,57 @@ const steps = [
   {
     n: "1",
     t: "You describe a task",
-    d: "Type a plain-English description in the terminal — \"fix the failing auth tests\" or \"add a /health endpoint\".",
+    d: "Type a plain-English instruction in your terminal. MenteE builds a plan using your repo context.",
   },
   {
     n: "2",
-    t: "MenteE loads context",
-    d: "Prior conversations, project memory, and a snapshot of your project tree are loaded as context.",
+    t: "MenteE plans, executes, and adapts",
+    d: "It explores the repo, edits files, runs tests, and self-corrects on failure — choosing the right tools at each step.",
   },
   {
     n: "3",
-    t: "Explores and edits",
-    d: "The agent explores only what's needed (bounded reads), reasons about the change, and edits files.",
-  },
-  {
-    n: "4",
-    t: "Verifies with your tests",
-    d: "Runs your project's own tests, build, and typecheck to confirm the change works.",
-  },
-  {
-    n: "5",
-    t: "Reports with evidence",
-    d: "Returns a 1–3 sentence answer backed by the command that proved it. Saves the exchange to memory.",
+    t: "You review and approve",
+    d: "Every change is previewed before it's applied. You can approve, reject, or undo any action.",
   },
 ];
 
-export function SWEHowItWorks() {
+export function HowItWorks() {
   return (
-    <section className="mx-auto max-w-4xl px-6 py-16">
-      <Reveal>
-        <h2 className="text-2xl font-semibold tracking-tight text-neutral-900">
-          How it works
-        </h2>
-        <p className="mt-2 max-w-xl text-neutral-600">
-          Five steps from task description to verified result.
-        </p>
-      </Reveal>
-      <div className="mt-10 space-y-4">
-        {steps.map((s, i) => (
-          <Reveal key={s.n} delay={i * 0.06}>
-            <div className="flex gap-4 rounded-2xl border border-neutral-200 bg-white p-5">
-              <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-neutral-900 text-sm font-bold text-white">
-                {s.n}
-              </span>
-              <div>
-                <h3 className="font-semibold text-neutral-900">{s.t}</h3>
-                <p className="mt-1 text-sm text-neutral-600">{s.d}</p>
+    <section className="border-t border-neutral-200 py-20 sm:py-28">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <Reveal>
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
+              How it works
+            </h2>
+            <p className="mt-4 text-lg text-neutral-600">
+              MenteE is not a chatbot. It is an agent that plans, executes, and
+              adapts — with safety guardrails you control.
+            </p>
+          </div>
+        </Reveal>
+        <div className="mx-auto mt-16 grid max-w-5xl grid-cols-1 gap-8 sm:grid-cols-3">
+          {steps.map((step, i) => (
+            <Reveal key={step.n} delay={i * 100}>
+              <div className="relative rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-900 text-sm font-bold text-white">
+                  {step.n}
+                </div>
+                <h3 className="mt-4 text-lg font-semibold text-neutral-900">
+                  {step.t}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-neutral-600">
+                  {step.d}
+                </p>
               </div>
-            </div>
-          </Reveal>
-        ))}
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );
+}
+
+export function SWEHowItWorks() {
+  return <HowItWorks />;
 }

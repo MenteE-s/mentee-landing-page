@@ -1,12 +1,12 @@
 import { Reveal } from "@/components/Reveal";
 
 const useCases = [
-  { t: "Fix failing tests", d: "\"fix the failing auth tests and make sure they pass\"" },
-  { t: "Add a feature", d: "\"add a /health endpoint that returns 200\"" },
-  { t: "Debug regressions", d: "\"why did the build start failing after the last PR?\"" },
-  { t: "Refactors", d: "\"rename the User service to Account across the API layer\"" },
-  { t: "Onboarding", d: "\"explain how this repo is structured and where auth lives\"" },
-  { t: "CI / automation", d: "Headless mode for scripted tasks in pipelines" },
+  { t: "Fix failing tests", d: "\"fix the failing auth tests and make sure they pass — investigate the auth module, identify the issue, apply a patch, and re-run the test suite to verify.\"" },
+  { t: "Add a feature", d: "\"add a /health endpoint that returns 200 — add the route to the API router, implement the handler, write tests, and verify the build passes.\"" },
+  { t: "Debug regressions", d: "\"why did the build start failing after the last PR? — analyze the diff, trace the error to the changed code, propose and test a fix.\"" },
+  { t: "Refactors", d: "\"rename the User service to Account across the API layer — find all references, update imports and usages, run tests to confirm no breakage.\"" },
+  { t: "Onboarding", d: "\"explain how this repo is structured and where auth lives — read the directory structure, identify auth-related files, and summarize the architecture.\"" },
+  { t: "CI / automation", d: "Headless mode for scripted tasks in pipelines — run menteeswe non-interactively for automated fixes, deployments, and maintenance jobs." },
 ];
 
 export function SWEUseCases() {

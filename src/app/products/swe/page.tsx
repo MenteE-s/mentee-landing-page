@@ -8,6 +8,8 @@ import { SWEInstall } from "@/components/swe/Install";
 import { SWEProviders } from "@/components/swe/Providers";
 import { SWESafety } from "@/components/swe/Safety";
 import { SWEUseCases } from "@/components/swe/UseCases";
+import { SWETechStack } from "@/components/swe/TechStack";
+import { SWERoadmap } from "@/components/swe/Roadmap";
 import { SWECTA } from "@/components/swe/CTA";
 
 export const metadata: Metadata = {
@@ -40,6 +42,8 @@ export default function SWEDevicePage() {
         <SWEProviders />
         <SWESafety />
         <SWEUseCases />
+        <SWETechStack />
+        <SWERoadmap />
         <SWECTA />
       </main>
       <Footer />

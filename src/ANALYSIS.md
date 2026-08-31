@@ -12,7 +12,7 @@ mentee-embed-v1 is a compact, **41M-parameter** text-embedding model supporting 
 
 | Metric | mentee-embed-v1 | all-MiniLM-L6-v2 | Verdict |
 |---|---|---|---|
-| Avg in-batch MRR@10 | **0.585** | 0.396 | ✅ win |
+| Avg in-batch MRR@10 | **0.585** | 0.449 | ✅ win |
 | val acc@1 | **0.820** | 0.484 | ✅ win |
 | xling EN↔UR acc@1 | **0.757** | 0.065 | ✅ win |
 | Distillation rel_mse | **0.046** | — | ✅ converged |
@@ -64,12 +64,12 @@ We compare against three strong open multilingual baselines on two protocols, us
 | **mentee-embed-v1** | **0.820** | 0.345 | 0.222 | 0.183 | **0.757** | **0.585** |
 | mpnet-base-v2 | 0.821 | 0.864 | 0.722 | 0.686 | 0.831 | 0.867 |
 | MiniLM-L12-v2 | 0.795 | 0.854 | 0.696 | 0.621 | 0.782 | 0.840 |
-| MiniLM-L6-v2 | 0.484 | 0.856 | 0.025 | 0.028 | 0.065 | 0.396 |
+| MiniLM-L6-v2 | 0.484 | 0.856 | 0.025 | 0.028 | 0.065 | 0.449 |
 
 *Chart: `assets/inbatch_acc1.svg`*
 
 **Read-out:**
-- ✅ **Beats all-MiniLM-L6-v2 on every slice** (avg MRR@10 0.585 vs 0.396).
+- ✅ **Beats all-MiniLM-L6-v2 on every slice** (avg MRR@10 0.585 vs 0.449).
 - ✅ **val acc@1 = 0.820** even surpasses MiniLM-L12-v2 (0.795).
 - ✅ **xling EN↔UR acc@1 = 0.757** — real cross-lingual retrieval with no shared script.
 - The MIRACL gap vs mpnet/MiniLM-L12 reflects ~1000× less training data, not a method failure.
@@ -112,7 +112,7 @@ At **41M parameters** (≈7× smaller than mpnet-base, ≈3× smaller than MiniL
 
 ## 5. Reproduction
 
-Fully open: code on [GitHub](https://github.com/MenteE-s/mentee-embeddings), model on [HuggingFace](https://huggingface.co/menteeai/mentee-embed-v1). One command on a free Colab T4:
+Fully open: code on [GitHub](https://github.com/MenteE-s/mentee-embeddings), model on [HuggingFace](https://huggingface.co/MenteEAI/mentee-embed-v1). One command on a free Colab T4:
 
 ```bash
 python kaggle_run.py

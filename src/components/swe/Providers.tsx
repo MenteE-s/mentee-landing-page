@@ -1,59 +1,115 @@
 import { Reveal } from "@/components/Reveal";
 
 const providers = [
-  { provider: "Z.ai Coding", endpoint: "api.z.ai/api/coding/paas/v4", model: "glm-4.6", env: "MENTEE_ZAI_API_KEY", default: true },
-  { provider: "Z.ai (GLM intl)", endpoint: "api.z.ai/api/paas/v4", model: "glm-4.6", env: "MENTEE_ZAI_API_KEY", default: false },
-  { provider: "Kimi (Moonshot)", endpoint: "api.moonshot.ai/v1", model: "kimi-k2.7-code", env: "MENTEE_KIMI_API_KEY", default: false },
-  { provider: "GLM (Zhipu CN)", endpoint: "open.bigmodel.cn", model: "glm-4.6", env: "MENTEE_GLM_API_KEY", default: false },
-  { provider: "mock", endpoint: "offline", model: "—", env: "no key needed", default: false },
+  {
+    name: "OpenAI",
+    models: "GPT-4o, GPT-4o-mini, o1, o1-mini",
+    env: "OPENAI_API_KEY",
+    docs: "https://platform.openai.com",
+  },
+  {
+    name: "Anthropic",
+    models: "Claude Opus, Claude Sonnet, Claude Haiku",
+    env: "ANTHROPIC_API_KEY",
+    docs: "https://console.anthropic.com",
+  },
+  {
+    name: "Google AI Studio",
+    models: "Gemini 2.0 Flash, Gemini 1.5 Pro",
+    env: "GOOGLE_API_KEY",
+    docs: "https://aistudio.google.com",
+  },
+  {
+    name: "Mistral",
+    models: "Mistral Large, Codestral",
+    env: "MISTRAL_API_KEY",
+    docs: "https://console.mistral.ai",
+  },
+  {
+    name: "OpenRouter",
+    models: "Any OpenRouter model",
+    env: "OPENROUTER_API_KEY",
+    docs: "https://openrouter.ai",
+  },
+  {
+    name: "DeepSeek",
+    models: "DeepSeek-V3, DeepSeek-R1",
+    env: "DEEPSEEK_API_KEY",
+    docs: "https://platform.deepseek.com",
+  },
+  {
+    name: "Groq",
+    models: "Llama 3.3, Mixtral",
+    env: "GROQ_API_KEY",
+    docs: "https://console.groq.com",
+  },
 ];
 
 export function SWEProviders() {
   return (
-    <section className="mx-auto max-w-4xl px-6 py-16">
-      <Reveal>
-        <h2 className="text-2xl font-semibold tracking-tight text-neutral-900">
-          Model providers
-        </h2>
-        <p className="mt-2 max-w-xl text-neutral-600">
-          Bring your own API key. Switch providers with a keypress — the agent
-          runtime stays the same.
-        </p>
-      </Reveal>
-
-      <Reveal delay={0.08}>
-        <div className="mt-8 overflow-hidden rounded-2xl border border-neutral-200 bg-white">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm">
-              <thead>
-                <tr className="border-b border-neutral-100 bg-neutral-50 text-[10px] font-semibold uppercase tracking-wide text-neutral-500">
-                  <th className="px-4 py-2.5">Provider</th>
-                  <th className="px-4 py-2.5">Endpoint</th>
-                  <th className="px-4 py-2.5">Default model</th>
-                  <th className="px-4 py-2.5">Env var</th>
-                </tr>
-              </thead>
-              <tbody>
-                {providers.map((p) => (
-                  <tr key={p.provider} className={`border-b border-neutral-50 ${p.default ? "bg-neutral-50/80" : ""}`}>
-                    <td className="px-4 py-2.5 font-medium text-neutral-900">
-                      {p.provider}
-                      {p.default && (
-                        <span className="ml-2 rounded bg-neutral-900 px-1.5 py-0.5 text-[9px] font-bold text-white">
-                          DEFAULT
-                        </span>
-                      )}
-                    </td>
-                    <td className="px-4 py-2.5 font-mono text-xs text-neutral-600">{p.endpoint}</td>
-                    <td className="px-4 py-2.5 font-mono text-xs text-neutral-600">{p.model}</td>
-                    <td className="px-4 py-2.5 font-mono text-xs text-neutral-500">{p.env}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+    <section className="border-t border-neutral-200 py-20 sm:py-28">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <Reveal>
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
+              One config file, seven providers
+            </h2>
+            <p className="mt-4 text-lg text-neutral-600">
+              Switch providers without changing your workflow. Add an API key and
+              set your default model.
+            </p>
           </div>
-        </div>
-      </Reveal>
+        </Reveal>
+        <Reveal delay={100}>
+          <div className="mx-auto mt-16 max-w-5xl overflow-hidden rounded-2xl border border-neutral-200 bg-white">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-sm">
+                <thead className="border-b border-neutral-200 bg-neutral-50">
+                  <tr>
+                    <th className="px-6 py-4 font-semibold text-neutral-900">
+                      Provider
+                    </th>
+                    <th className="px-6 py-4 font-semibold text-neutral-900">
+                      Models
+                    </th>
+                    <th className="px-6 py-4 font-semibold text-neutral-900">
+                      Environment variable
+                    </th>
+                    <th className="px-6 py-4 font-semibold text-neutral-900">
+                      Docs
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-neutral-200">
+                  {providers.map((p) => (
+                    <tr key={p.name} className="hover:bg-neutral-50">
+                      <td className="px-6 py-4 font-medium text-neutral-900">
+                        {p.name}
+                      </td>
+                      <td className="px-6 py-4 text-neutral-600">{p.models}</td>
+                      <td className="px-6 py-4">
+                        <code className="rounded bg-neutral-100 px-2 py-1 text-xs text-neutral-800">
+                          {p.env}
+                        </code>
+                      </td>
+                      <td className="px-6 py-4">
+                        <a
+                          href={p.docs}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:text-blue-700 hover:underline"
+                        >
+                          {p.docs.replace("https://", "")}
+                        </a>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </Reveal>
+      </div>
     </section>
   );
 }

@@ -54,7 +54,7 @@
   <div class="card">
     <h3>Headline results</h3>
     <ul>
-      <li><span class="win">Beats all-MiniLM-L6-v2</span> on every in-batch retrieval metric (avg MRR@10 <b>0.585 vs 0.396</b>) — despite being trained from scratch.</li>
+      <li><span class="win">Beats all-MiniLM-L6-v2</span> on every in-batch retrieval metric (avg MRR@10 <b>0.585 vs 0.449</b>) — despite being trained from scratch.</li>
       <li><b>val acc@1 = 0.820</b>, even surpassing paraphrase-MiniLM-L12-v2 (0.795) on the validation set.</li>
       <li><b>Cross-lingual EN↔UR acc@1 = 0.757</b> — genuine English↔Urdu transfer with no shared script.</li>
       <li>Distillation success: student cosine geometry matches the teacher's with <b>rel_mse = 0.046</b>.</li>
@@ -87,7 +87,7 @@
     <tr class="ours"><td class="name">mentee-embed-v1 (ours)</td><td>0.820</td><td>0.345</td><td>0.222</td><td>0.183</td><td>0.757</td><td>0.585</td></tr>
     <tr><td class="name">mpnet-base-v2</td><td>0.821</td><td>0.864</td><td>0.722</td><td>0.686</td><td>0.831</td><td>0.867</td></tr>
     <tr><td class="name">MiniLM-L12-v2</td><td>0.795</td><td>0.854</td><td>0.696</td><td>0.621</td><td>0.782</td><td>0.840</td></tr>
-    <tr><td class="name">MiniLM-L6-v2</td><td>0.484</td><td>0.856</td><td>0.025</td><td>0.028</td><td>0.065</td><td>0.396</td></tr>
+    <tr><td class="name">MiniLM-L6-v2</td><td>0.484</td><td>0.856</td><td>0.025</td><td>0.028</td><td>0.065</td><td>0.449</td></tr>
   </table>
   <div class="good">Our model <b>dominates MiniLM-L6-v2</b> across all five slices and wins on the validation and cross-lingual splits. The gap to mpnet/MiniLM-L12 on MIRACL reflects ~1000× less training data, not a flaw in the method.</div>
 
@@ -124,7 +124,7 @@
   </ul>
 
   <h2>4 · Reproduction</h2>
-  <p>Everything is open: code on <a href="https://github.com/MenteE-s/mentee-embeddings">GitHub</a>, model on <a href="https://huggingface.co/menteeai/mentee-embed-v1">HuggingFace</a>. One command reproduces the full pipeline on a free Colab T4:</p>
+  <p>Everything is open: code on <a href="https://github.com/MenteE-s/mentee-embeddings">GitHub</a>, model on <a href="https://huggingface.co/MenteEAI/mentee-embed-v1">HuggingFace</a>. One command reproduces the full pipeline on a free Colab T4:</p>
   <div class="card"><code>python kaggle_run.py</code></div>
 
   <div class="footer">
