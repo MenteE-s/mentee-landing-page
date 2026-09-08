@@ -30,6 +30,20 @@ const products = [
       { k: "MIT", v: "Licensed" },
     ],
   },
+  {
+    label: "RecruAI",
+    tag: "Live",
+    href: "/products/recruai",
+    hrefLabel: "Explore platform",
+    external: false,
+    d: "AI-powered hiring and interview platform — built for Pakistan, expanding across the Gulf (UAE, Saudi Arabia, Qatar, Kuwait, Bahrain, Oman). Job seekers find AI-matched roles, optimize CVs, practice mock interviews, and track applications. Organizations post unlimited listings, manage hiring pipelines, and screen candidates with AI agents.",
+    stats: [
+      { k: "AI", v: "Matching" },
+      { k: "ATS", v: "Scoring" },
+      { k: "Pipeline", v: "Automation" },
+      { k: "Gulf", v: "Coverage" },
+    ],
+  },
 ];
 
 export function ProductCards() {
@@ -44,11 +58,11 @@ export function ProductCards() {
             What we build
           </h2>
           <p className="mt-4 max-w-xl text-lg text-neutral-600">
-            Two platforms, one mission: production-grade AI that actually ships.
+            Three platforms, one mission: production-grade AI that actually ships.
           </p>
         </Reveal>
 
-        <div className="mt-14 grid gap-8 md:grid-cols-2">
+        <div className="mt-14 grid gap-8 md:grid-cols-3">
           {products.map((p, i) => (
             <Reveal key={p.label} delay={i * 0.1}>
               <div className="group flex h-full flex-col rounded-3xl border border-neutral-200 bg-white p-8 transition-all hover:border-neutral-900 hover:shadow-lg sm:p-10">

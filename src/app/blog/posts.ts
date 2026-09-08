@@ -13,6 +13,115 @@ export type BlogPost = {
 };
 
 export const posts: BlogPost[] = [
+  // ── NEW RecruAI posts (newest first) ──────────────────────────────
+  {
+    slug: "recruai-ai-hiring-interview-platform-launch",
+    title: "RecruAI Launch: AI Hiring and Interview Platform Built for Pakistan and the Gulf",
+    excerpt:
+      "RecruAI by MenteE is now live — an AI-powered hiring platform that matches job seekers with roles across Pakistan, UAE, Saudi Arabia, Qatar, Kuwait, Bahrain and Oman. It combines AI job matching, ATS-optimized CV rewrites, unlimited mock interviews, pipeline automation, and AI screening agents for organizations.",
+    date: "2026-09-05",
+    author: "MenteE AI Team",
+    authorLink: "https://menteeai.org",
+    tags: ["Product", "RecruAI", "Hiring", "Pakistan", "Gulf"],
+    keywords: [
+      "RecruAI", "MenteE", "AI hiring platform", "AI interview platform",
+      "job portal Pakistan", "jobs UAE Saudi Arabia Qatar Kuwait Bahrain",
+      "AI job matching", "ATS scoring CV", "mock interview AI",
+      "recruitment automation", "hiring pipeline software",
+      "organization analytics hiring", "AI screening agents",
+    ],
+    readTime: "7 min read",
+    coverLabel: "Product",
+    content: `
+      <p><strong>RecruAI by MenteE</strong> is a production AI hiring and interview platform — not a demo, not a landing page. It runs on a hybrid stack: PostgreSQL (port 5433, pgvector for embeddings), Kafka (KRaft, localhost:9092) for event streaming, Redis (localhost:6379) for session and cache, and a Flask backend served at <strong>port 8000</strong> (set via <code>PORT=8000</code> in <code>.env</code>), with the React frontend at <code>localhost:3000</code>.</p>
+
+      <h2>For job seekers</h2>
+      <p>RecruAI gives candidates an AI-matched job feed tailored to their skills, preferred industries, and target locations. The platform covers Pakistan and the full Gulf region: UAE, Saudi Arabia, Qatar, Kuwait, Bahrain, Oman. Job listings reference real companies and real roles — engineering, data science, product management, finance, healthcare, and more.</p>
+      <ul>
+        <li><strong>AI job matching</strong> — not keyword search, but semantic matching against your profile.</li>
+        <li><strong>CV optimization</strong> — AI rewrites, ATS scoring, keyword suggestions, and a built-in resume builder.</li>
+        <li><strong>Mock interviews</strong> — unlimited practice with realistic questions and instant feedback.</li>
+        <li><strong>Application tracking</strong> — applied roles, saved listings, interview schedules, results, and analytics in one dashboard.</li>
+        <li><strong>Public shareable profile</strong> — a profile page with visit analytics that you can share with recruiters or embed in applications.</li>
+      </ul>
+
+      <h2>For organizations</h2>
+      <p>Hiring managers and HR teams get a dedicated organization dashboard. Post unlimited listings. Search and filter candidates by skills and experience. Send interview invitations directly. Manage the full pipeline: applied → screening → interview → offer → hired. Assign AI agents to automate screening. View analytics, billing, team access, and preferences — all in one place.</p>
+
+      <h2>Technical architecture</h2>
+      <p>The backend is Flask, environment-driven. The database layer uses PostgreSQL with pgvector for embeddings. Events flow through Kafka (KRaft mode, localhost:9092). Sessions and caches live in Redis (localhost:6379). The backend listens on <strong>port 8000</strong>, not 3000 — the frontend is separate on its own port. The architecture is designed for production: observable, deployable with Docker Compose, and ready for the traffic that comes when a platform covers seven countries at once.</p>
+
+      <h2>Geographic coverage</h2>
+      <p>RecruAI is not a generic global job board. It is built for the markets where MenteE operates: Pakistan and the Gulf. That means country chips, localized job listings, and role categories that reflect the actual hiring demand in these markets — from startup engineering roles in Karachi and Lahore to senior positions in Dubai, Riyadh, Doha, Kuwait City, Manama, and Muscat.</p>
+
+      <h2>What comes next</h2>
+      <p>RecruAI is live today as a production platform. Verified growth metrics — total listings, optimized CVs, active companies, country coverage — will replace aspirational numbers as the user base scales. The team is focused on reliability, pipeline automation, and expanding AI agent capabilities for both individual job seekers and organizations.</p>
+    `,
+  },
+  {
+    slug: "ai-cv-optimizer-ats-scoring-keywords",
+    title: "How RecruAI's AI CV Optimizer Works: ATS Scoring, Keyword Matching, and Real Rewrites",
+    excerpt:
+      "RecruAI's resume builder doesn't just format — it rewrites. Learn how the AI CV optimizer scores your document against ATS filters, suggests keywords from target roles, and produces versions that actually pass automated screening.",
+    date: "2026-09-03",
+    author: "MenteE AI Team",
+    authorLink: "https://menteeai.org",
+    tags: ["Guide", "RecruAI", "CV Optimization", "ATS"],
+    keywords: [
+      "AI CV optimizer", "ATS scoring", "resume builder AI",
+      "keyword matching resume", "automated screening CV",
+      "RecruAI resume", "CV rewrite AI",
+      "job application optimization", "hiring pipeline automation",
+    ],
+    readTime: "8 min read",
+    coverLabel: "Guide",
+    content: `
+      <p>Most job applications are filtered out by an ATS before a human sees them. RecruAI's CV optimizer is designed to address that directly — not by gaming the system, but by making your resume genuinely relevant to the roles you apply for.</p>
+
+      <h2>How ATS scoring works in RecruAI</h2>
+      <p>The optimizer reads your CV, compares it against the skills, keywords, and experience patterns found in real job listings from the target market (Pakistan + UAE, Saudi Arabia, Qatar, Kuwait, Bahrain, Oman), and produces a relevance score. It highlights gaps — missing skills, missing keywords, unclear role titles — and provides concrete rewrite suggestions.</p>
+
+      <h2>What the AI rewrites</h2>
+      <ul>
+        <li>Bullet points that match the language of target listings without losing your actual experience.</li>
+        <li>Title and summary rewrites that align with industry-standard terminology.</li>
+        <li>Keyword injection that is natural — not keyword stuffing, but strategic inclusion based on the job descriptions you target.</li>
+      </ul>
+
+      <h2>Practice before applying</h2>
+      <p>RecruAI also offers unlimited mock interview practice. The AI asks realistic questions based on your target roles, gives instant feedback on structure and content, and helps you prepare for the real interview that follows a successful application. The pipeline from optimized CV to interview invitation to practice session to final hire is integrated — not fragmented across separate tools.</p>
+    `,
+  },
+  {
+    slug: "recruai-pipeline-automation-ai-screening",
+    title: "RecruAI Pipeline Automation: From Applied to Hired with AI Screening Agents",
+    excerpt:
+      "How RecruAI's hiring pipeline works for organizations: applied, screening, interview, offer, hired. AI agents handle the first filter, managers manage the rest, and everything is tracked in one dashboard.",
+    date: "2026-09-01",
+    author: "MenteE AI Team",
+    authorLink: "https://menteeai.org",
+    tags: ["Product", "RecruAI", "Hiring Pipeline", "AI Agents"],
+    keywords: [
+      "RecruAI pipeline", "hiring pipeline automation", "AI screening agents",
+      "candidate screening AI", "interview management platform",
+      "organization hiring dashboard", "team hiring management",
+      "job post unlimited listings", "recruitment analytics",
+    ],
+    readTime: "6 min read",
+    coverLabel: "Product",
+    content: `
+      <p>RecruAI's organization dashboard is built around a simple pipeline: applied → screening → interview → offer → hired. Every stage has a purpose, and AI agents handle the first stage — automated screening — so hiring managers spend their time on qualified candidates, not on filtering out unqualified ones.</p>
+
+      <h2>AI screening agents</h2>
+      <p>Organizations can assign AI agents to review applications as they arrive. The agents evaluate CVs against the role description, flag candidates who match the required skills and experience, and provide a structured screening summary — skills matched, experience level, recommended stage. Managers review the agent's recommendation, approve or override, and move the candidate forward.</p>
+
+      <h2>Interview scheduling and management</h2>
+      <p>Once a candidate passes screening, managers can send interview invitations directly through the platform. The scheduling system integrates with the organization's calendar preferences and tracks the interview date, format (virtual or in-person), and outcome. After the interview, feedback is recorded in the pipeline so the team has a complete history — not scattered emails, not spreadsheets.</p>
+
+      <h2>Analytics and billing</h2>
+      <p>RecruAI provides organization-level analytics: number of active listings, applications per role, screening rate, interview conversion rate, offer rate, and time-to-hire. Billing and team access management are included — managers can add team members, set role-based permissions, and manage subscription details from the same dashboard where hiring happens.</p>
+    `,
+  },
   // ── NEW v4 + SWE posts (newest first) ──────────────────────────────
   {
     slug: "introducing-mentee-swe-autonomous-coding-agent",

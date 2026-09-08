@@ -5,9 +5,21 @@ import { Reveal } from "@/components/Reveal";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Products — MenteE",
+  title: "Products — MenteE — RecruAI, Embed, SWE",
   description:
-    "AI-powered platforms built for production — multilingual embeddings and autonomous software engineering.",
+    "MenteE builds three production AI platforms: RecruAI (AI hiring and interview platform for Pakistan and the Gulf), MenteE Embed (multilingual embeddings), and MenteE SWE (autonomous coding agent).",
+  keywords: [
+    "RecruAI", "MenteE products", "AI hiring platform", "AI interview platform",
+    "job portal Pakistan", "Gulf jobs UAE Saudi Qatar Kuwait Bahrain", "MenteE Embed",
+    "multilingual embeddings", "MenteE SWE", "autonomous coding agent",
+    "recruitment automation", "ATS scoring", "CV optimization AI",
+  ],
+  alternates: { canonical: "https://menteeai.org/products" },
+  openGraph: {
+    title: "MenteE Products — RecruAI, Embed, SWE",
+    description: "AI hiring, multilingual embeddings, autonomous coding — built by MenteE.",
+    url: "https://menteeai.org/products",
+  },
 };
 
 const products = [
@@ -37,6 +49,19 @@ const products = [
       { k: "MIT", v: "Licensed" },
     ],
   },
+  {
+    label: "RecruAI",
+    tag: "Live",
+    href: "/products/recruai",
+    hrefLabel: "Explore platform",
+    d: "AI-powered hiring and interview platform — job matching, CV optimization with ATS scoring, unlimited mock interviews, hiring pipeline automation, AI screening agents, and organization analytics. Built for Pakistan and expanding across the Gulf: UAE, Saudi Arabia, Qatar, Kuwait, Bahrain, Oman.",
+    stats: [
+      { k: "AI", v: "Matching" },
+      { k: "ATS", v: "Scoring" },
+      { k: "Pipeline", v: "Automation" },
+      { k: "Gulf", v: "Coverage" },
+    ],
+  },
 ];
 
 export default function ProductsPage() {
@@ -60,7 +85,7 @@ export default function ProductsPage() {
         </section>
 
         <section className="mx-auto max-w-6xl px-6 py-16">
-          <div className="grid gap-8 md:grid-cols-2">
+          <div className="grid gap-8 md:grid-cols-3">
             {products.map((p, i) => (
               <Reveal key={p.label} delay={i * 0.1}>
                 <div className="flex h-full flex-col rounded-2xl border border-neutral-200 bg-white p-8">
