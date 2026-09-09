@@ -26,7 +26,7 @@ export default function FullStackAIEngineerPage() {
             "Build and maintain backend services, APIs, and data pipelines using PostgreSQL, Redis, and Kafka event streams",
             "Develop responsive, performant frontend interfaces with modern frameworks (Next.js, React)",
             "Own the deployment lifecycle — Docker containerization, CI/CD pipelines, AWS cloud infrastructure, monitoring, and incident response",
-            "Work with hybrid infrastructure: PostgreSQL (port 5433, pgvector), Kafka (KRaft, localhost:9092), Redis (localhost:6379), Flask backend (port 8000)",
+            "Work with hybrid infrastructure: PostgreSQL with pgvector embeddings, Kafka event streams, Redis caching and session management, and Flask backend services",
             "Collaborate directly with the founding team on product direction and technical architecture",
             "Write production-quality code with proper testing, documentation, and observability",
             "Evaluate and integrate new AI tools, frameworks, and APIs as the ecosystem evolves",

@@ -33,7 +33,7 @@ export const posts: BlogPost[] = [
     readTime: "7 min read",
     coverLabel: "Product",
     content: `
-      <p><strong>RecruAI by MenteE</strong> is a production AI hiring and interview platform — not a demo, not a landing page. It runs on a hybrid stack: PostgreSQL (port 5433, pgvector for embeddings), Kafka (KRaft, localhost:9092) for event streaming, Redis (localhost:6379) for session and cache, and a Flask backend served at <strong>port 8000</strong> (set via <code>PORT=8000</code> in <code>.env</code>), with the React frontend at <code>localhost:3000</code>.</p>
+      <p><strong>RecruAI by MenteE</strong> is a production AI hiring and interview platform — not a demo, not a landing page. It runs on a hybrid stack: PostgreSQL with pgvector for embeddings, Kafka (KRaft) for event streaming, Redis for session and cache, and a Flask backend driven by environment variables. The React frontend runs independently. This is production infrastructure — deployable with Docker Compose and ready for multi-country traffic.</p>
 
       <h2>For job seekers</h2>
       <p>RecruAI gives candidates an AI-matched job feed tailored to their skills, preferred industries, and target locations. The platform covers Pakistan and the full Gulf region: UAE, Saudi Arabia, Qatar, Kuwait, Bahrain, Oman. Job listings reference real companies and real roles — engineering, data science, product management, finance, healthcare, and more.</p>
@@ -49,7 +49,7 @@ export const posts: BlogPost[] = [
       <p>Hiring managers and HR teams get a dedicated organization dashboard. Post unlimited listings. Search and filter candidates by skills and experience. Send interview invitations directly. Manage the full pipeline: applied → screening → interview → offer → hired. Assign AI agents to automate screening. View analytics, billing, team access, and preferences — all in one place.</p>
 
       <h2>Technical architecture</h2>
-      <p>The backend is Flask, environment-driven. The database layer uses PostgreSQL with pgvector for embeddings. Events flow through Kafka (KRaft mode, localhost:9092). Sessions and caches live in Redis (localhost:6379). The backend listens on <strong>port 8000</strong>, not 3000 — the frontend is separate on its own port. The architecture is designed for production: observable, deployable with Docker Compose, and ready for the traffic that comes when a platform covers seven countries at once.</p>
+      <p>The backend is Flask, environment-driven. The database layer uses PostgreSQL with pgvector for embeddings. Events flow through Kafka (KRaft mode). Sessions and caches live in Redis. The architecture is designed for production: observable, deployable with Docker Compose, and ready for the traffic that comes when a platform covers seven countries at once.</p>
 
       <h2>Geographic coverage</h2>
       <p>RecruAI is not a generic global job board. It is built for the markets where MenteE operates: Pakistan and the Gulf. That means country chips, localized job listings, and role categories that reflect the actual hiring demand in these markets — from startup engineering roles in Karachi and Lahore to senior positions in Dubai, Riyadh, Doha, Kuwait City, Manama, and Muscat.</p>
