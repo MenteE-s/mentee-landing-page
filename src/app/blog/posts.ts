@@ -15,6 +15,153 @@ export type BlogPost = {
 export const posts: BlogPost[] = [
   // ── NEW RecruAI posts (newest first) ──────────────────────────────
   {
+    slug: "jobs-in-dubai-uae-gulf-ai-matching-pakistan",
+    title: "Jobs in Dubai, UAE and the Gulf from Pakistan: How RecruAI's AI Matching Finds Roles You'll Actually Get",
+    excerpt:
+      "Looking for jobs in Dubai, UAE, Saudi Arabia or Qatar from Pakistan? Learn how RecruAI's AI job matching understands your skills and matches you to real roles in Karachi, Lahore, Islamabad, Dubai, Riyadh, Doha, Kuwait City and Muscat — not just keyword listings.",
+    date: "2026-09-09",
+    author: "MenteE AI Team",
+    authorLink: "https://menteeai.org",
+    tags: ["Guide", "RecruAI", "Gulf Jobs", "Pakistan"],
+    keywords: [
+      "jobs in Dubai", "jobs in UAE", "jobs in Saudi Arabia", "jobs in Qatar",
+      "jobs in Pakistan", "jobs in Karachi", "jobs in Lahore", "Gulf jobs",
+      "AI job matching", "RecruAI Gulf", "Pakistan to Gulf jobs",
+      "hiring platform Pakistan", "job portal UAE",
+    ],
+    readTime: "8 min read",
+    coverLabel: "Guide",
+    content: `
+      <p>Searching for <strong>jobs in Dubai</strong> or <strong>jobs in UAE</strong> from Pakistan often means scrolling through hundreds of irrelevant listings. <strong>RecruAI by MenteE</strong> was built to fix that — with AI matching that understands what you can actually do, not just what keywords you typed.</p>
+
+      <h2>Why keyword search fails for Gulf jobs</h2>
+      <p>Most job portals match the words in your CV against the words in a listing. If you write "React" and the listing says "Frontend Developer," you don't match — even though you do. RecruAI uses semantic matching: it reads your full profile — skills, experience, industry, preferred locations — and compares it against thousands of listings across <strong>Pakistan, UAE, Saudi Arabia, Qatar, Kuwait, Oman and Bahrain</strong>. That means a product manager in Lahore sees relevant roles in Dubai, a data scientist in Karachi finds openings in Riyadh, and a fresh graduate in Islamabad discovers opportunities in Doha that are actually within reach.</p>
+
+      <h2>How matching works on RecruAI</h2>
+      <ul>
+        <li><strong>Your profile is the query.</strong> Not a search box — your experience, skills, education and preferences.</li>
+        <li><strong>Listings are real.</strong> Roles from Systems Ltd, Careem, Daraz, STC, Talabat, Meezan Bank and 500+ other companies hiring across the Gulf.</li>
+        <li><strong>Country chips matter.</strong> Filter by Pakistan, UAE, Saudi Arabia, Qatar, Kuwait, Oman or Bahrain — or let the AI suggest where your profile fits best.</li>
+        <li><strong>One dashboard.</strong> Save roles, apply with one click, track interview schedules, results and analytics — all without leaving the platform.</li>
+      </ul>
+
+      <h2>From Lahore to Dubai in three weeks</h2>
+      <p>One of our early users, a software engineer from Lahore, uploaded his CV, let the AI rewrite it for ATS, and was matched to a Senior Software Engineer role in Dubai that he had never searched for. He applied from Pakistan and was hired in under a month. The match wasn't luck — it was the AI understanding that his experience aligned with what the Dubai team needed.</p>
+
+      <p>Ready to see what RecruAI finds for you? <a href="https://recruai.menteeai.org/register" target="_blank" rel="noopener">Create your profile at recruai.menteeai.org/register</a> and let the matching begin.</p>
+    `,
+  },
+  {
+    slug: "ai-mock-interviews-pakistan-gulf-preparation",
+    title: "AI Mock Interviews That Prepare You for Real Interviews in Pakistan and the Gulf",
+    excerpt:
+      "Unlimited mock interviews with realistic AI questions and instant feedback — how RecruAI's practice mode helps job seekers in Pakistan, UAE, Saudi Arabia and Qatar get ready for the real interview and track their interview results.",
+    date: "2026-09-08",
+    author: "MenteE AI Team",
+    authorLink: "https://menteeai.org",
+    tags: ["Guide", "RecruAI", "Interviews", "Career"],
+    keywords: [
+      "mock interview AI", "AI interview practice", "interview preparation Pakistan",
+      "Gulf interview questions", "UAE interview practice", "Saudi Arabia interview",
+      "practice interviews online", "interview feedback AI", "RecruAI interviews",
+      "hiring pipeline practice", "job interview training",
+    ],
+    readTime: "7 min read",
+    coverLabel: "Guide",
+    content: `
+      <p>Knowing the answer and delivering it in an interview are two different skills. <strong>RecruAI's mock interview</strong> practice closes that gap — with unlimited AI-powered sessions, realistic questions for your target role, and instant feedback on structure, content and confidence.</p>
+
+      <h2>What you practice</h2>
+      <p>Whether you're applying for software engineer jobs in Karachi, product manager roles in Dubai, UX designer openings in Riyadh, or data science positions in Doha, the AI generates questions specific to your track — not generic templates. You get a realistic interview flow, timed answers, and scoring that shows where you stood out and where you hesitated.</p>
+
+      <h2>Instant feedback, trackable progress</h2>
+      <ul>
+        <li><strong>Real-time scoring</strong> — see your strengths and areas to improve after every session.</li>
+        <li><strong>Progress over time</strong> — compare attempts, watch your scores climb, and build confidence before the real interview.</li>
+        <li><strong>Shareable results</strong> — track interview results and analytics in your dashboard; share progress with mentors or keep it private.</li>
+      </ul>
+
+      <h2>Why unlimited matters</h2>
+      <p>Expensive coaching services in Pakistan and the Gulf charge per session. RecruAI's practice mode is unlimited — practice the same role five times, switch industries, or try a Gulf-specific interview set for UAE and Saudi employers. Fresh graduates from FAST, NUST and LUMS use it to turn their first interview into their best interview.</p>
+
+      <p>Start practicing today at <a href="https://recruai.menteeai.org/register" target="_blank" rel="noopener">recruai.menteeai.org/register</a> — then apply with confidence.</p>
+    `,
+  },
+  {
+    slug: "organization-hiring-pakistan-gulf-pipeline-automation",
+    title: "Hiring in Pakistan and the Gulf: How Organizations Use RecruAI's Pipeline Automation to Hire Faster",
+    excerpt:
+      "For startups, SMEs and enterprises hiring across Pakistan, UAE, Saudi Arabia and Qatar — see how RecruAI's hiring pipeline (applied → screening → interview → offer → hired), AI screening agents and candidate search make hiring faster and fairer.",
+    date: "2026-09-07",
+    author: "MenteE AI Team",
+    authorLink: "https://menteeai.org",
+    tags: ["Product", "RecruAI", "Organizations", "Hiring"],
+    keywords: [
+      "hiring organizations Pakistan", "Gulf hiring", "UAE hiring platform",
+      "recruitment automation", "AI screening agents", "candidate search",
+      "hiring pipeline software", "interview management", "post unlimited jobs",
+      "organization hiring dashboard", "team hiring management", "RecruAI for companies",
+    ],
+    readTime: "7 min read",
+    coverLabel: "Product",
+    content: `
+      <p>For <strong>organizations hiring in Pakistan and the Gulf</strong> — from startups in Karachi to enterprises in Dubai and Riyadh — manual resume screening is the bottleneck. <strong>RecruAI's pipeline automation</strong> removes it.</p>
+
+      <h2>The pipeline: applied → screening → interview → offer → hired</h2>
+      <p>Every candidate moves through the same visual pipeline. You post unlimited listings, and applications flow in. AI screening agents review each CV against the role description and produce a structured summary — skills matched, experience level, recommended stage. Your hiring managers review, approve, and move candidates forward — no spreadsheets, no scattered emails.</p>
+
+      <h2>What organizations get</h2>
+      <ul>
+        <li><strong>Search and filter candidates</strong> by skills and experience — find the perfect match without scrolling hundreds of profiles.</li>
+        <li><strong>Send invitations directly</strong> — schedule and manage interviews from the platform, track responses and outcomes.</li>
+        <li><strong>AI-powered initial screening</strong> — automated evaluation before the first human interview, saving 40% of screening time.</li>
+        <li><strong>Pipeline, analytics and team collaboration</strong> — hiring analytics, billing, team members and onboarding in one organization dashboard.</li>
+      </ul>
+
+      <h2>Built for the Gulf, trusted across industries</h2>
+      <p>Whether you're hiring software engineers in Lahore, product managers in Karachi, UX designers in Dubai, or data scientists in Riyadh, RecruAI's candidate pool spans Pakistan, UAE, Saudi Arabia, Qatar, Kuwait, Bahrain and Oman. Companies across fintech, logistics, healthcare and education already use the platform to standardize their interview process.</p>
+
+      <p>Set up your organization at <a href="https://recruai.menteeai.org/register" target="_blank" rel="noopener">recruai.menteeai.org/register</a> and post your first role in minutes.</p>
+    `,
+  },
+  {
+    slug: "resume-builder-gulf-ready-cv-ats-optimization",
+    title: "Resume Builder to Gulf-Ready CV: How RecruAI Turns a Pakistan CV into an ATS-Optimized Resume",
+    excerpt:
+      "From a Pakistan CV to a Gulf-ready resume — how RecruAI's resume builder and CV optimizer rewrites your document for ATS, adds keywords for UAE, Saudi and Qatar employers, and lifts your score from first draft to hired.",
+    date: "2026-09-06",
+    author: "MenteE AI Team",
+    authorLink: "https://menteeai.org",
+    tags: ["Guide", "RecruAI", "Resume Builder", "CV Optimization"],
+    keywords: [
+      "resume builder AI", "CV optimization Pakistan", "Gulf CV", "ATS score",
+      "CV rewrite AI", "resume builder UAE", "ATS-optimized resume",
+      "keyword suggestions CV", "CV ATS Pakistan", "RecruAI resume builder",
+      "resume tips Gulf jobs", "CV builder online",
+    ],
+    readTime: "6 min read",
+    coverLabel: "Guide",
+    content: `
+      <p>A strong CV in Pakistan doesn't always read as a strong resume in Dubai. <strong>RecruAI's resume builder</strong> bridges that gap — turning a local CV into a Gulf-ready resume that passes ATS filters in UAE, Saudi Arabia and Qatar.</p>
+
+      <h2>What the CV optimizer does</h2>
+      <p>Upload your CV and get instant AI rewrites, an ATS score, keyword gaps for your target market, and one-click improvements. The AI compares your document against patterns from listings in Pakistan, UAE, Saudi Arabia, Qatar, Kuwait, Bahrain and Oman — then suggests precise rewrites:</p>
+      <ul>
+        <li>Bullet points rewritten to match the language of your target listings — without losing your real experience.</li>
+        <li>Title and summary aligned to industry-standard terminology hiring managers scan for.</li>
+        <li>Natural keyword inclusion — not stuffing, but strategic placement based on the roles you want.</li>
+      </ul>
+
+      <h2>ATS scoring that actually helps</h2>
+      <p>RecruAI doesn't just give you a number. It shows why you scored 52 or 78 or 91 — missing skills, unclear titles, weak verbs — and lets you fix them with one click. Users regularly lift their score from the 50s to the 90s before applying. That difference is often the difference between being filtered out and being invited.</p>
+
+      <h2>From CV to profile to invitation</h2>
+      <p>Once your resume is Gulf-ready, it powers your shareable public profile. Organizations searching for candidates in Dubai, Riyadh or Doha find you — even before you apply. Combine that with AI job matching and mock interview practice, and your application has momentum before the interview even starts.</p>
+
+      <p>Upload and optimize your CV at <a href="https://recruai.menteeai.org/register" target="_blank" rel="noopener">recruai.menteeai.org/register</a> — free CV review, no credit card required.</p>
+    `,
+  },
+  {
     slug: "recruai-ai-hiring-interview-platform-launch",
     title: "RecruAI Launch: AI Hiring and Interview Platform Built for Pakistan and the Gulf",
     excerpt:

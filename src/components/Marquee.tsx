@@ -1,11 +1,12 @@
 const items = [
-  { name: "GitHub", icon: "GH" },
-  { name: "Hugging Face", icon: "HF" },
-  { name: "PyTorch", icon: "PT" },
-  { name: "Python", icon: "PY" },
-  { name: "Next.js", icon: "NX" },
-  { name: "Vercel", icon: "VC" },
-  { name: "Apache 2.0", icon: "A2" },
+  { name: "For Founders, By Founders", icon: "FF" },
+  { name: "Enterprise-Grade AI", icon: "EG" },
+  { name: "0 → 1 Product Lab", icon: "01" },
+  { name: "Pakistan → Gulf → Global", icon: "PG" },
+  { name: "Research to Production", icon: "RP" },
+  { name: "We Ship, Not Pitch", icon: "WS" },
+  { name: "Hybrid AI Stack", icon: "HS" },
+  { name: "Not an Agency", icon: "NA" },
 ];
 
 export function Marquee() {
@@ -15,7 +16,7 @@ export function Marquee() {
     <section className="border-y border-neutral-100 bg-white py-8">
       <div className="mx-auto max-w-7xl px-6">
         <p className="mb-6 text-center text-xs font-medium uppercase tracking-widest text-neutral-300">
-          Available on · Built with
+          Built for Founders &amp; Enterprises &bull; Pakistan to Gulf to Global
         </p>
         <div className="relative overflow-hidden">
           <div className="flex w-max animate-marquee items-center gap-8">

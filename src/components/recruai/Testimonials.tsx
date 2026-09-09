@@ -33,7 +33,7 @@ const testimonials = [
     role: "Fresh Graduate, FAST",
     company: "Islamabad → Doha",
     content:
-      "Being a fresh graduate from Pakistan, I was nervous. RecruAI optimized my CV, gave me mock interviews, and I landed my first job in Doha. Best job portal in Asia, honestly.",
+      "Being a fresh graduate from Pakistan, I was nervous. RecruAI optimized my CV, gave me mock interviews, and I landed my first job in Doha. Best job portal in the World, honestly.",
     achievement: "First Job in Gulf",
   },
   {

@@ -8,6 +8,7 @@ import { RecruAICustomerSegments } from "@/components/recruai/CustomerSegments";
 import { RecruAIFeaturedJobs } from "@/components/recruai/FeaturedJobs";
 import { RecruAIPricing } from "@/components/recruai/Pricing";
 import { RecruAITestimonials } from "@/components/recruai/Testimonials";
+import { RecruAILanguages } from "@/components/recruai/Languages";
 import { RecruAICTA } from "@/components/recruai/CTA";
 
 export const metadata: Metadata = {
@@ -23,6 +24,7 @@ export const metadata: Metadata = {
     "team hiring management", "AI screening agents",
     "post unlimited job listings", "candidate search filter",
     "interview scheduling platform", "billing analytics hiring",
+    "multilingual job portal", "Arabic jobs", "Urdu jobs", "Gulf languages",
   ],
   alternates: { canonical: "https://menteeai.org/products/recruai" },
   openGraph: {
@@ -52,6 +54,7 @@ export default function RecruAIDetailPage() {
         <RecruAIFeaturedJobs />
         <RecruAIPricing />
         <RecruAITestimonials />
+        <RecruAILanguages />
         <RecruAICTA />
       </main>
       <Footer />

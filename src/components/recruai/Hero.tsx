@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import Link from "next/link";
 
 export function RecruAIHero() {
   const reduce = useReducedMotion();
@@ -27,7 +26,7 @@ export function RecruAIHero() {
         >
           <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-white backdrop-blur-sm">
             <span className="h-2 w-2 animate-pulse rounded-full bg-white" />
-            Asia&apos;s Best AI Job Portal — Pakistan & Gulf Focused
+            World&apos;s Best AI Job Portal — Pakistan & Gulf Focused
           </span>
         </motion.div>
 
@@ -59,8 +58,10 @@ export function RecruAIHero() {
           transition={{ duration: 0.6, delay: 0.24 }}
           className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
         >
-          <Link
-            href="/contact"
+          <a
+            href="https://recruai.menteeai.org/register"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-10 py-4 text-base font-semibold text-neutral-900 transition-transform hover:scale-[1.02]"
           >
             Find My Perfect Job
@@ -68,7 +69,7 @@ export function RecruAIHero() {
               <path d="M5 12h14" />
               <path d="m12 5 7 7-7 7" />
             </svg>
-          </Link>
+          </a>
           <a
             href="#features"
             className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/5 px-10 py-4 text-base font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/10"
@@ -93,7 +94,10 @@ export function RecruAIHero() {
           ))}
         </motion.div>
         <p className="mt-3 text-[11px] font-medium uppercase tracking-widest text-neutral-500">
-          Built for Pakistan — Expanding across the Gulf &amp; Asia
+          Built for Pakistan — Expanding across the Gulf &amp; Asia • More countries &amp; languages coming soon
+        </p>
+        <p className="mt-2 text-[11px] font-medium text-neutral-400">
+          English — Live &nbsp;•&nbsp; العربية — Coming soon &nbsp;•&nbsp; اردو — Coming soon
         </p>
 
         {/* Stats */}

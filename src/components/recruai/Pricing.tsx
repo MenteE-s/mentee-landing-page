@@ -139,15 +139,18 @@ export function RecruAIPricing() {
               )}
             </div>
 
-            <button
-              className={`mt-6 w-full rounded-full py-3 text-sm font-semibold transition-colors ${
+            <a
+              href="https://recruai.menteeai.org/register"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`mt-6 flex w-full items-center justify-center rounded-full py-3 text-sm font-semibold transition-colors ${
                 plan.popular
                   ? "bg-neutral-900 text-white hover:bg-black"
                   : "border border-neutral-900 bg-white text-neutral-900 hover:bg-neutral-50"
               }`}
             >
               {plan.cta}
-            </button>
+            </a>
 
             <ul className="mt-8 space-y-3">
               {plan.features.map((f) => (

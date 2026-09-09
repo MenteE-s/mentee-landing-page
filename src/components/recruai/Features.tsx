@@ -71,7 +71,7 @@ export function RecruAIFeatures() {
       <Reveal>
         <p className="text-sm font-medium uppercase tracking-wide text-neutral-500">Platform Features</p>
         <h2 className="mt-3 max-w-3xl text-3xl font-semibold tracking-tight text-neutral-900 sm:text-4xl">
-          Asia&apos;s best job portal for <span className="text-neutral-400">job seekers</span> &amp;{" "}
+          World&apos;s best job portal for <span className="text-neutral-400">job seekers</span> &amp;{" "}
           <span className="text-neutral-400">organizations</span>
         </h2>
         <p className="mt-4 max-w-2xl text-lg text-neutral-600">

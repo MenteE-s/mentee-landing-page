@@ -5,6 +5,7 @@ import { Marquee } from "@/components/Marquee";
 import { ResearchTeaser } from "@/components/ResearchTeaser";
 import { WhatWeBuild } from "@/components/WhatWeBuild";
 import { Capabilities } from "@/components/Capabilities";
+import { RecruAITeaser } from "@/components/RecruAITeaser";
 import { ProductCards } from "@/components/ProductCards";
 import { FAQ } from "@/components/FAQ";
 import { CTA } from "@/components/CTA";
@@ -46,6 +47,7 @@ export default function Home() {
         <Hero />
         <Marquee />
         <ResearchTeaser />
+        <RecruAITeaser />
         <WhatWeBuild />
         <Capabilities />
         <ProductCards />

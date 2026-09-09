@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
 
 export function RecruAICTA() {
@@ -18,24 +17,28 @@ export function RecruAICTA() {
             <div className="rounded-3xl border border-white/15 bg-white/5 p-8 backdrop-blur-sm">
               <h3 className="text-lg font-bold text-white">For Job Seekers</h3>
               <p className="mt-2 text-sm text-neutral-300">Find jobs in Pakistan &amp; Gulf + optimize your CV with AI</p>
-              <Link
-                href="/contact"
+              <a
+                href="https://recruai.menteeai.org/register"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="mt-6 flex w-full items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-neutral-900 transition-transform hover:scale-[1.02]"
               >
                 Find Jobs &amp; Optimize CV
-              </Link>
+              </a>
               <p className="mt-3 text-center text-xs text-neutral-400">Free CV review · No credit card required</p>
             </div>
 
             <div className="rounded-3xl border border-white/15 bg-white/5 p-8 backdrop-blur-sm">
               <h3 className="text-lg font-bold text-white">For Organizations</h3>
               <p className="mt-2 text-sm text-neutral-300">Revolutionize your recruitment process</p>
-              <Link
-                href="/contact"
+              <a
+                href="https://recruai.menteeai.org/register"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="mt-6 flex w-full items-center justify-center rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/15"
               >
                 Schedule Demo
-              </Link>
+              </a>
               <p className="mt-3 text-center text-xs text-neutral-400">Free trial · Custom pricing available</p>
             </div>
           </div>
