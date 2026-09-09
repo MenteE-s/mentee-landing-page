@@ -3,6 +3,11 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { RecruAIHero } from "@/components/recruai/Hero";
 import { RecruAIFeatures } from "@/components/recruai/Features";
+import { RecruAIHowItWorks } from "@/components/recruai/HowItWorks";
+import { RecruAICustomerSegments } from "@/components/recruai/CustomerSegments";
+import { RecruAIFeaturedJobs } from "@/components/recruai/FeaturedJobs";
+import { RecruAIPricing } from "@/components/recruai/Pricing";
+import { RecruAITestimonials } from "@/components/recruai/Testimonials";
 import { RecruAICTA } from "@/components/recruai/CTA";
 
 export const metadata: Metadata = {
@@ -42,6 +47,11 @@ export default function RecruAIDetailPage() {
       <main className="flex-1">
         <RecruAIHero />
         <RecruAIFeatures />
+        <RecruAIHowItWorks />
+        <RecruAICustomerSegments />
+        <RecruAIFeaturedJobs />
+        <RecruAIPricing />
+        <RecruAITestimonials />
         <RecruAICTA />
       </main>
       <Footer />
