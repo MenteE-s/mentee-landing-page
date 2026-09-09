@@ -19,6 +19,7 @@ const contacts = [
   {
     t: "Careers & hiring",
     email: "syab@menteeai.org",
+    cc: "sania@menteeai.org",
     desc: "Applications, open roles, and anything related to joining the team.",
   },
   {
@@ -53,10 +54,10 @@ export default function ContactPage() {
                     <div>
                       <h2 className="font-medium text-neutral-900">{c.t}</h2>
                       <a
-                        href={`mailto:${c.email}`}
+                        href={`mailto:${c.email}${c.cc ? '?cc=' + c.cc : ''}`}
                         className="mt-1 inline-block text-sm font-medium text-neutral-900 underline underline-offset-4 hover:no-underline"
                       >
-                        {c.email}
+                        {c.email}{c.cc ? ' · ' + c.cc : ''}
                       </a>
                       <p className="mt-1 text-sm text-neutral-500">{c.desc}</p>
                     </div>

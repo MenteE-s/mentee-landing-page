@@ -133,10 +133,10 @@ export default function CareersPage() {
             <p className="mt-8 text-sm text-neutral-500">
               Don&apos;t see a role that fits?{" "}
               <a
-                href="mailto:syab@menteeai.org"
+                href="mailto:syab@menteeai.org?cc=sania@menteeai.org"
                 className="font-medium text-neutral-900 underline underline-offset-4 hover:no-underline"
               >
-                Send us your profile
+                Send us your profile (syab@ / sania@)
               </a>{" "}
               — we are always open to exceptional people.
             </p>
@@ -151,7 +151,7 @@ export default function CareersPage() {
               </h2>
               <div className="mt-6 flex justify-center">
                 <a
-                  href="mailto:syab@menteeai.org"
+                  href="mailto:syab@menteeai.org?cc=sania@menteeai.org"
                   className="rounded-full bg-neutral-900 px-6 py-3 text-sm font-medium text-white transition-transform hover:scale-105"
                 >
                   Apply now
