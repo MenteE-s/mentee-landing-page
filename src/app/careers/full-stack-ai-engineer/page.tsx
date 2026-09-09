@@ -23,9 +23,10 @@ export default function FullStackAIEngineerPage() {
           responsibilities={[
             "Design, build, and ship AI-powered features and products across the full stack",
             "Integrate LLMs, ML models, and AI APIs into production applications",
-            "Build and maintain backend services, APIs, and data pipelines",
+            "Build and maintain backend services, APIs, and data pipelines using PostgreSQL, Redis, and Kafka event streams",
             "Develop responsive, performant frontend interfaces with modern frameworks (Next.js, React)",
-            "Own the deployment lifecycle — CI/CD, containerization, monitoring, and incident response",
+            "Own the deployment lifecycle — Docker containerization, CI/CD pipelines, AWS cloud infrastructure, monitoring, and incident response",
+            "Work with hybrid infrastructure: PostgreSQL (port 5433, pgvector), Kafka (KRaft, localhost:9092), Redis (localhost:6379), Flask backend (port 8000)",
             "Collaborate directly with the founding team on product direction and technical architecture",
             "Write production-quality code with proper testing, documentation, and observability",
             "Evaluate and integrate new AI tools, frameworks, and APIs as the ecosystem evolves",
@@ -34,8 +35,9 @@ export default function FullStackAIEngineerPage() {
             "3+ years of full stack development experience (frontend + backend)",
             "Strong proficiency in TypeScript, React/Next.js, and at least one backend language (Python, Node.js, Go)",
             "Hands-on experience integrating AI/ML models or LLM APIs into applications (OpenAI, Anthropic, open-source models)",
-            "Familiarity with cloud platforms (AWS, GCP, or Azure) and containerization (Docker)",
-            "Understanding of databases (PostgreSQL, Redis) and data modeling",
+            "Production experience with Docker containerization, AWS cloud services, and CI/CD deployment pipelines",
+            "Direct experience with PostgreSQL (pgvector), Redis caching/sessions, and Kafka event bus architectures",
+            "Understanding of databases (PostgreSQL, Redis) and event-driven data modeling",
             "Comfort with ambiguity — you can take a vague problem and ship a working solution",
             "Strong product sense — you care about what you build, not just how you build it",
           ]}
@@ -43,6 +45,7 @@ export default function FullStackAIEngineerPage() {
             "Experience with vector databases and RAG architectures",
             "Familiarity with MLOps, model serving, and inference optimization",
             "Experience building multi-agent or agentic AI systems",
+            "Direct experience with Kafka (KRaft mode), Redis clusters, Docker Compose orchestration, and AWS infrastructure",
             "Prior startup or founding engineer experience",
             "Open-source contributions or technical writing",
           ]}

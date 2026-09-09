@@ -18,7 +18,7 @@ const contacts = [
   },
   {
     t: "Careers & hiring",
-    email: "hr@menteeai.org",
+    email: "syab@menteeai.org",
     desc: "Applications, open roles, and anything related to joining the team.",
   },
   {

@@ -157,16 +157,16 @@ export function JobDetail({
           <p className="mt-2 text-sm text-neutral-600">
             Send your resume and a brief note about why you are a fit to{" "}
             <a
-              href="mailto:hr@menteeai.org"
+              href="mailto:syab@menteeai.org"
               className="font-medium text-neutral-900 underline underline-offset-4 hover:no-underline"
             >
-              hr@menteeai.org
+              syab@menteeai.org
             </a>
             . Include the role title in the subject line.
           </p>
           <div className="mt-4 flex flex-wrap gap-3">
             <a
-              href={`mailto:hr@menteeai.org?subject=${encodeURIComponent(`${title} Application`)}`}
+              href={`mailto:syab@menteeai.org?subject=${encodeURIComponent(`${title} Application`)}`}
               className="rounded-full bg-neutral-900 px-5 py-2.5 text-sm font-medium text-white transition-transform hover:scale-105"
             >
               Apply via email
