@@ -4,7 +4,7 @@ const roadmapItems = [
   {
     status: "done",
     title: "v0.1 — Agent core",
-    desc: "Autonomous loop, 6 tools, 7 providers, TUI, safety guardrails",
+    desc: "Autonomous loop, 41 tools, 13 providers, TUI, safety guardrails",
   },
   {
     status: "done",

@@ -22,11 +22,11 @@ const products = [
     href: "/products/swe",
     hrefLabel: "Learn more",
     external: false,
-    d: "Autonomous SWE agent in your terminal. Investigates, edits, verifies with your tests, reports with evidence. Model-agnostic, safe by design.",
+    d: "Autonomous SWE agent in your terminal. Investigates your repo, plans the change, edits, verifies with your tests, reports with evidence. Model-agnostic, safe by design.",
     stats: [
       { k: "CLI", v: "Terminal-native" },
       { k: "Any", v: "Model provider" },
-      { k: "Safe", v: "By design" },
+      { k: "npx", v: "Zero-install try" },
       { k: "MIT", v: "Licensed" },
     ],
   },

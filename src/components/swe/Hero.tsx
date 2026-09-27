@@ -4,8 +4,8 @@ export function SWEHero() {
   return (
     <section className="mx-auto max-w-4xl px-6 pb-12 pt-20 md:pt-28">
       <Reveal>
-        <div className="mb-8 flex items-start gap-3 rounded-xl border border-amber-300 bg-amber-50 p-4 shadow-sm">
-          <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-amber-500 text-white">
+        <div className="mb-8 flex items-start gap-3 rounded-xl border border-green-300 bg-green-50 p-4 shadow-sm">
+          <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-green-600 text-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
@@ -20,13 +20,11 @@ export function SWEHero() {
             </svg>
           </span>
           <div>
-            <p className="text-sm font-semibold text-amber-900">
-              ⚠️ Currently Unstable — Dev Team Is Working on Recovery
+            <p className="text-sm font-semibold text-green-900">
+              Stable release available
             </p>
-            <p className="mt-1 text-xs leading-relaxed text-amber-800">
-              The current build may contain bugs or unexpected behavior. Our
-              team is actively investigating and restoring stability. Please
-              use with caution and report any issues on GitHub.
+            <p className="mt-1 text-xs leading-relaxed text-green-800">
+              Install the stable release using the command below.
             </p>
           </div>
         </div>
@@ -34,8 +32,8 @@ export function SWEHero() {
           <p className="text-sm font-medium uppercase tracking-wide text-neutral-500">
             MenteE SWE
           </p>
-          <span className="rounded-full bg-amber-100 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-amber-700">
-            Unstable
+          <span className="rounded-full bg-green-100 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-green-700">
+            Stable
           </span>
         </div>
         <h1 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl">
@@ -61,7 +59,7 @@ export function SWEHero() {
           <span className="rounded-full border border-neutral-200 px-3 py-1">Go</span>
           <span className="rounded-full border border-neutral-200 px-3 py-1">Open-source</span>
           <span className="rounded-full border border-neutral-200 px-3 py-1">MIT</span>
-          <span className="rounded-full border border-neutral-200 px-3 py-1">5 LLM providers</span>
+          <span className="rounded-full border border-neutral-200 px-3 py-1">13 LLM providers</span>
         </div>
       </Reveal>
     </section>

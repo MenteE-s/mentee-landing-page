@@ -27,7 +27,7 @@ const faqs = [
   },
   {
     q: "Which models does MenteE SWE support?",
-    a: "It is model-agnostic. Supported providers include Z.ai Coding (default), Z.ai GLM, Kimi Moonshot, and GLM Zhipu. Switch providers with a flag or inside the terminal UI.",
+    a: "It is model-agnostic. v0.3.5 ships 13 providers — Z.ai Coding is the default; OpenAI, Anthropic, Gemini, DeepSeek, Kimi, GLM, Qwen, OpenRouter, and NVIDIA NIM are one -p flag away. Switch with a flag or inside the terminal UI.",
   },
   {
     q: "Is MenteE SWE safe to run?",

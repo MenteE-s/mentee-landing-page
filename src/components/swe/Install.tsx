@@ -6,7 +6,7 @@ import { Reveal } from "@/components/Reveal";
 const methods = [
   {
     name: "cargo (recommended)",
-    command: "cargo install mentee-swe",
+    command: "npm i -g @menteeai/menteeswe",
     note: "Requires Rust toolchain",
   },
   {
@@ -44,8 +44,8 @@ export function SWEInstall() {
     <section className="border-t border-neutral-200 py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <Reveal>
-          <div className="mx-auto mb-10 flex max-w-2xl items-start gap-3 rounded-xl border border-amber-300 bg-amber-50 p-4 text-left shadow-sm">
-            <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-amber-500 text-white">
+          <div className="mx-auto mb-10 flex max-w-2xl items-start gap-3 rounded-xl border border-green-300 bg-green-50 p-4 text-left shadow-sm">
+            <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-green-600 text-white">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
@@ -60,13 +60,11 @@ export function SWEInstall() {
               </svg>
             </span>
             <div>
-              <p className="text-sm font-semibold text-amber-900">
-                ⚠️ Currently Unstable — Dev Team Is Working on Recovery
+              <p className="text-sm font-semibold text-green-900">
+                Stable release — ready to install
               </p>
-              <p className="mt-1 text-xs leading-relaxed text-amber-800">
-                The current build may contain bugs. Our team is actively
-                restoring stability — please use with caution and report issues
-                on GitHub.
+              <p className="mt-1 text-xs leading-relaxed text-green-800">
+                The stable release is ready to download and use.
               </p>
             </div>
           </div>
@@ -150,7 +148,7 @@ export function SWEInstall() {
                 failing auth tests&quot;
               </p>
               <p className="mt-2 text-neutral-500">
-                Agent started. Model: claude-sonnet-4-20250514
+                Agent started. Model: glm-4.6
               </p>
               <p className="text-neutral-500">
                 Iteration 1/40 · Tools: 0/60 · Tokens: 0/800k

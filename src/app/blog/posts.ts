@@ -308,7 +308,7 @@ mentee "fix the failing auth tests"</code></pre>
       <p>MenteE SWE ships with a complete tool layer: filesystem (read, write, patch, move), search (regex, files, list), git (status, diff, log, branches), execution (with safe auto-approve for reads), testing (run tests, linter, typecheck), environment inspection, persistent memory, and web search. There is no <code>delete_file</code> tool — deletion is never automatic.</p>
 
       <h2>Supported providers</h2>
-      <p>Z.ai Coding is the default. Also supports Kimi Moonshot, GLM Zhipu, and Z.ai GLM international. All configurable via <code>mentee config</code> or environment variables.</p>
+      <p>Z.ai Coding is the default. v0.3.5 also ships 12 more — OpenAI, Anthropic, Gemini, DeepSeek, Kimi, GLM, Qwen (international + China), OpenRouter, and NVIDIA NIM — all configurable via <code>mentee config</code> or environment variables.</p>
 
       <h2>What's next</h2>
       <p>Subagents for parallel investigation, PR creation workflows, and team/shared memory scopes are on the roadmap. Install it today from <a href="https://www.npmjs.com/package/@menteeai/menteeswe" target="_blank" rel="noopener">npm</a> or visit <a href="/products/swe">/products/swe</a> for details.</p>

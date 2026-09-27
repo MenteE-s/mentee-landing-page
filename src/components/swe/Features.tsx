@@ -35,7 +35,7 @@ const features = [
         <path d="M12 19h8" />
       </svg>
     ),
-    title: "6 built-in tools",
+    title: "41 built-in tools",
     description:
       "run_command, read_files, apply_patch, search_code, list_files, finish_task — the complete toolbox for autonomous software engineering.",
   },
@@ -70,7 +70,7 @@ const features = [
     ),
     title: "Model-agnostic",
     description:
-      "OpenAI, Anthropic, Google, Mistral, OpenRouter, DeepSeek, Groq. Switch providers with one config change. No lock-in.",
+      "13 providers — Z.ai Coding (default), OpenAI, Anthropic, Gemini, DeepSeek, Kimi, GLM, Qwen, OpenRouter, NVIDIA NIM. Switch with a single -p flag. No lock-in.",
   },
 ];
 

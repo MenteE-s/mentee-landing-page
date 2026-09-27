@@ -2,46 +2,83 @@ import { Reveal } from "@/components/Reveal";
 
 const providers = [
   {
+    name: "Z.ai Coding Plan",
+    slug: "zai-coding",
+    model: "glm-4.6",
+    env: "MENTEE_ZAI_CODING_API_KEY",
+    isDefault: true,
+  },
+  {
+    name: "Z.ai (GLM intl)",
+    slug: "zai",
+    model: "glm-4.6",
+    env: "MENTEE_ZAI_API_KEY",
+  },
+  {
+    name: "GLM (Zhipu CN)",
+    slug: "glm",
+    model: "glm-4.6",
+    env: "MENTEE_GLM_API_KEY",
+  },
+  {
+    name: "Kimi (Moonshot)",
+    slug: "kimi",
+    model: "kimi-k2.7-code",
+    env: "MENTEE_KIMI_API_KEY",
+  },
+  {
     name: "OpenAI",
-    models: "GPT-4o, GPT-4o-mini, o1, o1-mini",
-    env: "OPENAI_API_KEY",
-    docs: "https://platform.openai.com",
+    slug: "openai",
+    model: "gpt-5.2-codex",
+    env: "MENTEE_OPENAI_API_KEY",
   },
   {
     name: "Anthropic",
-    models: "Claude Opus, Claude Sonnet, Claude Haiku",
-    env: "ANTHROPIC_API_KEY",
-    docs: "https://console.anthropic.com",
+    slug: "anthropic",
+    model: "claude-sonnet-4-5",
+    env: "MENTEE_ANTHROPIC_API_KEY",
   },
   {
-    name: "Google AI Studio",
-    models: "Gemini 2.0 Flash, Gemini 1.5 Pro",
-    env: "GOOGLE_API_KEY",
-    docs: "https://aistudio.google.com",
-  },
-  {
-    name: "Mistral",
-    models: "Mistral Large, Codestral",
-    env: "MISTRAL_API_KEY",
-    docs: "https://console.mistral.ai",
-  },
-  {
-    name: "OpenRouter",
-    models: "Any OpenRouter model",
-    env: "OPENROUTER_API_KEY",
-    docs: "https://openrouter.ai",
+    name: "Gemini",
+    slug: "gemini",
+    model: "gemini-3-pro-preview",
+    env: "MENTEE_GEMINI_API_KEY",
   },
   {
     name: "DeepSeek",
-    models: "DeepSeek-V3, DeepSeek-R1",
-    env: "DEEPSEEK_API_KEY",
-    docs: "https://platform.deepseek.com",
+    slug: "deepseek",
+    model: "deepseek-chat",
+    env: "MENTEE_DEEPSEEK_API_KEY",
   },
   {
-    name: "Groq",
-    models: "Llama 3.3, Mixtral",
-    env: "GROQ_API_KEY",
-    docs: "https://console.groq.com",
+    name: "Qwen (international)",
+    slug: "qwen",
+    model: "qwen3-coder-plus",
+    env: "MENTEE_DASHSCOPE_API_KEY",
+  },
+  {
+    name: "Qwen (China)",
+    slug: "qwen-cn",
+    model: "qwen3-coder-plus",
+    env: "MENTEE_DASHSCOPE_CN_API_KEY",
+  },
+  {
+    name: "OpenRouter",
+    slug: "openrouter",
+    model: "anthropic/claude-sonnet-4.5",
+    env: "MENTEE_OPENROUTER_API_KEY",
+  },
+  {
+    name: "NVIDIA NIM",
+    slug: "nvidia",
+    model: "nvidia/llama-3.1-nemotron-70b-instruct",
+    env: "MENTEE_NVIDIA_API_KEY",
+  },
+  {
+    name: "Mock (offline testing)",
+    slug: "mock",
+    model: "—",
+    env: "no key needed",
   },
 ];
 
@@ -52,11 +89,12 @@ export function SWEProviders() {
         <Reveal>
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
-              One config file, seven providers
+              Model-agnostic, 13 providers
             </h2>
             <p className="mt-4 text-lg text-neutral-600">
-              Switch providers without changing your workflow. Add an API key and
-              set your default model.
+              Switch providers without changing your workflow. Z.ai Coding is
+              the default, optimized for the GLM Coding Plan subscription — add
+              a key and go.
             </p>
           </div>
         </Reveal>
@@ -70,37 +108,35 @@ export function SWEProviders() {
                       Provider
                     </th>
                     <th className="px-6 py-4 font-semibold text-neutral-900">
-                      Models
+                      -p slug
                     </th>
                     <th className="px-6 py-4 font-semibold text-neutral-900">
-                      Environment variable
+                      Default model
                     </th>
                     <th className="px-6 py-4 font-semibold text-neutral-900">
-                      Docs
+                      Env var
                     </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-neutral-200">
                   {providers.map((p) => (
-                    <tr key={p.name} className="hover:bg-neutral-50">
-                      <td className="px-6 py-4 font-medium text-neutral-900">
+                    <tr key={p.slug} className="hover:bg-neutral-50">
+                      <td className="whitespace-nowrap px-6 py-4 font-medium text-neutral-900">
                         {p.name}
+                        {p.isDefault ? (
+                          <span className="ml-2 rounded-full bg-neutral-900 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white">
+                            Default
+                          </span>
+                        ) : null}
                       </td>
-                      <td className="px-6 py-4 text-neutral-600">{p.models}</td>
                       <td className="px-6 py-4">
                         <code className="rounded bg-neutral-100 px-2 py-1 text-xs text-neutral-800">
-                          {p.env}
+                          -{p.slug}
                         </code>
                       </td>
-                      <td className="px-6 py-4">
-                        <a
-                          href={p.docs}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-600 hover:text-blue-700 hover:underline"
-                        >
-                          {p.docs.replace("https://", "")}
-                        </a>
+                      <td className="px-6 py-4 text-neutral-600">{p.model}</td>
+                      <td className="whitespace-nowrap px-6 py-4 text-neutral-600">
+                        {p.env}
                       </td>
                     </tr>
                   ))}
@@ -108,6 +144,16 @@ export function SWEProviders() {
               </table>
             </div>
           </div>
+        </Reveal>
+        <Reveal delay={200}>
+          <p className="mx-auto mt-6 max-w-3xl text-center text-sm text-neutral-500">
+            Per-phase model routing lets you serve exploration from a cheap,
+            fast model and edits from a strong one — configured in{" "}
+            <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs">
+              ~/.mentee/config.json
+            </code>
+            , with token spend per route reported in every task summary.
+          </p>
         </Reveal>
       </div>
     </section>
