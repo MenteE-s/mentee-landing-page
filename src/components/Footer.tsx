@@ -34,8 +34,8 @@ export function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/research" className="hover:text-black">
-                    Research
+                  <Link href="/#team" className="hover:text-black">
+                    Team
                   </Link>
                 </li>
                 <li>
@@ -44,8 +44,13 @@ export function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/contact" className="hover:text-black">
-                    Press
+                  <Link href="/research" className="hover:text-black">
+                    Research
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/blog" className="hover:text-black">
+                    Blog
                   </Link>
                 </li>
               </ul>
@@ -64,18 +69,13 @@ export function Footer() {
                   </Link>
                 </li>
                 <li>
+                  <Link href="/products/recruai" className="hover:text-black">
+                    RecruAI
+                  </Link>
+                </li>
+                <li>
                   <Link href="/embed-models" className="hover:text-black">
                     Embed Models
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/research" className="hover:text-black">
-                    Research
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/blog" className="hover:text-black">
-                    Blog
                   </Link>
                 </li>
               </ul>

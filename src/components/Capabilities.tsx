@@ -25,8 +25,8 @@ const capabilities = [
     d: "Platforms designed to connect with the tools and systems organizations already rely on — no rip-and-replace.",
   },
   {
-    t: "Built for uptime",
-    d: "Every system is engineered for reliability — monitoring, alerting, and failover from the start.",
+    t: "Built to last",
+    d: "Reliability designed in from the first commit — observability, sane error handling and graceful failure instead of silent breakage.",
   },
 ];
 

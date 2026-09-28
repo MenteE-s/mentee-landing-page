@@ -5,6 +5,7 @@ import { Marquee } from "@/components/Marquee";
 import { ResearchTeaser } from "@/components/ResearchTeaser";
 import { WhatWeBuild } from "@/components/WhatWeBuild";
 import { Capabilities } from "@/components/Capabilities";
+import { Team } from "@/components/Team";
 import { RecruAITeaser } from "@/components/RecruAITeaser";
 import { ProductCards } from "@/components/ProductCards";
 import { FAQ } from "@/components/FAQ";
@@ -50,6 +51,7 @@ export default function Home() {
         <RecruAITeaser />
         <WhatWeBuild />
         <Capabilities />
+        <Team />
         <ProductCards />
         <section className="mx-auto max-w-6xl px-6 py-20">
           <div className="flex items-end justify-between">
