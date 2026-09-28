@@ -84,37 +84,60 @@ export default function ProductsPage() {
           </Reveal>
         </section>
 
-        <section className="mx-auto max-w-6xl px-6 py-16">
-          <div className="grid gap-8 md:grid-cols-3">
+        <section className="mx-auto max-w-6xl px-6 pb-20">
+          <div className="border-t border-neutral-200">
             {products.map((p, i) => (
-              <Reveal key={p.label} delay={i * 0.1}>
-                <div className="flex h-full flex-col rounded-2xl border border-neutral-200 bg-white p-8">
-                  <div className="flex items-center gap-3">
-                    <h2 className="text-xl font-semibold text-neutral-900">{p.label}</h2>
-                    {p.tag && (
-                      <span className="rounded-full bg-amber-100 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-amber-700">
-                        {p.tag}
-                      </span>
-                    )}
+              <Reveal key={p.label} delay={i * 0.08}>
+                <article className="grid gap-6 border-b border-neutral-200 py-12 md:grid-cols-12 md:gap-8">
+                  <div className="md:col-span-1">
+                    <span className="font-mono text-xs text-neutral-400">
+                      0{i + 1}
+                    </span>
                   </div>
-                  <p className="mt-4 text-sm leading-relaxed text-neutral-600">{p.d}</p>
-                  <div className="mt-6 grid grid-cols-2 gap-3">
-                    {p.stats.map((s) => (
-                      <div key={s.v} className="rounded-lg bg-neutral-50 px-3 py-2">
-                        <p className="text-sm font-bold text-neutral-900">{s.k}</p>
-                        <p className="text-[11px] text-neutral-500">{s.v}</p>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="mt-6">
+
+                  <div className="md:col-span-7">
+                    <div className="flex items-center gap-3">
+                      <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl">
+                        {p.label}
+                      </h2>
+                      {p.tag && (
+                        <span
+                          className={`px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
+                            p.tag === "Live"
+                              ? "bg-emerald-100 text-emerald-700"
+                              : "bg-amber-100 text-amber-700"
+                          }`}
+                        >
+                          {p.tag}
+                        </span>
+                      )}
+                    </div>
+                    <p className="mt-4 max-w-xl text-sm leading-relaxed text-neutral-600">
+                      {p.d}
+                    </p>
                     <Link
                       href={p.href}
-                      className="text-sm font-medium text-neutral-900 underline underline-offset-4 hover:no-underline"
+                      className="mt-6 inline-block text-sm font-semibold text-neutral-900 underline underline-offset-4 hover:no-underline"
                     >
                       {p.hrefLabel} →
                     </Link>
                   </div>
-                </div>
+
+                  <div className="md:col-span-4 md:pl-8">
+                    <dl className="grid grid-cols-2 gap-x-6 gap-y-5">
+                      {p.stats.map((s) => (
+                        <div key={s.v} className="min-w-0">
+                          <dd className="text-sm font-semibold tracking-tight text-neutral-900">
+                            {s.k}
+                          </dd>
+                          <dt className="mt-0.5 text-xs text-neutral-500">
+                            {s.v}
+                          </dt>
+                        </div>
+                      ))}
+                    </dl>
+                  </div>
+                </article>
               </Reveal>
             ))}
           </div>
