@@ -5,19 +5,20 @@ import { Reveal } from "@/components/Reveal";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Products — MenteE — RecruAI, Embed, SWE",
+  title: "Products — MenteE — RecruAI, Embed, Code 3B, SWE",
   description:
-    "MenteE builds three production AI platforms: RecruAI (AI hiring and interview platform for Pakistan and the Gulf), MenteE Embed (multilingual embeddings), and MenteE SWE (autonomous coding agent).",
+    "MenteE builds production AI platforms and open models: RecruAI (AI hiring and interview platform for Pakistan and the Gulf), MenteE Embed (multilingual embeddings), MenteE Code 3B (coding model trained on agent trajectories), and MenteE SWE (autonomous coding agent).",
   keywords: [
     "RecruAI", "MenteE products", "AI hiring platform", "AI interview platform",
     "job portal Pakistan", "Gulf jobs UAE Saudi Qatar Kuwait Bahrain", "MenteE Embed",
-    "multilingual embeddings", "MenteE SWE", "autonomous coding agent",
+    "multilingual embeddings", "MenteE Code 3B", "coding agent model",
+    "LoRA fine-tune", "MenteE SWE", "autonomous coding agent",
     "recruitment automation", "ATS scoring", "CV optimization AI",
   ],
   alternates: { canonical: "https://menteeai.org/products" },
   openGraph: {
-    title: "MenteE Products — RecruAI, Embed, SWE",
-    description: "AI hiring, multilingual embeddings, autonomous coding — built by MenteE.",
+    title: "MenteE Products — RecruAI, Embed, Code 3B, SWE",
+    description: "AI hiring, multilingual embeddings, coding models, autonomous coding — built by MenteE.",
     url: "https://menteeai.org/products",
   },
 };
@@ -33,6 +34,19 @@ const products = [
       { k: "~41M", v: "Parameters" },
       { k: "384", v: "Dimensions" },
       { k: "3", v: "Languages" },
+      { k: "Apache 2.0", v: "License" },
+    ],
+  },
+  {
+    label: "MenteE Code 3B",
+    tag: "v1",
+    href: "/research?model=code3b",
+    hrefLabel: "Read the report",
+    d: "A 3B coding-agent model fine-tuned on 53,567 execution-verified agent trajectories. Trained for $0.13 on one RTX 5090, with the HumanEval regression published on purpose alongside the root cause and the v2 fix. GGUF builds included. Apache 2.0.",
+    stats: [
+      { k: "3B", v: "Parameters" },
+      { k: "53,567", v: "Trajectories" },
+      { k: "$0.13", v: "Training cost" },
       { k: "Apache 2.0", v: "License" },
     ],
   },

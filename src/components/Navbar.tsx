@@ -12,6 +12,11 @@ const products = [
     desc: "41M-param multilingual embeddings, trained from scratch",
   },
   {
+    label: "MenteE Code 3B",
+    href: "/research?model=code3b",
+    desc: "3B coding model trained on execution-verified agent trajectories",
+  },
+  {
     label: "MenteE SWE",
     href: "/products/swe",
     desc: "Autonomous SWE agent in your terminal",
