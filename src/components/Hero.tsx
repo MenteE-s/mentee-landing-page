@@ -99,7 +99,7 @@ export function Hero() {
         initial={reduce ? false : { opacity: 0, y: 12 }}
         animate={reduce ? undefined : { opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 3.5, ease: [0.22, 1, 0.36, 1] }}
-        className="relative mt-10 max-w-xl px-2 text-center"
+        className="relative mx-auto mt-10 max-w-xl px-2 text-center"
       >
         <p className="font-mono text-[11px] uppercase tracking-widest text-neutral-400">
           Research for humanity
