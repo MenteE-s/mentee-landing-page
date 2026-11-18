@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     "job portal Pakistan", "Gulf jobs UAE Saudi Qatar Kuwait Bahrain", "MenteE Embed",
     "multilingual embeddings", "MenteE Code 3B", "coding agent model",
     "LoRA fine-tune", "MenteE SWE", "autonomous coding agent",
+    "Think While You Speak", "adaptive computation", "test-time compute",
     "recruitment automation", "ATS scoring", "CV optimization AI",
   ],
   alternates: { canonical: "https://menteeai.org/products" },
@@ -48,6 +49,19 @@ const products = [
       { k: "53,567", v: "Trajectories" },
       { k: "$0.13", v: "Training cost" },
       { k: "Apache 2.0", v: "License" },
+    ],
+  },
+  {
+    label: "Think While You Speak",
+    tag: "Preprint",
+    href: "/research?model=acp",
+    hrefLabel: "Read the preprint",
+    d: "A model that learns when to think: a fast linear path answers by default, an episodic memory gates a deliberate pathway, and the routing gradient is measured at 10 seeds. DOI 10.5281/zenodo.24353178. NumPy only, CPU only, MIT.",
+    stats: [
+      { k: "93.5%", v: "Accuracy" },
+      { k: "98.7%", v: "Routing Acc." },
+      { k: "67.2%", v: "Deliberation" },
+      { k: "DOI", v: "Zenodo" },
     ],
   },
   {

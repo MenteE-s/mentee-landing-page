@@ -12,6 +12,11 @@ const products = [
     desc: "41M-param multilingual embeddings, trained from scratch",
   },
   {
+    label: "Think While You Speak",
+    href: "/research?model=acp",
+    desc: "A model that learns when to think, memory-gated deliberation",
+  },
+  {
     label: "MenteE Code 3B",
     href: "/research?model=code3b",
     desc: "3B coding model trained on execution-verified agent trajectories",
