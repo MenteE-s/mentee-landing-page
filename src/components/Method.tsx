@@ -15,31 +15,22 @@ export function Method() {
 
         <Reveal delay={0.05}>
           <p className="mt-8 text-lg leading-relaxed text-neutral-600">
-            MenteE is not an AI company. It is an umbrella for research aimed
-            at humanity — AI is simply where the answers can be checked today.
-            We take on fields where the answer is not settled yet, build the
-            smallest thing that can actually be checked, and report the result
-            with the method attached. No pilots, no demos, no numbers without
-            the recipe that produced them.
+            MenteE is an umbrella for research aimed at humanity. AI is simply
+            where the answers can be checked today. We take on fields where the
+            answer is not yet settled, build the smallest thing that can be
+            measured, and report the result with the method attached: the
+            numbers, the code, and the recipe that produced them.
           </p>
         </Reveal>
 
         <Reveal delay={0.1}>
           <div className="mt-10 space-y-6 border-l-2 border-neutral-200 pl-6 text-base leading-relaxed text-neutral-600 sm:pl-8">
             <p>
-              <span className="font-semibold text-neutral-900">Language</span>{" "}
-              first. Arabic, English and Urdu trained as three first-class
-              languages, not one English model with two translations bolted on —
-              because that is what every available model actually is, and
-              roughly a billion people search in languages the field decided
-              were edge cases.
-            </p>
-            <p>
               <span className="font-semibold text-neutral-900">
                 Software engineering
               </span>
-              , where the tools are still being worked out and nobody has agreed
-              on what competent looks like.
+              , where the tooling and the standards for competent performance
+              are still taking shape.
             </p>
             <p>
               <span className="font-semibold text-neutral-900">Learning</span>.{" "}
@@ -49,23 +40,22 @@ export function Method() {
               .{" "}
               <span className="font-semibold text-neutral-900">Matter</span>.{" "}
               <span className="font-semibold text-neutral-900">Medicine</span>.
-              The same approach, applied to questions with more at stake and
-              longer proofs.
+              The same approach, applied to questions where more is at stake and
+              verification takes longer.
             </p>
           </div>
         </Reveal>
 
         <Reveal delay={0.15}>
           <p className="mt-10 text-base leading-relaxed text-neutral-600">
-            The order is not a roadmap. It is the sequence in which a small lab
-            can be honest about what it can verify.
+            The order is deliberate. It reflects the scale at which a small lab
+            can work rigorously and verify its own results.
           </p>
           <p className="mt-6 text-base leading-relaxed text-neutral-600">
-            What it costs to work this way is public embarrassment when a run
-            collapses. What it buys is the only kind of credibility that
-            compounds: every MenteE project ships its method, its numbers and
-            its failed runs alongside it. A lab that never reports a collapsed
-            experiment is not doing research — it is doing marketing.
+            Working this way means publishing collapsed runs alongside
+            successful ones. That is the cost of the method, and it is also the
+            reason the results can be trusted: every MenteE project ships with
+            its method, its numbers, and its complete record.
           </p>
         </Reveal>
       </div>
