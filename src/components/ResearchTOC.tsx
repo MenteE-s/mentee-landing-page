@@ -21,6 +21,11 @@ interface Props {
 
 /* Version colour tokens */
 const groupStyle: Record<string, { dot: string; badge: string; header: string }> = {
+  "Think While You Speak": {
+    dot: "bg-neutral-900",
+    badge: "bg-neutral-900 text-white",
+    header: "text-neutral-900",
+  },
   "mentee-embed-v4": {
     dot: "bg-neutral-900",
     badge: "bg-neutral-900 text-white",

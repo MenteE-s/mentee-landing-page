@@ -33,7 +33,33 @@ const BIBTEX_V4 = `@misc{mentee-embed-v4-2026,
   note    = {Apache-2.0 License}
 }`;
 
+const BIBTEX_ACP = `@misc{shah2026acp,
+  title   = {Think While You Speak: Adaptive Computational Effort
+             in Neural Dialogue Systems},
+  author  = {Shah, Syed Syab Ahmad and Team MenteE AI},
+  year    = {2026},
+  publisher = {Zenodo},
+  doi     = {10.5281/zenodo.24353178},
+  url     = {https://doi.org/10.5281/zenodo.24353178},
+  note    = {MenteE AI, https://menteeai.org}
+}`;
+
 const models = {
+  acp: {
+    label: "Think While You Speak",
+    version: "v1.0",
+    date: "18 Nov 2026",
+    doi: "10.5281/zenodo.24353178",
+    doiUrl: "https://doi.org/10.5281/zenodo.24353178",
+    pdfUrl:
+      "https://zenodo.org/records/24353178/files/Think_While_You_Speak__Adaptive_Computational_Effort_in_Neural_Dialogue_Systems.pdf?download=1",
+    authors: "Shah, Syed Syab Ahmad · Team MenteE AI — MenteE AI",
+    title:
+      "Think While You Speak: Adaptive Computational Effort in Neural Dialogue Systems",
+    description:
+      "A minimal two-pathway architecture where a memory-aware monitor decides per input whether to think. Routing gradient: 2.8% of easy inputs deliberated, 99.7% of medium, 99.2% of hard. 93.5% accuracy at 67.2% deliberation (10 seeds), and a 3-seed ablation showing that removing the episodic novelty feature drops accuracy from 94.3% to 73.7%. Pure NumPy, CPU only.",
+    bibtex: BIBTEX_ACP,
+  },
   v1: {
     label: "mentee-embed-v1",
     version: "v1.0.0",
@@ -88,7 +114,7 @@ export function PublicationCard({
   version = "v3",
 }: {
   compact?: boolean;
-  version?: "v1" | "v3" | "v4";
+  version?: "acp" | "v1" | "v3" | "v4";
 }) {
   const [copied, setCopied] = useState(false);
   const m = models[version];

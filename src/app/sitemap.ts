@@ -9,7 +9,7 @@ const staticRoutes: { url: string; priority: number; changeFrequency: MetadataRo
   { url: "/embed-models", priority: 0.9, changeFrequency: "monthly" },
   { url: "/blog",         priority: 0.8, changeFrequency: "weekly"  },
   { url: "/products",     priority: 0.7, changeFrequency: "monthly" },
-  { url: "/about",        priority: 0.6, changeFrequency: "monthly" },
+  { url: "/about",        priority: 0.8, changeFrequency: "monthly" },
   { url: "/careers",      priority: 0.6, changeFrequency: "monthly" },
   { url: "/contact",      priority: 0.5, changeFrequency: "monthly" },
 ];

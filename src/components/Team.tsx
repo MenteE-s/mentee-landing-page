@@ -39,6 +39,16 @@ const team = [
       { k: "13", v: "Certifications" },
     ],
   },
+  {
+    index: "03",
+    name: "Ashfaq Ahmad",
+    role: "Co-Founder, CAO & Research Scientist",
+    email: "ashfaq@menteeai.org",
+    links: [],
+    line: "Keeps the lab running so the research can ship.",
+    body: "Co-founder and Chief Administrative Officer at MenteE. Works as a research scientist on the mentee-embed line while owning the administration and operations that keep a from-scratch lab moving.",
+    proof: [],
+  },
 ];
 
 export function Team() {
@@ -52,9 +62,11 @@ export function Team() {
           Everyone here built what you are using.
         </h2>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-neutral-600">
-          There are two of us. No agency, no middlemen, no handoff — the people
-          answering your email are the people who wrote the code and trained the
-          models. You talk to us directly.
+          There are three of us, and that is still the argument rather than
+          the apology. A small lab that trains from scratch, registers its DOIs and
+          publishes its collapsed runs is a different kind of credible from a
+          forty-person shop that does none of the three. The people answering
+          your email wrote the code and trained the models.
         </p>
       </Reveal>
 

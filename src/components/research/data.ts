@@ -7,7 +7,7 @@
 
 /* ── TOC ─────────────────────────────────────────────────── */
 
-export type ModelId = "v4" | "v3" | "v1";
+export type ModelId = "acp" | "v4" | "v3" | "v1";
 
 export interface TocSection {
   id: string;
@@ -17,7 +17,8 @@ export interface TocSection {
 
 /** Dropdown order — latest first. */
 export const modelsMeta: { id: ModelId; label: string; tag?: string }[] = [
-  { id: "v4", label: "mentee-embed-v4", tag: "Latest" },
+  { id: "acp", label: "Think While You Speak", tag: "New" },
+  { id: "v4", label: "mentee-embed-v4", tag: "Latest embed" },
   { id: "v3", label: "mentee-embed-v3" },
   { id: "v1", label: "mentee-embed-v1" },
 ];
@@ -29,6 +30,16 @@ export const sharedSections: TocSection[] = [
 ];
 
 export const modelSections: Record<ModelId, TocSection[]> = {
+  acp: [
+    { id: "acp-approach",    label: "The Architecture", group: "Think While You Speak" },
+    { id: "acp-results",     label: "Results",          group: "Think While You Speak" },
+    { id: "acp-routing",     label: "Routing Gradient", group: "Think While You Speak" },
+    { id: "acp-ablation",    label: "Memory Ablation",  group: "Think While You Speak" },
+    { id: "acp-strengths",   label: "Strengths",        group: "Think While You Speak" },
+    { id: "acp-limitations", label: "Limitations",      group: "Think While You Speak" },
+    { id: "acp-roadmap",     label: "Roadmap",          group: "Think While You Speak" },
+    { id: "acp-reproduction", label: "Reproduction",    group: "Think While You Speak" },
+  ],
   v4: [
     { id: "v4-approach",    label: "The Approach",       group: "mentee-embed-v4" },
     { id: "v4-benchmarks",  label: "Benchmarks",         group: "mentee-embed-v4" },
@@ -257,4 +268,71 @@ export const roadmap = [
   { t: "Open release", d: "Model weights, custom tokenizer, and full model card under Apache 2.0." },
   { t: "Standardized evaluation", d: "MTEB-style benchmarks across multilingual retrieval and bitext-mining tasks." },
   { t: "Urdu-focused expansion", d: "Adding parallel-corpus alignment objectives for the scarcest retrieval ground truth." },
+];
+
+/* ── acp · Think While You Speak ─────────────────────────── */
+
+export const acpStats = [
+  { n: "93.5%", l: "Task accuracy · 10 seeds" },
+  { n: "98.7%", l: "Routing accuracy" },
+  { n: "67.2%", l: "Deliberation rate" },
+  { n: "1.7e-9", l: "Max gradient error" },
+];
+
+export const acpMainResults = [
+  { model: "ACP (this work)", short: "ACP ★", acc: "0.935 ± 0.012", route: "0.987 ± 0.002", delib: "0.672 ± 0.000", ours: true },
+  { model: "Always Deliberate (MLP)", short: "Always Delib.", acc: "0.937 ± 0.006", route: "0.667 ± 0.000", delib: "1.000" },
+  { model: "Fixed MLP (56 hidden units)", short: "Fixed MLP", acc: "0.947 ± 0.007", route: "0.667 ± 0.000", delib: "1.000" },
+  { model: "Random Router (p = 0.5)", short: "Random Router", acc: "0.653 ± 0.043", route: "0.501 ± 0.008", delib: "0.499 ± 0.005" },
+  { model: "Always Fast (linear)", short: "Always Fast", acc: "0.370 ± 0.081", route: "0.333 ± 0.000", delib: "0.000" },
+];
+
+export const acpDifficulty = [
+  { model: "ACP (this work)", short: "ACP ★", easy: "0.977", med: "0.965", hard: "0.863", eDelib: "0.028", mDelib: "0.997", hDelib: "0.992", ours: true },
+  { model: "Always Fast (linear)", short: "Always Fast", easy: "0.298", med: "0.549", hard: "0.264", eDelib: "0.000", mDelib: "0.000", hDelib: "0.000" },
+  { model: "Always Deliberate (MLP)", short: "Always Delib.", easy: "0.987", med: "0.962", hard: "0.863", eDelib: "1.000", mDelib: "1.000", hDelib: "1.000" },
+  { model: "Fixed MLP (56 hidden units)", short: "Fixed MLP", easy: "0.986", med: "0.968", hard: "0.886", eDelib: "1.000", mDelib: "1.000", hDelib: "1.000" },
+  { model: "Random Router (p = 0.5)", short: "Random Router", easy: "0.638", med: "0.759", hard: "0.562", eDelib: "0.496", mDelib: "0.503", hDelib: "0.498" },
+];
+
+export const acpAblation = [
+  { monitor: "x + episodic novelty (full model)", short: "x + novelty", acc: "0.943 ± 0.008", route: "0.987 ± 0.001", delib: "0.672 ± 0.000", ours: true },
+  { monitor: "x only (novelty removed)", short: "x only", acc: "0.737 ± 0.088", route: "0.921 ± 0.003", delib: "0.662 ± 0.008" },
+];
+
+export const acpComponents = [
+  { t: "Fast pathway", d: "A linear map, Wf·x + bf. Cheap by construction: a linear model cannot fit the quadratic or product-interaction targets, so the capability gap between the two paths is real rather than assumed." },
+  { t: "Deliberate pathway", d: "A 48-unit MLP over the concatenation [x, fast_out]. It can fit every target the fast path cannot, at roughly 54x the multiply-accumulates." },
+  { t: "Monitor", d: "p = σ(w·x + wn·novelty + b), a linear gate over the input plus one explicit episodic novelty scalar. The thresholded flag is the traceable routing decision." },
+  { t: "Episodic memory", d: "30 fixed keys (15 from the familiar cluster, 15 random). Novelty = 1 − max cosine similarity. Familiar inputs answer fast; novel inputs escalate." },
+];
+
+export const acpStrengths = [
+  { t: "The routing gradient is near-optimal", d: "Deliberation rises from 2.8% on easy inputs to 99.7% / 99.2% on medium and hard, matching the 66.7% base rate almost exactly, at 98.7% routing accuracy." },
+  { t: "The capacity gap is real", d: "The linear fast path provably cannot fit the quadratic (Medium) or product-interaction (Hard) targets, so the routing measurement is meaningful rather than a memorization artifact." },
+  { t: "Memory does measurable work", d: "Removing the novelty feature drops accuracy from 94.3% to 73.7%: the x-only gate deliberates at the same overall rate but sends 12% of hard inputs to the path that cannot fit them." },
+  { t: "Reproducible without a GPU", d: "Pure NumPy on CPU, 10 seeds, and hand-derived gradients verified against finite differences (max relative error 1.7e-9)." },
+];
+
+export const acpLimitations = [
+  { t: "Mechanism study, not language", d: "The task is synthetic 16-dimensional regression. Dialogue is the motivating application, not the experimental setting." },
+  { t: "Routing is supervised", d: "The monitor trains on ground-truth route labels. A deployed system would not have those; label-free routing is the obvious next step." },
+  { t: "The monitor is not free", d: "The 30-key memory scan costs ~496 MACs per input vs ~864 for the deliberate path, so at 67% deliberation there is no net FLOP saving yet. A few keys or a low-dimensional sketch would move the crossover." },
+  { t: "Novelty detector, not episodic memory", d: "Keys are fixed and hand-filled, and the readout is a single scalar. Learned writes and content-based retrieval are future work." },
+];
+
+export const acpRoadmap = [
+  { t: "Label-free routing", d: "Train the monitor from task loss plus a compute penalty, or from the fast path's own residual, so the system decides when to think without an answer key." },
+  { t: "Content-addressable memory", d: "Store key-value episodes and feed a readout vector into the monitor, then test on tasks where the same input needs different compute depending on stored context." },
+  { t: "A monitor worth paying for", d: "Shrink the memory to a handful of keys or a low-dimensional sketch so the routing policy turns into a real FLOP saving." },
+  { t: "Language", d: "Move from synthetic vectors to a small language task: streaming dialogue where deliberation is visible between turns." },
+];
+
+export const acpReproCommands = [
+  "pip install -r requirements.txt",
+  "python test_gradients.py",
+  "python evaluate.py",
+  "python ablation_novelty.py",
+  "python charts/make_results_table.py",
+  "python charts/generate_charts.py",
 ];

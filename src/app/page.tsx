@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { Marquee } from "@/components/Marquee";
+import { Method } from "@/components/Method";
+import { AcpTeaser } from "@/components/AcpTeaser";
 import { ResearchTeaser } from "@/components/ResearchTeaser";
-import { WhatWeBuild } from "@/components/WhatWeBuild";
 import { Capabilities } from "@/components/Capabilities";
 import { Team } from "@/components/Team";
-import { RecruAITeaser } from "@/components/RecruAITeaser";
 import { ProductCards } from "@/components/ProductCards";
 import { FAQ } from "@/components/FAQ";
 import { CTA } from "@/components/CTA";
@@ -16,26 +16,30 @@ import Link from "next/link";
 import { posts } from "./blog/posts";
 
 export const metadata: Metadata = {
-  title: "MenteE AI — Trilingual Embeddings & AI Products",
+  title: "MenteE — Research for humanity",
   description:
-    "MenteE AI builds open multilingual embedding models (Arabic, English, Urdu) and production-ready AI platforms. mentee-embed-v3 — 41M params, Apache 2.0, trained from scratch.",
+    "MenteE is an umbrella for research aimed at humanity: open multilingual embeddings, autonomous software engineering, applied learning systems. Apache 2.0, honest benchmarks, failures published.",
   keywords: [
-    "MenteE AI", "menteeai.org", "mentee-embed", "mentee-embed-v3",
-    "Arabic NLP", "Urdu NLP", "multilingual embeddings", "AI products",
+    "MenteE", "menteeai.org", "research organization", "open research",
+    "applied research", "mentee-embed", "mentee-embed-v4",
+    "Arabic NLP", "Urdu NLP", "multilingual embeddings", "reproducible",
+    "Think While You Speak", "adaptive cognitive processing",
+    "adaptive computation", "routing",
     "Syed Syab Ahmad", "syab.tech",
   ],
   alternates: { canonical: "https://menteeai.org" },
   openGraph: {
-    title: "MenteE AI — Trilingual Embeddings & AI Products",
+    title: "MenteE — Research for humanity",
     description:
-      "Open multilingual embedding models for Arabic, English and Urdu. Production-ready AI platforms. mentee-embed-v3 is live on Hugging Face.",
+      "MenteE is an umbrella for research aimed at humanity. We take on fields where the answer is not settled, build the smallest thing that can be checked, and publish the method, the numbers and the failures.",
     url: "https://menteeai.org",
-    images: [{ url: "/MenteE.png", width: 1200, height: 630, alt: "MenteE AI" }],
+    images: [{ url: "/MenteE.png", width: 1200, height: 630, alt: "MenteE" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "MenteE AI — Trilingual Embeddings & AI Products",
-    description: "Open multilingual embedding models for Arabic, English and Urdu.",
+    title: "MenteE — Research for humanity",
+    description:
+      "An umbrella for research aimed at humanity: open multilingual embedding research, autonomous software engineering, applied learning systems. Apache 2.0, honest benchmarks.",
     images: ["/MenteE.png"],
   },
 };
@@ -47,12 +51,12 @@ export default function Home() {
       <main className="flex-1">
         <Hero />
         <Marquee />
+        <Method />
+        <AcpTeaser />
         <ResearchTeaser />
-        <RecruAITeaser />
-        <WhatWeBuild />
         <Capabilities />
-        <Team />
         <ProductCards />
+        <Team />
         <section className="mx-auto max-w-6xl px-6 py-20">
           <div className="flex items-end justify-between">
             <div>

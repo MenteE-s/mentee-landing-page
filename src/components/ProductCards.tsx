@@ -4,11 +4,12 @@ import { Reveal } from "@/components/Reveal";
 const products = [
   {
     label: "MenteE Embed",
+    chapter: "Language",
     tag: null,
     href: "/research",
     hrefLabel: "Read the research",
     external: false,
-    d: "Compact multilingual text embedding model — ~41M params, trained from scratch for Arabic, English, and Urdu retrieval. 384-dim, Apache 2.0.",
+    d: "Compact multilingual text embedding model — ~41M params, trained from scratch for Arabic, English, and Urdu retrieval, so search works in the languages a billion people actually use. 384-dim, Apache 2.0.",
     stats: [
       { k: "~41M", v: "Parameters" },
       { k: "384", v: "Dimensions" },
@@ -18,6 +19,7 @@ const products = [
   },
   {
     label: "MenteE SWE",
+    chapter: "Software engineering",
     tag: "Beta",
     href: "/products/swe",
     hrefLabel: "Learn more",
@@ -32,11 +34,12 @@ const products = [
   },
   {
     label: "RecruAI",
+    chapter: "Work & opportunity",
     tag: "Live",
     href: "/products/recruai",
     hrefLabel: "Explore platform",
     external: false,
-    d: "AI-powered hiring and interview platform — built for Pakistan, expanding across the Gulf (UAE, Saudi Arabia, Qatar, Kuwait, Bahrain, Oman). Job seekers find AI-matched roles, optimize CVs, practice mock interviews, and track applications. Organizations post unlimited listings, manage hiring pipelines, and screen candidates with AI agents.",
+    d: "AI hiring and interview platform — semantic role matching, ATS-scored CV optimization, unlimited mock interviews with instant feedback, and screening agents for organization pipelines. Built for Pakistan and expanding across the Gulf: UAE, Saudi Arabia, Qatar, Kuwait, Bahrain, Oman.",
     stats: [
       { k: "AI", v: "Matching" },
       { k: "ATS", v: "Scoring" },
@@ -48,17 +51,19 @@ const products = [
 
 export function ProductCards() {
   return (
-    <section className="border-y border-neutral-100 bg-neutral-50">
+    <section id="products" className="scroll-mt-20 border-y border-neutral-100 bg-neutral-50">
       <div className="mx-auto max-w-6xl px-6 py-24">
         <Reveal>
           <p className="text-sm font-medium uppercase tracking-wide text-neutral-500">
-            Products
+            Under the MenteE umbrella
           </p>
           <h2 className="mt-3 text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl">
-            What we build
+            Chapters of one research programme.
           </h2>
           <p className="mt-4 max-w-xl text-lg text-neutral-600">
-            Three platforms, one mission: production-grade AI that actually ships.
+            Language, software engineering, work and opportunity — each product
+            is a field the research has reached so far, built and verified by
+            the same two people.
           </p>
         </Reveal>
 
@@ -73,7 +78,10 @@ export function ProductCards() {
                 </div>
 
                 <div className="md:col-span-7">
-                  <div className="flex items-center gap-3">
+                  <p className="font-mono text-xs uppercase tracking-widest text-neutral-400">
+                    Chapter {String(i + 1).padStart(2, "0")} · {p.chapter}
+                  </p>
+                  <div className="mt-2 flex items-center gap-3">
                     <h3 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl">
                       {p.label}
                     </h3>

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 
 const WORD = "MENTEE";
@@ -95,9 +96,38 @@ export function Hero() {
       </div>
 
       <motion.div
+        initial={reduce ? false : { opacity: 0, y: 12 }}
+        animate={reduce ? undefined : { opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 3.5, ease: [0.22, 1, 0.36, 1] }}
+        className="relative mt-10 max-w-xl px-2 text-center"
+      >
+        <p className="font-mono text-[11px] uppercase tracking-widest text-neutral-400">
+          Research for humanity
+        </p>
+        <p className="mt-4 text-balance text-lg font-medium leading-snug tracking-tight text-neutral-900 sm:text-2xl">
+          MenteE is an umbrella for research aimed at humanity. We work in
+          fields that are not settled yet, and publish what we find.
+        </p>
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm font-medium text-neutral-600">
+          <Link
+            href="/research"
+            className="underline underline-offset-4 transition-colors hover:text-black hover:no-underline"
+          >
+            Read the research →
+          </Link>
+          <Link
+            href="#products"
+            className="underline underline-offset-4 transition-colors hover:text-black hover:no-underline"
+          >
+            What we are building →
+          </Link>
+        </div>
+      </motion.div>
+
+      <motion.div
         initial={reduce ? false : { opacity: 0 }}
         animate={reduce ? undefined : { opacity: 1 }}
-        transition={{ delay: 3.5, duration: 0.6 }}
+        transition={{ delay: 3.9, duration: 0.6 }}
         className="absolute bottom-10 right-6 flex items-center gap-2 text-[12px] font-medium text-neutral-400"
       >
         <span>Scroll</span>

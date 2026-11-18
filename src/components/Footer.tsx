@@ -20,8 +20,10 @@ export function Footer() {
               </span>
             </Link>
             <p className="mt-3 text-[13px] leading-relaxed text-neutral-500">
-              MenteE builds and deploys AI-powered platforms for real-world
-              use. We do not consult — we ship products.
+              MenteE is an umbrella for research aimed at humanity. We take on
+              fields where the answer is not settled, build the smallest thing
+              that can be checked, and publish the method, the numbers and the
+              failures.
             </p>
           </div>
           <div className="grid grid-cols-2 gap-8 text-[13px] sm:grid-cols-4">
@@ -56,7 +58,7 @@ export function Footer() {
               </ul>
             </div>
             <div>
-              <p className="font-medium text-neutral-900">Products</p>
+              <p className="font-medium text-neutral-900">Work</p>
               <ul className="mt-3 space-y-2 text-neutral-500">
                 <li>
                   <Link href="/products" className="hover:text-black">

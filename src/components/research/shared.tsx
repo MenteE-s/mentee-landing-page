@@ -46,7 +46,7 @@ export function NumCell({ v, bold }: { v: string; bold?: boolean }) {
 /* ── layout blocks ───────────────────────────────────────── */
 
 export function ChapterBanner({ version, label }: { version: string; label: string }) {
-  const isHighlight = version === "v3" || version === "v4";
+  const isHighlight = version !== "v1";
   return (
     <div
       className={`rounded-2xl px-6 py-5 ${

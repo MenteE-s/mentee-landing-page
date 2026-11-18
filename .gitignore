@@ -42,3 +42,7 @@ next-env.d.ts
 
 # local npm package probe
 /msw-probe-035/
+
+# local tooling artifacts
+/.commandcode/
+/.mentee/

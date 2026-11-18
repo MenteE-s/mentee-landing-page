@@ -5,27 +5,27 @@ import { Footer } from "@/components/Footer";
 import { Reveal } from "@/components/Reveal";
 
 export const metadata: Metadata = {
-  title: "About — MenteE",
+  title: "About",
   description:
-    "MenteE is a product company building AI-powered platforms for real-world use at scale.",
+    "MenteE is an AI research and innovation company with a vision to make artificial intelligence useful for humanity.",
 };
 
 const values = [
   {
-    t: "We ship products, not proposals",
-    d: "Every thing we build is designed to be deployed and used — not presented in a pitch deck.",
+    t: "Reproducibility over polish",
+    d: "Every result ships with the method that produced it. If it cannot be rerun somewhere else, it is not a result — it is an anecdote.",
   },
   {
-    t: "Reliability is non-negotiable",
-    d: "Our platforms are engineered for uptime, observability, and failure recovery from the start.",
+    t: "Measurements before claims",
+    d: "Parameters, benchmarks, hardware and throughput are stated plainly. Adjectives do not substitute for numbers, and here they never will.",
   },
   {
-    t: "Scale from day one",
-    d: "We architect for the scale we expect, not the scale we have — so growth is a feature, not a migration.",
+    t: "Failures published",
+    d: "The runs that collapsed are documented beside the ones that worked. A lab that only ever reports wins is not doing research.",
   },
   {
-    t: "User-first, always",
-    d: "If it is not intuitive, it does not ship. Complexity stays on our side.",
+    t: "Low-resource first",
+    d: "Arabic and Urdu are trained as first-class languages rather than translated as an afterthought. Roughly a billion people are the point, not the edge case.",
   },
 ];
 
@@ -37,20 +37,22 @@ export default function AboutPage() {
         <section className="mx-auto max-w-3xl px-6 pb-16 pt-20 md:pt-28">
           <Reveal>
             <p className="text-sm font-medium uppercase tracking-wide text-neutral-500">
-              About MenteE
+              About MenteE AI
             </p>
             <h1 className="mt-3 text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl">
-              We build platforms. People use them. That is the whole point.
+              AI research and innovation, useful for humanity.
             </h1>
             <p className="mt-6 text-lg text-neutral-600">
-              MenteE is a product company. We design, build, and deploy
-              AI-powered platforms — not for show, but for real-world use at
-              scale.
+              MenteE is an AI research and innovation company with a vision to
+              make artificial intelligence useful for humanity. We explore,
+              develop, and apply AI to solve real-world problems across
+              different fields of knowledge and human progress.
             </p>
             <p className="mt-4 text-lg text-neutral-600">
-              We do not take client briefs or build custom solutions to order.
-              We build what we believe should exist, ship it, and let the
-              product speak for itself.
+              MenteE is building toward a future where AI is more accessible,
+              capable, and beneficial to everyone. We welcome investment,
+              research collaboration, and strategic partnerships to help turn
+              this vision into reality.
             </p>
           </Reveal>
         </section>
@@ -87,7 +89,7 @@ export default function AboutPage() {
                 href="/products"
                 className="rounded-full bg-neutral-900 px-6 py-3 text-sm font-medium text-white transition-transform hover:scale-105"
               >
-                Our products
+                Our work
               </Link>
               <Link
                 href="/contact"

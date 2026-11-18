@@ -35,11 +35,14 @@ export function Capabilities() {
     <section id="capabilities" className="scroll-mt-20 mx-auto max-w-6xl px-6 py-20">
       <Reveal>
         <h2 className="text-3xl font-semibold tracking-tight text-neutral-900">
-          What the MenteE team is busy with
+          Instruments that travel between fields.
         </h2>
         <p className="mt-3 max-w-2xl text-neutral-600">
-          AI-powered platforms designed for real-world use — engineered for
-          scale, deployed for impact. Here is what we are actively building.
+          The method is not AI-specific. What compounds across fields is the
+          machinery underneath — reading unstructured information, moving it at
+          scale, and surfacing the right decision at the right moment. This is
+          what we rebuild differently in every domain, and the reason the
+          harder questions ahead are reachable at all.
         </p>
       </Reveal>
       <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

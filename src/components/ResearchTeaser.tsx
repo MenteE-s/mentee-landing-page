@@ -7,17 +7,22 @@ export function ResearchTeaser() {
     <section className="mx-auto max-w-6xl px-6 py-20">
       <Reveal>
         <p className="text-sm font-medium uppercase tracking-wide text-neutral-500">
-          MenteE AI Research
+          Research · mentee-embed
         </p>
         <h2 className="mt-3 max-w-3xl text-3xl font-semibold tracking-tight text-neutral-900 sm:text-4xl">
-          We train embedding models from scratch
+          41M parameters, one consumer GPU, and a pretrained baseline beaten on
+          trilingual retrieval.
         </h2>
         <p className="mt-4 max-w-2xl text-neutral-600">
-          Our active research builds <strong className="text-neutral-900">mentee-embed</strong> — compact, multilingual text embedding models trained
-          completely from scratch for Arabic, English, and Urdu retrieval. ~41M
-          parameters, 384-dimensional outputs, fully reproducible, and built to
-          study how far modern training recipes can be compressed when nothing is
-          inherited from pretrained giants.
+          The uncomfortable question behind{" "}
+          <strong className="text-neutral-900">mentee-embed</strong> is how much
+          of modern NLP&apos;s advantage is inherited weights rather than earned
+          capability. So we trained from random initialization — no BERT, no
+          XLM-R, no pretrained backbone — for Arabic, English and Urdu
+          retrieval. v4 reaches{" "}
+          <strong className="text-neutral-900">0.874 MIRACL-AR</strong> and{" "}
+          <strong className="text-neutral-900">+146% over v3</strong> on our
+          benchmark, at ~41M parameters and 384 dimensions, fully reproducible.
         </p>
       </Reveal>
 

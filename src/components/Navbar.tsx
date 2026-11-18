@@ -25,6 +25,7 @@ const products = [
 
 const navLinks = [
   { label: "Research", href: "/research" },
+  { label: "About", href: "/about" },
   { label: "Blog", href: "/blog" },
 ];
 
@@ -158,11 +159,11 @@ export function Navbar() {
               <div className="grid gap-10 md:grid-cols-12">
                 <div className="md:col-span-4">
                   <p className="font-mono text-[11px] uppercase tracking-widest text-neutral-400">
-                    Products
+                    Under the MenteE umbrella
                   </p>
                   <p className="mt-3 max-w-xs text-sm leading-relaxed text-neutral-600">
-                    Three platforms and one open model, built by a two-person
-                    team and shipped in production.
+                    Chapters of one research programme — built by a two-person
+                    lab, with the weights, methods and failed runs published.
                   </p>
                   <Link
                     href="/products"
