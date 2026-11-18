@@ -86,6 +86,26 @@ export function AcpTeaser() {
           </a>
         </div>
       </Reveal>
+
+      <Reveal delay={0.24}>
+        <Link
+          href="/research?model=code3b"
+          className="group mt-6 flex flex-wrap items-center gap-3 rounded-2xl border border-neutral-200 bg-white px-5 py-4 text-sm transition-colors hover:border-neutral-400"
+        >
+          <span className="rounded-full border border-neutral-300 px-2.5 py-0.5 text-xs font-medium text-neutral-600">
+            Also new
+          </span>
+          <span className="font-medium text-neutral-900">MenteE Code 3B</span>
+          <span className="text-neutral-500">
+            · a coding model built from 53,567 execution-verified agent
+            trajectories, trained for $0.13. HumanEval regression published on
+            purpose, root cause and v2 fix included.
+          </span>
+          <span className="ml-auto font-medium text-neutral-900 underline-offset-4 group-hover:underline">
+            Read the report →
+          </span>
+        </Link>
+      </Reveal>
     </section>
   );
 }
