@@ -19,218 +19,134 @@ interface Props {
   onModelChange: (m: ModelId) => void;
 }
 
-/* Version colour tokens */
-const groupStyle: Record<string, { dot: string; badge: string; header: string }> = {
-  "Think While You Speak": {
-    dot: "bg-neutral-900",
-    badge: "bg-neutral-900 text-white",
-    header: "text-neutral-900",
-  },
-  "mentee-embed-v4": {
-    dot: "bg-neutral-900",
-    badge: "bg-neutral-900 text-white",
-    header: "text-neutral-800",
-  },
-  "mentee-embed-v3": {
-    dot: "bg-neutral-700",
-    badge: "bg-neutral-700 text-white",
-    header: "text-neutral-700",
-  },
-  "mentee-embed-v1": {
-    dot: "bg-neutral-400",
-    badge: "bg-neutral-100 text-neutral-600",
-    header: "text-neutral-500",
-  },
-  Shared: {
-    dot: "bg-neutral-300",
-    badge: "bg-neutral-100 text-neutral-600",
-    header: "text-neutral-500",
-  },
-};
+/* ── chapters ────────────────────────────────────────────── */
 
-/* ── model dropdown ──────────────────────────────────────── */
-
-function ModelDropdown({
+function ChapterList({
   models,
-  selectedModel: selected,
-  onModelChange: onChange,
-}: Pick<Props, "models" | "selectedModel" | "onModelChange">) {
+  selectedModel,
+  onModelChange,
+  onNavigate,
+}: Pick<Props, "models" | "selectedModel" | "onModelChange"> & {
+  onNavigate?: () => void;
+}) {
   return (
-    <div className="px-2 pb-2">
-      <label htmlFor="research-model-select" className="sr-only">
-        Select model version
-      </label>
-      <div className="relative">
-        <select
-          id="research-model-select"
-          value={selected}
-          onChange={(e) => onChange(e.target.value as ModelId)}
-          className="w-full cursor-pointer appearance-none rounded-lg border border-neutral-200 bg-white py-2 pl-3 pr-8 text-xs font-semibold text-neutral-900 transition-colors hover:border-neutral-400 focus:border-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-900/10"
-        >
-          {models.map((m) => (
-            <option key={m.id} value={m.id}>
-              {m.label}
-              {m.tag ? ` — ${m.tag}` : ""}
-            </option>
-          ))}
-        </select>
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-neutral-400"
-        >
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="m6 9 6 6 6-6" />
-          </svg>
-        </span>
-      </div>
+    <div className="space-y-0.5">
+      {models.map((m) => {
+        const isActive = m.id === selectedModel;
+        return (
+          <button
+            key={m.id}
+            onClick={() => {
+              onModelChange(m.id);
+              onNavigate?.();
+            }}
+            aria-current={isActive ? "true" : undefined}
+            className={`flex w-full items-center justify-between gap-2 rounded-lg px-2.5 py-2 text-left text-[13px] transition-colors duration-150 ${
+              isActive
+                ? "bg-neutral-900 font-semibold text-white"
+                : "text-neutral-500 hover:bg-neutral-100 hover:text-neutral-900"
+            }`}
+          >
+            <span className="truncate">{m.label}</span>
+            {m.tag && (
+              <span
+                className={`flex-shrink-0 rounded-full px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wide ${
+                  isActive
+                    ? "bg-white/20 text-white"
+                    : m.tag === "New"
+                      ? "bg-neutral-900 text-white"
+                      : "bg-neutral-100 text-neutral-500"
+                }`}
+              >
+                {m.tag}
+              </span>
+            )}
+          </button>
+        );
+      })}
     </div>
   );
 }
 
-/* ── nav list (shared by sidebar & drawer) ───────────────── */
+/* ── section list ────────────────────────────────────────── */
 
-function NavList({ sections, activeId, onSelect, models, selectedModel, onModelChange }: Props) {
-  const groups = sections.reduce<string[]>((acc, s) => {
-    if (s.group !== "" && !acc.includes(s.group)) acc.push(s.group);
-    return acc;
-  }, []);
-
-  const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(
-    () => Object.fromEntries(groups.map((g) => [g, true]))
-  );
-
-  function toggleGroup(g: string) {
-    setOpenGroups((prev) => ({ ...prev, [g]: !prev[g] }));
-  }
-
-  const standaloneItems = sections.filter((s) => s.group === "");
-
+function SectionList({
+  sections,
+  activeId,
+  onSelect,
+}: Pick<Props, "sections" | "activeId" | "onSelect">) {
   return (
-    <nav aria-label="Report contents" className="space-y-0.5">
-      <ModelDropdown
-        models={models}
-        selectedModel={selectedModel}
-        onModelChange={onModelChange}
-      />
-
-      {standaloneItems.map((s) => {
+    <div className="space-y-px border-l border-neutral-200">
+      {sections.map((s) => {
         const isActive = s.id === activeId;
         return (
           <button
             key={s.id}
             onClick={() => onSelect(s.id)}
             aria-current={isActive ? "true" : undefined}
-            className={`flex w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-left text-[13px] font-medium transition-all duration-150 ${
+            className={`-ml-px block w-full border-l-2 py-1.5 pl-3 text-left text-[13px] leading-snug transition-colors duration-150 ${
               isActive
-                ? "bg-neutral-900 text-white shadow-sm"
-                : "text-neutral-500 hover:bg-neutral-100 hover:text-neutral-900"
+                ? "border-neutral-900 font-medium text-neutral-900"
+                : "border-transparent text-neutral-500 hover:border-neutral-400 hover:text-neutral-900"
             }`}
           >
-            <span
-              className={`inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full transition-colors duration-150 ${
-                isActive ? "bg-white" : "bg-neutral-300"
-              }`}
-            />
             {s.label}
           </button>
         );
       })}
-
-      {standaloneItems.length > 0 && groups.length > 0 && (
-        <div className="my-2 border-t border-neutral-200" />
-      )}
-
-      {groups.map((group) => {
-        const items = sections.filter((s) => s.group === group);
-        const isOpen = openGroups[group] ?? true;
-        const groupHasActive = items.some((s) => s.id === activeId);
-        const style = groupStyle[group] ?? groupStyle["Shared"];
-
-        return (
-          <div key={group} className="mb-0.5">
-            <button
-              onClick={() => toggleGroup(group)}
-              aria-expanded={isOpen}
-              className={`flex w-full items-center justify-between rounded-lg px-2.5 py-1 text-left transition-all duration-150 ${
-                groupHasActive ? "bg-neutral-100" : "hover:bg-neutral-50"
-              }`}
-            >
-              <div className="flex items-center gap-2 min-w-0">
-                <span className={`inline-block h-2 w-2 flex-shrink-0 rounded-sm ${style.dot}`} />
-                <span className={`text-[10px] font-bold uppercase tracking-widest truncate ${style.header}`}>
-                  {group}
-                </span>
-              </div>
-              <motion.span
-                animate={{ rotate: isOpen ? 90 : 0 }}
-                transition={{ duration: 0.18, ease: "easeOut" }}
-                className="inline-block flex-shrink-0 text-[9px] text-neutral-400 ml-1"
-              >
-                ▶
-              </motion.span>
-            </button>
-
-            <AnimatePresence initial={false}>
-              {isOpen && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.18, ease: "easeOut" }}
-                  className="overflow-hidden"
-                >
-                  <div className="ml-3 mt-0.5 space-y-0.5 border-l-2 border-neutral-100 pb-1 pl-2.5">
-                    {items.map((s) => {
-                      const isActive = s.id === activeId;
-                      return (
-                        <button
-                          key={s.id}
-                          onClick={() => onSelect(s.id)}
-                          aria-current={isActive ? "true" : undefined}
-                          className={`flex w-full items-center gap-2 rounded-md px-2 py-1 text-left text-xs transition-all duration-150 ${
-                            isActive
-                              ? "bg-neutral-900 font-semibold text-white shadow-sm"
-                              : "text-neutral-400 hover:bg-neutral-100 hover:text-neutral-900"
-                          }`}
-                        >
-                          <span
-                            className={`inline-block h-1 w-1 flex-shrink-0 rounded-full transition-colors duration-150 ${
-                              isActive ? "bg-white" : "bg-neutral-300"
-                            }`}
-                          />
-                          <span className="truncate leading-snug">{s.label}</span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        );
-      })}
-    </nav>
+    </div>
   );
 }
 
-/* ── Desktop sidebar ─────────────────────────────────────── */
+function Eyebrow({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="px-2.5 text-[10px] font-bold uppercase tracking-widest text-neutral-400">
+      {children}
+    </p>
+  );
+}
+
+/* ── shared content (sidebar + drawer) ───────────────────── */
+
+function TocContent(props: Props) {
+  return (
+    <>
+      <div className="space-y-1">
+        <Eyebrow>Research</Eyebrow>
+        <ChapterList
+          models={props.models}
+          selectedModel={props.selectedModel}
+          onModelChange={props.onModelChange}
+        />
+      </div>
+
+      <div className="my-4 border-t border-neutral-200" />
+
+      <div className="space-y-1.5">
+        <Eyebrow>On this page</Eyebrow>
+        <SectionList
+          sections={props.sections}
+          activeId={props.activeId}
+          onSelect={props.onSelect}
+        />
+      </div>
+    </>
+  );
+}
+
+/* ── desktop sidebar ─────────────────────────────────────── */
 
 export function ResearchSidebar(props: Props) {
   return (
-    <aside className="hidden lg:block w-56 flex-shrink-0">
+    <aside className="hidden w-60 flex-shrink-0 lg:block">
       <div className="sticky top-24">
-        <div className="rounded-xl border border-neutral-200 bg-white p-3 shadow-sm">
-          <p className="mb-2 px-1 text-[10px] font-bold uppercase tracking-widest text-neutral-400">
-            Report
-          </p>
-          <NavList {...props} />
-        </div>
+        <TocContent {...props} />
       </div>
     </aside>
   );
 }
 
-/* ── Mobile sticky header (renders OUTSIDE flex) ─────────── */
+/* ── mobile sticky header ────────────────────────────────── */
 
 export function ResearchMobileHeader(props: Props) {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -245,11 +161,12 @@ export function ResearchMobileHeader(props: Props) {
     setDrawerOpen(false);
   }
 
-  const activeLabel = props.sections.find((s) => s.id === props.activeId)?.label ?? "";
+  const activeModel = props.models.find((m) => m.id === props.selectedModel);
+  const activeSection = props.sections.find((s) => s.id === props.activeId)?.label ?? "";
 
   return (
     <div className="lg:hidden">
-      {/* Sticky bar — full width, not inside flex */}
+      {/* Sticky bar */}
       <div className="sticky top-16 z-30 border-b border-neutral-200 bg-white/90 backdrop-blur-sm">
         <div className="flex items-center gap-3 px-4 py-2.5">
           <button
@@ -263,11 +180,14 @@ export function ResearchMobileHeader(props: Props) {
             </svg>
             Contents
           </button>
-          <span className="text-[11px] text-neutral-400 truncate">{activeLabel}</span>
+          <span className="truncate text-[11px] text-neutral-400">
+            {activeModel?.label}
+            {activeSection ? ` · ${activeSection}` : ""}
+          </span>
         </div>
       </div>
 
-      {/* Drawer overlay */}
+      {/* Drawer */}
       <AnimatePresence>
         {drawerOpen && (
           <>
@@ -287,7 +207,9 @@ export function ResearchMobileHeader(props: Props) {
               className="fixed inset-y-0 left-0 z-50 w-72 overflow-y-auto border-r border-neutral-200 bg-white p-4 shadow-xl lg:hidden"
             >
               <div className="mb-4 flex items-center justify-between">
-                <p className="text-xs font-bold uppercase tracking-widest text-neutral-400">Report</p>
+                <p className="text-xs font-bold uppercase tracking-widest text-neutral-400">
+                  Contents
+                </p>
                 <button
                   onClick={() => setDrawerOpen(false)}
                   className="rounded-lg p-1 text-neutral-400 hover:bg-neutral-100 hover:text-neutral-700"
@@ -298,7 +220,11 @@ export function ResearchMobileHeader(props: Props) {
                   </svg>
                 </button>
               </div>
-              <NavList {...props} onSelect={handleSelect} onModelChange={handleModelChange} />
+              <TocContent
+                {...props}
+                onModelChange={handleModelChange}
+                onSelect={handleSelect}
+              />
             </motion.div>
           </>
         )}
