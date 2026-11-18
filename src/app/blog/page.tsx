@@ -3,12 +3,13 @@ import Link from "next/link";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Reveal } from "@/components/Reveal";
+import { BlogUmbrella } from "@/components/BlogUmbrella";
 import { posts } from "./posts";
 
 export const metadata: Metadata = {
   title: "Blog — MenteE AI",
   description:
-    "Insights from MenteE AI: product updates, research behind mentee-embed-v1, and notes on building AI platforms for Arabic, English and Urdu — from the team at menteeai.org.",
+    "Insights from MenteE AI: adaptive computation and test-time compute research, coding-agent models, product updates behind mentee-embed and RecruAI, and notes on building AI for Arabic, English and Urdu — from the team at menteeai.org.",
   keywords: [
     "MenteE AI blog",
     "menteeai.org",
@@ -18,6 +19,10 @@ export const metadata: Metadata = {
     "multilingual embeddings",
     "Arabic NLP",
     "Urdu NLP",
+    "adaptive computation",
+    "test-time compute",
+    "coding agent model",
+    "LoRA fine-tuning",
     "AI products",
   ],
   alternates: { canonical: "https://menteeai.org/blog" },
@@ -35,24 +40,31 @@ export default function BlogPage() {
       <Navbar />
       <main className="flex-1">
         <section className="mx-auto max-w-6xl px-6 pb-8 pt-20 md:pt-28">
-          <Reveal>
-            <p className="text-sm font-medium uppercase tracking-wide text-neutral-500">MenteE AI · Blog</p>
-            <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl">
-              Blog
-            </h1>
-            <p className="mt-4 max-w-2xl text-neutral-600">
-              Product updates, research notes and building in public — from the{" "}
-              <strong>MenteE AI</strong> team. Read the{" "}
-              <a href="/research" className="underline underline-offset-4">
-                technical report
-              </a>{" "}
-              and{" "}
-              <a href="/embed-models" className="underline underline-offset-4">
-                model card
-              </a>{" "}
-              for mentee-embed-v1.
-            </p>
-          </Reveal>
+          <div className="grid items-center gap-10 lg:grid-cols-[1.2fr_1fr]">
+            <Reveal>
+              <p className="text-sm font-medium uppercase tracking-wide text-neutral-500">MenteE AI · Blog</p>
+              <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-neutral-900 sm:text-5xl">
+                Blog
+              </h1>
+              <p className="mt-4 max-w-2xl text-neutral-600">
+                Product updates, research notes and building in public — from the{" "}
+                <strong>MenteE AI</strong> team. Read the{" "}
+                <a href="/research" className="underline underline-offset-4">
+                  technical report
+                </a>{" "}
+                and{" "}
+                <a href="/embed-models" className="underline underline-offset-4">
+                  model card
+                </a>{" "}
+                for mentee-embed-v1.
+              </p>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <div className="mx-auto max-w-sm rounded-[2rem] bg-[#F2EAD9] p-6">
+                <BlogUmbrella className="w-full" />
+              </div>
+            </Reveal>
+          </div>
         </section>
 
         {/* Featured post */}

@@ -10,9 +10,258 @@ export type BlogPost = {
   readTime: string;
   coverLabel: string;
   content: string; // HTML
+  /** Optional citation box (HTML). When present it replaces the default cite block. */
+  citationHtml?: string;
 };
 
 export const posts: BlogPost[] = [
+  // ── NEW research posts (newest first) ──────────────────────────────
+  {
+    slug: "think-while-you-speak-adaptive-computation-preprint",
+    title: "Think While You Speak: A Preprint on Teaching Models When to Think, Not Just What to Answer",
+    excerpt:
+      "Our new preprint trains a model to decide per input whether to think. A fast linear path answers by default, an episodic memory gates a deliberate pathway, and the routing gradient is measured: 2.8% of easy inputs trigger deliberation, 99.7% of medium and 99.2% of hard. Pure NumPy, CPU only, DOI 10.5281/zenodo.24353178.",
+    date: "2026-11-18",
+    author: "Syed Syab Ahmad",
+    authorLink: "https://syab.tech",
+    tags: ["Research", "Adaptive Computation", "Preprint", "AI"],
+    keywords: [
+      "adaptive computation", "test-time compute", "when should AI think",
+      "System 1 System 2 AI", "adaptive inference", "routing network",
+      "episodic memory neural network", "memory-augmented neural network",
+      "overthinking in AI models", "reasoning mode cost",
+      "early exit vs routing", "NumPy neural network from scratch",
+      "CPU-only model training", "Think While You Speak preprint",
+      "adaptive cognitive processing", "MenteE AI research",
+    ],
+    readTime: "9 min read",
+    coverLabel: "Research",
+    citationHtml:
+      '<strong>Cite the preprint:</strong> Shah, Syed Syab Ahmad &amp; Team MenteE AI (2026). Think While You Speak: Adaptive Computational Effort in Neural Dialogue Systems. Zenodo. <a href="https://doi.org/10.5281/zenodo.24353178" target="_blank" rel="noopener noreferrer" class="underline underline-offset-4">doi:10.5281/zenodo.24353178</a> · <a href="/research?model=acp" class="underline underline-offset-4">Read the full technical chapter</a>',
+    content: `
+      <p>Today most AI systems operate with a binary switch. Reasoning is either on for every question, or off for every question. Ask a reasoning model what two plus two is and it will happily spend a minute of compute and a thousand tokens proving it. Ask a small fast model a multi-step problem and it will fail confidently in half a second. Both failure modes come from the same design decision: the amount of thinking is fixed, not learned.</p>
+      <p>Our new preprint, <a href="https://doi.org/10.5281/zenodo.24353178" target="_blank" rel="noopener noreferrer"><strong>Think While You Speak: Adaptive Computational Effort in Neural Dialogue Systems</strong></a>, trains that decision instead. This post walks through the architecture, the measured results, and the honest limitations.</p>
+
+      <h2>The architecture: two paths and a monitor</h2>
+      <p>The system, which we call Adaptive Cognitive Processing (ACP), has four components:</p>
+      <ul>
+        <li><strong>A fast pathway</strong>, deliberately linear. It answers by default and cannot fit nonlinear targets, which makes the capability gap between the two paths provable rather than assumed.</li>
+        <li><strong>A deliberate pathway</strong>, a 48-unit MLP that can fit everything the fast path cannot, at roughly 54 times the multiply-accumulates.</li>
+        <li><strong>A monitor</strong>, a linear gate over the input plus one explicit novelty scalar, producing a routing probability p. At inference, p above 0.5 means the deliberate answer ships.</li>
+        <li><strong>An episodic memory</strong> of 30 keys. Novelty is one minus the maximum cosine similarity, so familiar inputs answer instantly and novel inputs escalate.</li>
+      </ul>
+      <p>Training combines task loss, routed cross-entropy against the ground-truth route, and a compute penalty. Every gradient is hand-derived in NumPy and verified against finite differences; the maximum relative error is 1.7e-9. The whole thing runs on a CPU.</p>
+
+      <h2>The measured results</h2>
+      <p>Five thousand examples, three difficulty levels, ten seeds. Task accuracy counts a prediction as correct when the absolute error is below 0.5.</p>
+      <div style="overflow:hidden; border-radius:16px; border:1px solid #e5e7eb; margin:24px 0;">
+        <table style="width:100%; border-collapse:collapse; font-size:13px;">
+          <thead style="background:#fafafa; border-bottom:1px solid #e5e7eb;">
+            <tr>
+              <th style="padding:10px 14px; text-align:left; font-weight:600; color:#525252;">Model</th>
+              <th style="padding:10px 14px; text-align:right; font-weight:600; color:#525252;">Accuracy</th>
+              <th style="padding:10px 14px; text-align:right; font-weight:600; color:#525252;">Routing Acc.</th>
+              <th style="padding:10px 14px; text-align:right; font-weight:600; color:#525252;">Delib. Rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background:#fafafa;">
+              <td style="padding:10px 14px; font-weight:700; color:#111;">ACP (ours)</td>
+              <td style="padding:10px 14px; text-align:right; font-weight:600; color:#111;">0.935 ± 0.012</td>
+              <td style="padding:10px 14px; text-align:right; font-weight:600; color:#111;">0.987 ± 0.002</td>
+              <td style="padding:10px 14px; text-align:right; font-weight:600; color:#111;">0.672</td>
+            </tr>
+            <tr style="border-bottom:1px solid #f5f5f5;">
+              <td style="padding:10px 14px; color:#737373;">Fixed MLP (no routing)</td>
+              <td style="padding:10px 14px; text-align:right; color:#737373;">0.947 ± 0.007</td>
+              <td style="padding:10px 14px; text-align:right; color:#737373;">0.667</td>
+              <td style="padding:10px 14px; text-align:right; color:#737373;">1.000</td>
+            </tr>
+            <tr style="border-bottom:1px solid #f5f5f5;">
+              <td style="padding:10px 14px; color:#737373;">Always Deliberate</td>
+              <td style="padding:10px 14px; text-align:right; color:#737373;">0.937 ± 0.006</td>
+              <td style="padding:10px 14px; text-align:right; color:#737373;">0.667</td>
+              <td style="padding:10px 14px; text-align:right; color:#737373;">1.000</td>
+            </tr>
+            <tr style="border-bottom:1px solid #f5f5f5;">
+              <td style="padding:10px 14px; color:#737373;">Random Router</td>
+              <td style="padding:10px 14px; text-align:right; color:#737373;">0.653 ± 0.043</td>
+              <td style="padding:10px 14px; text-align:right; color:#737373;">0.501 ± 0.008</td>
+              <td style="padding:10px 14px; text-align:right; color:#737373;">0.499</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 14px; color:#737373;">Always Fast (linear)</td>
+              <td style="padding:10px 14px; text-align:right; color:#737373;">0.370 ± 0.081</td>
+              <td style="padding:10px 14px; text-align:right; color:#737373;">0.333</td>
+              <td style="padding:10px 14px; text-align:right; color:#737373;">0.000</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The routing gradient is the headline. ACP deliberates on <strong>2.8% of easy inputs, 99.7% of medium inputs, and 99.2% of hard inputs</strong>. The ground-truth base rate is 66.7%, and ACP lands at 67.2%: it recovers the optimal policy almost exactly. Accuracy is 93.5%, within 0.2 points of the always-deliberate model, at two-thirds of the deliberation.</p>
+
+      <h2>The ablation: memory is doing real work</h2>
+      <p>A fair question about any memory-augmented architecture is whether the memory actually matters, or whether a plain gate on the input would do the same job. So we retrained the model with the novelty feature removed, leaving the monitor to route from the raw input alone. Across three seeds:</p>
+      <ul>
+        <li>Task accuracy dropped from <strong>94.3% to 73.7%</strong>.</li>
+        <li>Routing accuracy dropped from 98.7% to 92.1%.</li>
+        <li>The overall deliberation rate barely moved (66.2% vs 67.2%), but the allocation got worse: the x-only gate deliberated on 11.2% of easy inputs and only 87.9% of hard inputs.</li>
+      </ul>
+      <p>That last line is the mechanism. The misroutes land exactly where they cost the most: hard inputs sent to a linear path that cannot fit them. The memory feature is not decorative; it stabilizes the routing decision at the margin where an error hurts.</p>
+
+      <h2>What we are not claiming</h2>
+      <p>The preprint states its own boundaries, and we repeat them here. This is a mechanism study on a synthetic task, not a language model evaluation; dialogue is the motivating application and the next step. The router trains on ground-truth route labels, which a deployed system would not have, so label-free routing is the obvious follow-up. And the monitor itself is not free: the 30-key memory scan costs about 496 multiply-accumulates per input against 864 for the deliberate path, so at this operating point there is no net FLOP saving yet. A smaller memory or a low-dimensional sketch would move that crossover.</p>
+
+      <h2>Read it, run it, break it</h2>
+      <p>The preprint is open access at <a href="https://doi.org/10.5281/zenodo.24353178" target="_blank" rel="noopener noreferrer">doi:10.5281/zenodo.24353178</a>. The full implementation, including the hand-derived gradients, the gradient checker, the evaluation harness, and every chart generator, is at <a href="https://github.com/MenteE-s/adaptive-cognitive-processing" target="_blank" rel="noopener noreferrer">github.com/MenteE-s/adaptive-cognitive-processing</a> under MIT. The complete chapter with every table is on our <a href="/research?model=acp">research page</a>.</p>
+      <p>If you build on it, disagree with it, or find a cheaper monitor that closes the FLOP gap, we want to hear about it. That is what publishing the method is for.</p>
+    `,
+  },
+  {
+    slug: "when-should-an-ai-model-think-adaptive-vs-fixed-compute",
+    title: "When Should an AI Model Think? Adaptive Computation vs Fixed Compute, Explained",
+    excerpt:
+      "Reasoning on every query burns compute. Reasoning off fails hard questions. A plain-language guide to adaptive computation: early exit, model cascades, mixture-of-experts routing, memory-based novelty, and what changes when the decision to think is learned instead of configured.",
+    date: "2026-11-19",
+    author: "Syed Syab Ahmad",
+    authorLink: "https://syab.tech",
+    tags: ["Research", "Explainer", "Adaptive Computation", "AI"],
+    keywords: [
+      "adaptive computation explained", "when should AI think",
+      "test-time compute explained", "why AI models overthink",
+      "reasoning tokens cost", "early exit neural networks",
+      "conditional computation", "model cascade routing",
+      "mixture of experts routing", "LLM cost optimization",
+      "when to use reasoning mode", "efficient inference",
+      "System 1 System 2 cognitive architecture",
+      "cheap model vs big model routing", "adaptive vs fixed compute",
+    ],
+    readTime: "8 min read",
+    coverLabel: "Research",
+    citationHtml:
+      '<strong>Go deeper:</strong> our preprint measures this end to end. Shah, Syed Syab Ahmad &amp; Team MenteE AI (2026). Think While You Speak: Adaptive Computational Effort in Neural Dialogue Systems. Zenodo. <a href="https://doi.org/10.5281/zenodo.24353178" target="_blank" rel="noopener noreferrer" class="underline underline-offset-4">doi:10.5281/zenodo.24353178</a> · <a href="/research?model=acp" class="underline underline-offset-4">Technical chapter</a>',
+    content: `
+      <p>There is a question hiding inside every modern AI product roadmap, and almost nobody budgets for it: <strong>when should the model think?</strong> Reasoning mode on means every query pays the full price, including the ones that need none. Reasoning mode off means the hard queries fail quietly. Most teams pick one setting and live with both failure modes. This post explains the alternative, adaptive computation, in plain terms: what it is, the four main ways to do it, what each one costs, and what we measured when we built our own.</p>
+
+      <h2>What adaptive computation means</h2>
+      <p>Fixed compute means every input takes the same path through the same amount of machinery. Adaptive computation means the amount of processing depends on the input: easy inputs finish early, hard inputs get more work. Humans do this without noticing. You answer a familiar question reflexively and slow down only when something is unfamiliar. Cognitive scientists call the two modes System 1 and System 2; the analogy is useful as long as you remember that a two-path neural network is not a cognitive science proof, it is an engineering pattern.</p>
+
+      <h2>Four ways to make compute adaptive</h2>
+      <h3>1. Early exit</h3>
+      <p>Attach small classifiers to intermediate layers of a network and stop as soon as confidence is high enough. BranchyNet is the classic reference. Cost per input drops, but the exit decision rides on a confidence score, and confidence is not the same as difficulty: a model can be confidently wrong.</p>
+      <h3>2. Model cascades</h3>
+      <p>Run a cheap model first and escalate to an expensive one when the cheap one is uncertain. This is how face detection worked for two decades before it was trendy. The hard part is the handoff rule: too strict and you pay full price anyway, too loose and the hard cases get cheap wrong answers.</p>
+      <h3>3. Conditional compute inside the network</h3>
+      <p>Mixture-of-experts and related methods route tokens through different subnetworks. Capacity is huge, active compute is small. The routing is per token and learned, but nothing in the architecture separates a quick answer from a careful one.</p>
+      <h3>4. Architectural separation with a monitor</h3>
+      <p>Two genuinely different pathways: a cheap one that answers by default and an expensive one that corrects it. A monitor decides per input. This is what our new preprint builds, with one addition we have not seen combined with it elsewhere: the monitor reads an explicit novelty signal computed from a small episodic memory, so the escalation is anchored to remembered experience rather than only to a learned threshold.</p>
+
+      <h2>The measured example</h2>
+      <p>Our preprint trains exactly that architecture in pure NumPy on a CPU and measures the routing behavior across ten seeds. The result is a clean routing gradient: <strong>2.8% of easy inputs trigger the expensive path, 99.7% of medium inputs, and 99.2% of hard inputs</strong>. Accuracy matches an always-deliberate model within 0.2 points at two-thirds of the deliberation. And when we ablate the memory feature, accuracy collapses from 94.3% to 73.7% because the router starts sending hard inputs to the fast path. The full numbers, tables and the honest limitations (supervised routing, monitor cost, synthetic task) are in the <a href="https://doi.org/10.5281/zenodo.24353178" target="_blank" rel="noopener noreferrer">preprint</a> and on our <a href="/research?model=acp">research page</a>.</p>
+
+      <h2>Practical takeaways for teams shipping AI</h2>
+      <ul>
+        <li><strong>Measure your difficulty distribution before choosing a reasoning setting.</strong> If most of your traffic is easy, always-on reasoning is pure waste; if most of it is hard, always-off is silent failure. The distribution decides, not the demo.</li>
+        <li><strong>Separate the two decisions:</strong> which pathway answers, and whether that pathway is trustworthy. Confidence-only routing conflates them.</li>
+        <li><strong>Price the router too.</strong> A router that costs a large fraction of the expensive path cannot pay for itself. We publish our own crossover math in the paper rather than hiding it.</li>
+        <li><strong>Log the routing decisions.</strong> A per-input flag of "did we think" is the cheapest observability you will ever add, and it is what makes the difficulty distribution measurable in production.</li>
+      </ul>
+
+      <h2>Where this is going</h2>
+      <p>The open problems are clear: routing without supervision, routers that estimate their own uncertainty instead of memorizing a difficulty boundary, and memory that actually changes what the model knows rather than flagging what it has seen. Our preprint takes one measured step and publishes everything, including the parts that do not save compute yet. If the field is going to allocate computation the way people do, fluent by default and deliberate when necessary, it will be on top of measured building blocks exactly like this one.</p>
+    `,
+  },
+  {
+    slug: "mentee-code-3b-v1-training-report-agent-trajectories",
+    title: "MenteE Code 3B v1: Training a Coding-Agent Model on 53,567 Trajectories for $0.13 (Full Report)",
+    excerpt:
+      "We fine-tuned Qwen2.5-Coder-3B-Instruct with LoRA on 53,567 execution-verified agent trajectories for $0.13 on one RTX 5090. Full report: loss curves, HumanEval results published with the regression included, root-cause analysis, and the v2 recipe.",
+    date: "2026-11-19",
+    author: "Syed Syab Ahmad",
+    authorLink: "https://syab.tech",
+    tags: ["Research", "MenteE Code", "Fine-tuning", "Coding Agents"],
+    keywords: [
+      "LoRA fine-tuning", "Qwen2.5-Coder-3B fine-tune", "coding agent model",
+      "fine-tune code LLM", "agent trajectories dataset",
+      "execution-verified training", "HumanEval benchmark results",
+      "small coding model", "SWE-bench evaluation", "GGUF Ollama model",
+      "RTX 5090 LLM training", "cheap LLM fine-tuning cost",
+      "MenteE Code 3B", "coding model for terminal agents",
+      "supervised fine-tuning SFT code",
+    ],
+    readTime: "9 min read",
+    coverLabel: "Research",
+    citationHtml:
+      '<strong>Cite MenteE Code 3B:</strong> Shah, Syed Syab Ahmad &amp; Team MenteE AI (2026). MenteE Code 3B (v1): a coding-agent assistant fine-tuned on execution-verified trajectories. Hugging Face, Apache-2.0. <a href="https://huggingface.co/MenteEAI/MenteE-Code-3B" target="_blank" rel="noopener noreferrer" class="underline underline-offset-4">huggingface.co/MenteEAI/MenteE-Code-3B</a> · <a href="/research?model=code3b" class="underline underline-offset-4">Read the full technical chapter</a>',
+    content: `
+      <p><strong>MenteE Code 3B</strong> is our coding-agent model: a fine-tune built to live in a terminal, investigate a repository, edit files, run tests, and report honestly. This post is the full v1 training report. It includes the run configuration, the measured loss and accuracy, the benchmark, and the part most teams would cut: the regression we found, the root cause we traced it to, and the v2 recipe designed to fix it.</p>
+
+      <h2>The thesis in one paragraph</h3></h2>
+      <p>A small mixture-of-experts model can behave like a model ten times its size on agentic coding. Qwen3-Coder-Next activates about 3B parameters per token and reports 70.6 on SWE-bench Verified, which demonstrates the pattern. The mechanisms that make it work split into two groups: the ones you inherit from a good base model (sparse knowledge storage, cheap long-context attention, native tool-call format) and the ones that can only come from your own data (execution-verified post-training and long-horizon recovery behavior). Our project is built around the second group. The dataset flywheel is the moat; the training script is a commodity.</p>
+
+      <h2>The data: 53,567 verified trajectories</h2>
+      <p>v1 trained on <strong>53,567 schema-validated agent trajectories</strong>, deduplicated from 78,212 collected runs. Sources: SWE-agent, OpenHands, R2E-Gym and NVIDIA SWE-Zero subsets, plus runs from our own collector, which validates every row against a canonical JSON Schema before appending, and identity Q&amp;A for persona calibration. The dataset file is append-only: never truncated, never rewritten, checked against the collector's own belief as it grows.</p>
+
+      <h2>The run configuration, fully measured</h2>
+      <div style="overflow:hidden; border-radius:16px; border:1px solid #e5e7eb; margin:24px 0;">
+        <table style="width:100%; border-collapse:collapse; font-size:13px;">
+          <tbody>
+            <tr style="border-bottom:1px solid #f5f5f5;"><td style="padding:10px 14px; font-weight:600; color:#525252; width:180px;">Base model</td><td style="padding:10px 14px; color:#111;">Qwen2.5-Coder-3B-Instruct (3.09B params, Apache-2.0)</td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5;"><td style="padding:10px 14px; font-weight:600; color:#525252;">Method</td><td style="padding:10px 14px; color:#111;">LoRA r=8, α=16, all-linear targets, bf16, gradient checkpointing, merged standalone</td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5;"><td style="padding:10px 14px; font-weight:600; color:#525252;">Schedule</td><td style="padding:10px 14px; color:#111;">1,250 steps · 1 epoch · effective batch 16 · lr 2e-4 · seq len 4,096</td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5;"><td style="padding:10px 14px; font-weight:600; color:#525252;">Context</td><td style="padding:10px 14px; color:#111;">32,768 native · 131,072 via YaRN (factor 4.0)</td></tr>
+            <tr style="border-bottom:1px solid #f5f5f5;"><td style="padding:10px 14px; font-weight:600; color:#525252;">Hardware</td><td style="padding:10px 14px; color:#111;">1× RTX 5090 (32 GB) · 5 h 32 m · ~$0.13</td></tr>
+            <tr><td style="padding:10px 14px; font-weight:600; color:#525252;">Final</td><td style="padding:10px 14px; color:#111;">loss 1.62 → <strong>0.317</strong> · token accuracy <strong>91.5%</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>That is the entire infrastructure requirement for v1: one consumer GPU and about thirteen cents. The claim is not that this is a frontier model. The claim is that the full loop, data collection, schema validation, training, evaluation and publishing, runs at a cost low enough to iterate weekly.</p>
+
+      <h2>Evaluation: we publish this number on purpose</h2>
+      <p>HumanEval pass@1, greedy decoding, 50 problems, both models on identical hardware with an identical harness, generated code executed against the official unit tests:</p>
+      <div style="overflow:hidden; border-radius:16px; border:1px solid #e5e7eb; margin:24px 0;">
+        <table style="width:100%; border-collapse:collapse; font-size:13px;">
+          <thead style="background:#fafafa; border-bottom:1px solid #e5e7eb;">
+            <tr>
+              <th style="padding:10px 14px; text-align:left; font-weight:600; color:#525252;">Model</th>
+              <th style="padding:10px 14px; text-align:right; font-weight:600; color:#525252;">Passed</th>
+              <th style="padding:10px 14px; text-align:right; font-weight:600; color:#525252;">pass@1</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #f5f5f5;">
+              <td style="padding:10px 14px; color:#737373;">Qwen2.5-Coder-3B-Instruct (base)</td>
+              <td style="padding:10px 14px; text-align:right; color:#737373;">47 / 50</td>
+              <td style="padding:10px 14px; text-align:right; color:#737373;">94.0%</td>
+            </tr>
+            <tr style="background:#fafafa;">
+              <td style="padding:10px 14px; font-weight:700; color:#111;">MenteE Code 3B v1</td>
+              <td style="padding:10px 14px; text-align:right; font-weight:600; color:#111;">25 / 50</td>
+              <td style="padding:10px 14px; text-align:right; font-weight:600; color:#111;">50.0%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Yes: v1 scores well below its own base model, and we are publishing that. Failure analysis found that <strong>24 of the 25 failures share one artifact</strong>: systematically doubled closing brackets. The cause is the v1 loss recipe, which applied loss to all trajectory roles, including noisy tool outputs, so the model learned to imitate tool noise alongside assistant code. It is a data-recipe issue with a known fix, not a capability ceiling. Two honest caveats: this is a 50-problem subset with roughly a ±14 point margin, so the numbers are directional rather than leaderboard-grade, and HumanEval is not the benchmark the thesis ultimately targets; SWE-bench Verified with a real agent harness is.</p>
+
+      <h2>The v2 recipe</h2>
+      <ul>
+        <li><strong>Assistant-only loss</strong> — compute loss on assistant tokens only, so noisy tool outputs are context, not imitation targets.</li>
+        <li><strong>Identity oversampling</strong> — keep the persona stable while the coding behavior changes.</li>
+        <li><strong>LoRA r=16</strong> — more adaptation capacity for the behavior correction.</li>
+      </ul>
+      <p>The same run costs about thirteen cents, so the iteration loop is measured in days, not quarters.</p>
+
+      <h2>What ships today</h2>
+      <ul>
+        <li><strong>Merged weights</strong> on <a href="https://huggingface.co/MenteEAI/MenteE-Code-3B" target="_blank" rel="noopener noreferrer">Hugging Face (MenteEAI/MenteE-Code-3B)</a>, Apache-2.0, with 32K native and 131K YaRN context.</li>
+        <li><strong>GGUF builds</strong> for Ollama and llama.cpp at <a href="https://huggingface.co/MenteEAI/MenteE-Code-3B-GGUF" target="_blank" rel="noopener noreferrer">MenteEAI/MenteE-Code-3B-GGUF</a>.</li>
+        <li><strong>OpenAI-compatible serving</strong> via vLLM, tested with OpenCode-class harnesses.</li>
+        <li><strong>The collector toolkit</strong> and full docs in <a href="https://github.com/MenteE-s/MenteE-Code-3b" target="_blank" rel="noopener noreferrer">github.com/MenteE-s/MenteE-Code-3b</a>.</li>
+      </ul>
+      <p>v1 is a measured step, not a finished model. The dataset flywheel, the evaluation harness, and the v2 recipe are the project; the checkpoint is just what the flywheel produced this week. Pair it with an agent harness like <a href="/products/swe">MenteE SWE</a> and the model becomes the backend of a working terminal agent.</p>
+    `,
+  },
   // ── NEW RecruAI posts (newest first) ──────────────────────────────
   {
     slug: "jobs-in-dubai-uae-gulf-ai-matching-pakistan",
