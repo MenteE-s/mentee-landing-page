@@ -7,7 +7,7 @@
 
 /* ── TOC ─────────────────────────────────────────────────── */
 
-export type ModelId = "acp" | "v4" | "v3" | "v1";
+export type ModelId = "acp" | "code3b" | "v4" | "v3" | "v1";
 
 export interface TocSection {
   id: string;
@@ -18,6 +18,7 @@ export interface TocSection {
 /** Dropdown order — latest first. */
 export const modelsMeta: { id: ModelId; label: string; tag?: string }[] = [
   { id: "acp", label: "Think While You Speak", tag: "New" },
+  { id: "code3b", label: "MenteE Code 3B", tag: "v1 trained" },
   { id: "v4", label: "mentee-embed-v4", tag: "Latest embed" },
   { id: "v3", label: "mentee-embed-v3" },
   { id: "v1", label: "mentee-embed-v1" },
@@ -39,6 +40,16 @@ export const modelSections: Record<ModelId, TocSection[]> = {
     { id: "acp-limitations", label: "Limitations",      group: "Think While You Speak" },
     { id: "acp-roadmap",     label: "Roadmap",          group: "Think While You Speak" },
     { id: "acp-reproduction", label: "Reproduction",    group: "Think While You Speak" },
+  ],
+  code3b: [
+    { id: "code3b-thesis",      label: "The Thesis",    group: "MenteE Code 3B" },
+    { id: "code3b-data",        label: "The Data",      group: "MenteE Code 3B" },
+    { id: "code3b-training",    label: "Training",      group: "MenteE Code 3B" },
+    { id: "code3b-eval",        label: "Evaluation",    group: "MenteE Code 3B" },
+    { id: "code3b-strengths",   label: "Strengths",     group: "MenteE Code 3B" },
+    { id: "code3b-limitations", label: "Limitations",   group: "MenteE Code 3B" },
+    { id: "code3b-roadmap",     label: "Roadmap",       group: "MenteE Code 3B" },
+    { id: "code3b-weights",     label: "Weights & Usage", group: "MenteE Code 3B" },
   ],
   v4: [
     { id: "v4-approach",    label: "The Approach",       group: "mentee-embed-v4" },
@@ -335,4 +346,57 @@ export const acpReproCommands = [
   "python ablation_novelty.py",
   "python charts/make_results_table.py",
   "python charts/generate_charts.py",
+];
+
+/* ── code3b · MenteE Code 3B ─────────────────────────────── */
+
+export const code3bStats = [
+  { n: "53,567", l: "Verified trajectories" },
+  { n: "3B", l: "Params (LoRA on Qwen2.5-Coder)" },
+  { n: "$0.13", l: "Total training cost" },
+  { n: "91.5%", l: "Token accuracy" },
+];
+
+export const code3bTraining = [
+  { k: "Base model", v: "Qwen2.5-Coder-3B-Instruct (3.09B params, Apache-2.0)" },
+  { k: "Method", v: "LoRA r=8, α=16, all-linear targets, bf16, gradient checkpointing, merged standalone" },
+  { k: "Schedule", v: "1,250 steps · 1 epoch · effective batch 16 · lr 2e-4 · seq len 4,096" },
+  { k: "Context", v: "32,768 native · 131,072 via YaRN (factor 4.0)" },
+  { k: "Hardware", v: "1× RTX 5090 (32 GB) · 5 h 32 m · ~$0.13" },
+  { k: "Final", v: "loss 1.62 → 0.317 · token accuracy 91.5%" },
+];
+
+export const code3bDataSources = [
+  { src: "SWE-agent subsets", lang: "EN", type: "Agent trajectories" },
+  { src: "OpenHands subsets", lang: "EN", type: "Agent trajectories" },
+  { src: "R2E-Gym subsets", lang: "EN", type: "Agent trajectories" },
+  { src: "NVIDIA SWE-Zero subsets", lang: "EN", type: "Agent trajectories" },
+  { src: "MenteE collector", lang: "EN", type: "Own execution-verified runs" },
+  { src: "Identity Q&A", lang: "EN", type: "Persona calibration" },
+];
+
+export const code3bEval = [
+  { model: "Qwen2.5-Coder-3B-Instruct (base)", short: "Base model", passed: "47 / 50", pass1: "94.0%", ours: false },
+  { model: "MenteE Code 3B v1", short: "MenteE Code v1 ★", passed: "25 / 50", pass1: "50.0%", ours: true },
+];
+
+export const code3bStrengths = [
+  { t: "The dataset flywheel exists", d: "53,567 schema-validated, deduplicated agent trajectories from five sources plus our own execution-verified collector — the only asset in this project that is not a commodity." },
+  { t: "Training is cheap and measured", d: "The full run cost $0.13 on one RTX 5090 (5 h 32 m). Every number on this page comes from a logged run, not an estimate." },
+  { t: "Failure is root-caused, not hidden", d: "24 of 25 HumanEval failures share one artifact: systematically doubled closing brackets, traced to computing loss over noisy tool outputs. The v2 recipe targets exactly this." },
+  { t: "Ships everywhere", d: "Merged standalone weights plus GGUF builds for Ollama and llama.cpp, Apache-2.0, with 131K context via YaRN." },
+];
+
+export const code3bLimitations = [
+  { t: "v1 regresses on HumanEval", d: "50.0% vs 94.0% for the base model on a 50-problem subset (±14 pt margin — directional, not leaderboard-grade). The v1 recipe is the cause, and v2 is designed to fix it." },
+  { t: "No paper yet", d: "This is a technical report on a measured run, not a peer-reviewed preprint. A short Zenodo report is planned once v2 lands." },
+  { t: "Benchmark scope", d: "HumanEval only so far. SWE-bench Verified with a proper agent harness is the eval that matters for the thesis and is next." },
+  { t: "Early-stage project", d: "The training pipeline, evaluator and gateway are still being built; the data collection playbook is the most complete part." },
+];
+
+export const code3bRoadmap = [
+  { t: "v2 recipe", d: "Assistant-only loss, identity oversampling, LoRA r=16 — targeted at the doubled-bracket artifact to recover base-level coding quality." },
+  { t: "Agent-harness evaluation", d: "SWE-bench Verified subset through the real agent loop, which is the benchmark the thesis actually claims." },
+  { t: "Conversation flywheel", d: "Opt-in user conversations converted into training data and folded into future versions." },
+  { t: "Technical report", d: "A short Zenodo report with the v2 numbers, so this chapter carries a DOI like the others." },
 ];

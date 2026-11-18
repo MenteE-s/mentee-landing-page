@@ -14,16 +14,23 @@ export function Overview({ model }: { model: ModelId }) {
           Published research
         </h1>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-neutral-600">
-          Two open research lines, both with full benchmarks and honest
+          Three open research lines, all with full numbers and honest
           limitations. <strong>Think While You Speak</strong>: a NumPy-only
           architecture where a memory-aware monitor decides when a model should
-          think. <strong>mentee-embed</strong>: trilingual embedding models
-          (Arabic, English, Urdu) trained entirely from scratch, v1 through v4.
+          think. <strong>MenteE Code 3B</strong>: a coding model built from
+          53,567 execution-verified agent trajectories, regression published
+          on purpose. <strong>mentee-embed</strong>: trilingual embedding
+          models (Arabic, English, Urdu) trained entirely from scratch, v1
+          through v4.
         </p>
       </Reveal>
       <Reveal delay={0.08}>
         <div className="mt-8">
-          <PublicationCard version={model === "acp" ? "acp" : "v4"} />
+          <PublicationCard
+            version={
+              model === "acp" ? "acp" : model === "code3b" ? "code3b" : "v4"
+            }
+          />
         </div>
       </Reveal>
     </section>

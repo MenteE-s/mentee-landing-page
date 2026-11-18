@@ -25,11 +25,12 @@ const organization = {
       name: "Sania Shakeel",
       jobTitle: "Co-Founder & Data Scientist",
     },
-    {
-      "@type": "Person",
-      name: "Ashfaq Ahmad",
-      jobTitle: "Co-Founder, CAO & Research Scientist",
-    },
+    // Commented out for now — re-add with the team entry.
+    // {
+    //   "@type": "Person",
+    //   name: "Ashfaq Ahmad",
+    //   jobTitle: "Co-Founder, CAO & Research Scientist",
+    // },
   ],
   sameAs: [
     "https://github.com/MenteE-s",

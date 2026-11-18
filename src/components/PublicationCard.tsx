@@ -44,15 +44,29 @@ const BIBTEX_ACP = `@misc{shah2026acp,
   note    = {MenteE AI, https://menteeai.org}
 }`;
 
+const BIBTEX_CODE3B = `@software{menteecode3b2026,
+  title   = {MenteE Code 3B (v1): A Coding-Agent Assistant
+             Fine-Tuned on Execution-Verified Trajectories},
+  author  = {Shah, Syed Syab Ahmad and Team MenteE AI},
+  year    = {2026},
+  url     = {https://huggingface.co/MenteEAI/MenteE-Code-3B},
+  note    = {Apache-2.0. LoRA fine-tune of Qwen2.5-Coder-3B-Instruct.}
+}`;
+
 const models = {
   acp: {
     label: "Think While You Speak",
     version: "v1.0",
     date: "18 Nov 2026",
+    venue: "Zenodo",
+    license: "CC BY 4.0",
+    sourceLabel: "View on Zenodo",
+    pdfLabel: "Download PDF",
     doi: "10.5281/zenodo.24353178",
     doiUrl: "https://doi.org/10.5281/zenodo.24353178",
     pdfUrl:
       "https://zenodo.org/records/24353178/files/Think_While_You_Speak__Adaptive_Computational_Effort_in_Neural_Dialogue_Systems.pdf?download=1",
+    codeUrl: "https://github.com/MenteE-s/adaptive-cognitive-processing",
     authors: "Shah, Syed Syab Ahmad · Team MenteE AI — MenteE AI",
     title:
       "Think While You Speak: Adaptive Computational Effort in Neural Dialogue Systems",
@@ -60,14 +74,37 @@ const models = {
       "A minimal two-pathway architecture where a memory-aware monitor decides per input whether to think. Routing gradient: 2.8% of easy inputs deliberated, 99.7% of medium, 99.2% of hard. 93.5% accuracy at 67.2% deliberation (10 seeds), and a 3-seed ablation showing that removing the episodic novelty feature drops accuracy from 94.3% to 73.7%. Pure NumPy, CPU only.",
     bibtex: BIBTEX_ACP,
   },
+  code3b: {
+    label: "MenteE Code 3B",
+    version: "v1",
+    date: "Nov 2026",
+    venue: "Hugging Face",
+    license: "Apache-2.0",
+    sourceLabel: "View on Hugging Face",
+    pdfLabel: "Model card",
+    doi: "",
+    doiUrl: "https://huggingface.co/MenteEAI/MenteE-Code-3B",
+    pdfUrl: "https://huggingface.co/MenteEAI/MenteE-Code-3B",
+    codeUrl: "https://github.com/MenteE-s/MenteE-Code-3b",
+    authors: "Shah, Syed Syab Ahmad · Team MenteE AI — MenteE AI",
+    title: "MenteE Code 3B (v1): a coding-agent assistant fine-tuned on execution-verified trajectories",
+    description:
+      "v1 of a data-centric coding model: a LoRA fine-tune of Qwen2.5-Coder-3B-Instruct on 53,567 schema-validated agent trajectories, trained for $0.13 on one RTX 5090. We publish the HumanEval regression on purpose (50.0% vs 94.0% base on a 50-problem subset), with the root cause traced to the loss recipe and the v2 fix defined. Technical report, no paper yet.",
+    bibtex: BIBTEX_CODE3B,
+  },
   v1: {
     label: "mentee-embed-v1",
     version: "v1.0.0",
     date: "24 Aug 2026",
+    venue: "Zenodo",
+    license: "CC BY 4.0",
+    sourceLabel: "View on Zenodo",
+    pdfLabel: "Download PDF",
     doi: "10.5281/zenodo.22087139",
     doiUrl: "https://doi.org/10.5281/zenodo.22087139",
     pdfUrl:
       "https://zenodo.org/records/22087139/files/mentee_embed__Training_Competitive_Multilingual_Text_Embeddings_from_Scratch_for_Arabic__English__and_Urdu.pdf",
+    codeUrl: "https://github.com/MenteE-s/mentee-embeddings",
     authors:
       "Shah, Syed Syab Ahmad · Sania, Shakeel · Hamza, Rustam · Mahboob, Khan — MenteE AI",
     title:
@@ -80,10 +117,15 @@ const models = {
     label: "mentee-embed-v3",
     version: "v2.0.0",
     date: "26 Aug 2026",
+    venue: "Zenodo",
+    license: "CC BY 4.0",
+    sourceLabel: "View on Zenodo",
+    pdfLabel: "Download PDF",
     doi: "10.5281/zenodo.22117673",
     doiUrl: "https://doi.org/10.5281/zenodo.22117673",
     pdfUrl:
       "https://zenodo.org/records/22117673/files/mentee_embed__Training_Competitive_Multilingual_Text_Embeddings_from_Scratch_for_Arabic__English__and_Urdu.pdf",
+    codeUrl: "https://github.com/MenteE-s/mentee-embeddings",
     authors:
       "Shah, Syed Syab Ahmad · Sania, Shakeel · Hamza, Rustam · Mahboob, Iqbal — MenteE AI",
     title:
@@ -96,9 +138,14 @@ const models = {
     label: "mentee-embed-v4",
     version: "v4",
     date: "28 Aug 2026",
+    venue: "Hugging Face",
+    license: "Apache-2.0",
+    sourceLabel: "View on Hugging Face",
+    pdfLabel: "Hugging Face",
     doi: "",
     doiUrl: "https://huggingface.co/MenteEAI/mentee-embed-v4",
     pdfUrl: "https://huggingface.co/MenteEAI/mentee-embed-v4",
+    codeUrl: "https://github.com/MenteE-s/mentee-embeddings",
     authors:
       "Shah, Syed Syab Ahmad · Team MenteE AI — MenteE AI",
     title:
@@ -114,7 +161,7 @@ export function PublicationCard({
   version = "v3",
 }: {
   compact?: boolean;
-  version?: "acp" | "v1" | "v3" | "v4";
+  version?: "acp" | "code3b" | "v1" | "v3" | "v4";
 }) {
   const [copied, setCopied] = useState(false);
   const m = models[version];
@@ -128,11 +175,11 @@ export function PublicationCard({
     return (
       <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-neutral-200 bg-white px-4 py-3 text-sm">
         <span className="rounded-full bg-neutral-900 px-2.5 py-1 text-xs font-medium text-white">
-          Preprint
+          {m.venue === "Zenodo" ? "Preprint" : "Technical report"}
         </span>
         <span className="font-medium text-neutral-900">{m.label}</span>
         <span className="text-neutral-500">
-          · Zenodo · {m.date} · CC BY 4.0
+          · {m.venue} · {m.date} · {m.license}
         </span>
         <span className="ml-auto flex gap-2">
           <a
@@ -141,7 +188,7 @@ export function PublicationCard({
             rel="noopener noreferrer"
             className="rounded-full border border-neutral-200 px-3 py-1 text-xs font-medium hover:border-neutral-900 hover:text-black"
           >
-            DOI
+            {m.venue === "Zenodo" ? "DOI" : "Model"}
           </a>
           <a
             href={m.pdfUrl}
@@ -149,7 +196,7 @@ export function PublicationCard({
             rel="noopener noreferrer"
             className="rounded-full border border-neutral-200 px-3 py-1 text-xs font-medium hover:border-neutral-900 hover:text-black"
           >
-            PDF
+            {m.pdfLabel}
           </a>
         </span>
       </div>
@@ -160,10 +207,11 @@ export function PublicationCard({
     <div className="min-w-0 max-w-full overflow-hidden rounded-2xl border border-neutral-200 bg-white p-6">
       <div className="flex flex-wrap items-center gap-2 text-xs">
         <span className="rounded-full bg-neutral-900 px-2.5 py-1 font-medium text-white">
-          Preprint · {m.version}
+          {m.venue === "Zenodo" ? `Preprint · ${m.version}` : `Technical report · ${m.version}`}
         </span>
         <span className="text-neutral-500">
-          Zenodo · {m.date} · DOI {m.doi} · CC BY 4.0
+          {m.venue} · {m.date}
+          {m.doi ? ` · DOI ${m.doi}` : ""} · {m.license}
         </span>
       </div>
       <h3 className="mt-3 text-base font-semibold leading-snug text-neutral-900">
@@ -180,7 +228,7 @@ export function PublicationCard({
           rel="noopener noreferrer"
           className="rounded-full bg-neutral-900 px-4 py-2 text-sm font-medium text-white"
         >
-          View on Zenodo
+          {m.sourceLabel}
         </a>
         <a
           href={m.pdfUrl}
@@ -188,10 +236,10 @@ export function PublicationCard({
           rel="noopener noreferrer"
           className="rounded-full border border-neutral-200 px-4 py-2 text-sm font-medium text-neutral-700 hover:border-neutral-900 hover:text-black"
         >
-          Download PDF
+          {m.pdfLabel}
         </a>
         <a
-          href="https://github.com/MenteE-s/mentee-embeddings"
+          href={m.codeUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="rounded-full border border-neutral-200 px-4 py-2 text-sm font-medium text-neutral-700 hover:border-neutral-900 hover:text-black"

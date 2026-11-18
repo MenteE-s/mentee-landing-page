@@ -21,11 +21,22 @@ import {
   AcpRoadmap,
   AcpReproduction,
 } from "./AcpChapter";
+import {
+  Code3bThesis,
+  Code3bData,
+  Code3bTraining,
+  Code3bEval,
+  Code3bStrengths,
+  Code3bLimitations,
+  Code3bRoadmap,
+  Code3bWeights,
+} from "./Code3bChapter";
 import { Roadmap } from "./Roadmap";
 import { Reproduction } from "./Reproduction";
 
 const chapterMeta: Record<ModelId, { version: string; label: string }> = {
   acp: { version: "New preprint", label: "Think While You Speak — Adaptive Cognitive Processing" },
+  code3b: { version: "Technical report", label: "MenteE Code 3B — built from execution-verified agent trajectories" },
   v4: { version: "v4", label: "mentee-embed-v4" },
   v3: { version: "v3", label: "mentee-embed-v3" },
   v1: { version: "v1", label: "mentee-embed-v1" },
@@ -40,6 +51,16 @@ const chapterComponents: Record<ModelId, React.ReactNode> = {
       <AcpAblation />
       <AcpStrengths />
       <AcpLimitations />
+    </>
+  ),
+  code3b: (
+    <>
+      <Code3bThesis />
+      <Code3bData />
+      <Code3bTraining />
+      <Code3bEval />
+      <Code3bStrengths />
+      <Code3bLimitations />
     </>
   ),
   v4: (
@@ -73,7 +94,7 @@ const chapterComponents: Record<ModelId, React.ReactNode> = {
 };
 
 function isModelId(m: string | null): m is ModelId {
-  return m === "acp" || m === "v4" || m === "v3" || m === "v1";
+  return m === "acp" || m === "code3b" || m === "v4" || m === "v3" || m === "v1";
 }
 
 export function ResearchPage() {
@@ -83,7 +104,8 @@ export function ResearchPage() {
   /* Deep link: /research?model=acp | v4 | v3 | v1 */
   useEffect(() => {
     const m = new URLSearchParams(window.location.search).get("model");
-    if (isModelId(m)) setSelectedModel(m);
+    if (!isModelId(m)) return;
+    queueMicrotask(() => setSelectedModel(m));
   }, []);
 
   /* Keep the URL shareable when the chapter changes. */
@@ -94,10 +116,10 @@ export function ResearchPage() {
   }, [selectedModel]);
 
   const sections = useMemo(() => {
-    const tail =
-      selectedModel === "acp"
-        ? []
-        : sharedSections.filter((s) => s.id !== "overview");
+    const isOwnChapter = selectedModel === "acp" || selectedModel === "code3b";
+    const tail = isOwnChapter
+      ? []
+      : sharedSections.filter((s) => s.id !== "overview");
     return [
       ...sharedSections.filter((s) => s.id === "overview"),
       ...modelSections[selectedModel],
@@ -180,6 +202,11 @@ export function ResearchPage() {
                     <AcpRoadmap />
                     <AcpReproduction />
                   </>
+                ) : selectedModel === "code3b" ? (
+                  <>
+                    <Code3bRoadmap />
+                    <Code3bWeights />
+                  </>
                 ) : (
                   <>
                     <Roadmap />
@@ -196,9 +223,10 @@ export function ResearchPage() {
             <p className="text-[11px] leading-relaxed text-neutral-400">
               MenteE AI · Open research · mentee-embed: trilingual embeddings
               trained from scratch (Arabic · English · Urdu) · Think While You
-              Speak: adaptive computational effort, NumPy-only · Every table on
-              this page is generated from the evaluation JSON in the public
-              repositories.
+              Speak: adaptive computational effort, NumPy-only · MenteE Code
+              3B: a coding model built from execution-verified agent
+              trajectories · Every table on this page is generated from the
+              evaluation JSON in the public repositories.
             </p>
           </div>
         </div>

@@ -12,6 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Local tooling artifacts — vendored bundles, not site code.
+    "msw-probe-035/**",
+    ".commandcode/**",
+    ".mentee/**",
   ]),
 ]);
 
